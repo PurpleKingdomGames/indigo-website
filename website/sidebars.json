@@ -5,8 +5,9 @@
       "quickstart/hello-indigo"
     ],
     "General information": [
-      "information/constraints-and-motivation",
       "information/key-concepts",
+      "information/motivation-and-constraints",
+      "information/performance",
       "information/prior-art",
       "information/alternatives"
     ]
