@@ -55,8 +55,7 @@ class Footer extends React.Component {
               rel="noreferrer noopener">
               Stack Overflow
             </a> */}
-            <a href="https://discordapp.com/">Gitter</a>
-            <a href="https://discordapp.com/">Discord</a>
+            <a href="https://discord.gg/b5CD47g">Discord</a>
             <a
               href="https://twitter.com/indigoengine"
               target="_blank"
