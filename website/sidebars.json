@@ -1,0 +1,14 @@
+{
+  "docs": {
+    "Getting started": [
+      "quickstart/setup-and-configuration",
+      "quickstart/hello-indigo"
+    ],
+    "General information": [
+      "information/constraints-and-motivation",
+      "information/key-concepts",
+      "information/prior-art",
+      "information/alternatives"
+    ]
+  }
+}
