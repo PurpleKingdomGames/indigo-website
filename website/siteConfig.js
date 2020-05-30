@@ -40,7 +40,7 @@ const siteConfig = {
   headerLinks: [
     {doc: 'quickstart/setup-and-configuration', label: 'Docs'},
     // {doc: 'doc4', label: 'API'},
-    // {page: 'help', label: 'Help'},
+    {page: 'help', label: 'Tools'},
     // {blog: true, label: 'Blog'},
   ],
 
@@ -54,8 +54,8 @@ const siteConfig = {
 
   /* Colors for website */
   colors: {
-    primaryColor: '#0F033A',
-    secondaryColor: '#4B0082',
+    primaryColor: '#29016A',
+    secondaryColor: '#29016A',
   },
 
   /* Custom fonts for website */

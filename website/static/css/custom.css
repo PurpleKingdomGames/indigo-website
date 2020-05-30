@@ -29,14 +29,16 @@ h2.headerTitleWithLogo {
 .imageAlignTop .blockImage {
   max-width: 300px;
 }
-/* 
-.blockImage img {
-  width: 300px;
-}
+
 .blockImage {
+  width: 350px;
   height: 200px;
-  margin: 0px;
-} */
+  margin-bottom: 0px;
+}
+
+.imageAlignTop .blockImage {
+  margin-bottom: 0px;
+}
 
 .fixedHeaderContainer {
   background-color: #29016A;
@@ -63,4 +65,8 @@ h2.headerTitleWithLogo {
 
 .navigationSlider .slidingNav ul li a:hover {
   background-color: #29016A;
+}
+
+.descriptionContainer {
+  color: white;
 }

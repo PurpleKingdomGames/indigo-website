@@ -65,7 +65,6 @@ class HomeSplash extends React.Component {
           <PromoSection>
             <Button href={docUrl('hello-indigo.html')}>Let's build a game</Button>
             <Button href="https://davesmith00000.github.io/snake-demo/">Quick game of snake?</Button>
-            {/* <Button href="#try">Quick game of snake?</Button> */}
           </PromoSection>
         </div>
       </SplashContainer>
@@ -91,135 +90,70 @@ class Index extends React.Component {
       </Container>
     );
 
-    // const FeatureCallout = () => (
-    //   <div
-    //     className="productShowcaseSection paddingBottom"
-    //     style={{textAlign: 'center'}}>
-    //     <h2>Feature Callout</h2>
-    //     <MarkdownBlock>These are features of this project</MarkdownBlock>
-    //   </div>
-    // );
-
-    // const TryOut = () => (
-    //   < Block id = "try"
-    //   background = "light"
-    //   layout = "fourColumn" >
-    //     {[
-    //       {
-    //         content:
-    //           '<h1>FISH</h1>',
-    //         image: `${baseUrl}img/undraw_code_review.svg`,
-    //         imageAlign: 'left',
-    //         title: 'Quick game of snake?',
-    //       },
-    //     ]}
-    //   </Block>
-    // );
-
-      const Description = () => (
-        <div
-          className="productShowcaseSection paddingBottom"
-          style={{textAlign: 'left'}}>
-          <h2>Let's have some fun.</h2>
-          <MarkdownBlock>
-_Seriously. Where are all the FP game engines?_
-          </MarkdownBlock>
-          <MarkdownBlock>
-            Indigo was created for a very particular audience: Functional programmers who want a _code only_ engine aimed squarely at developer fun and productivity.
-          </MarkdownBlock>
-          <MarkdownBlock>
-            Are you a Scala developer? Does writing 2D modern-retro games for the browser* in a purely functional style, exclusively using WebGL 2.0 (Argh! Browser compatibility!), using a code-only engine with no editor sound like your idea of a good time? Then Indigo might just possibly be the game engine you've been looking for!
-          </MarkdownBlock>
-          <MarkdownBlock>
-            *(\* we hope to add more platforms in the future!)*
-          </MarkdownBlock>
-        </div>
-      );
-
-    // const LearnHow = () => (
-    //   <Block background="light">
-    //     {[
-    //       {
-    //         content:
-    //           'Each new Docusaurus project has **randomly-generated** theme colors.',
-    //         image: `${baseUrl}img/undraw_youtube_tutorial.svg`,
-    //         imageAlign: 'right',
-    //         title: 'Randomly Generated Theme Colors',
-    //       },
-    //     ]}
-    //   </Block>
-    // );
-
     const Features = () => (
-      <Block layout="twoColumn">
+      <Block layout="threeColumn">
         {[
           {
-            content: 'If you can write Scala, you can make games. Indigo is powered by Scala.js, and feels like a completely ordinary Scala project.',
-            image: `${baseUrl}img/scala-lang.svg`,
+            content: 'If you can write Scala, you can make games. Indigo is powered by Scala.js, and builds with SBT & Mill.',
+            image: `${baseUrl}img/site_scala_logo.png`,
             imageAlign: 'top',
             title: 'Nothing but Scala.',
           },
           {
-            content: 'Confident development with Scala\'s advanced type system, purely functional APIs, and a completely deterministic game loop.',
-            image: `${baseUrl}img/undraw_operating_system.svg`,
+            content: 'Confident development using Scala\'s advanced type system, purely functional APIs, and a deterministic game loop.',
+            image: `${baseUrl}img/site_pirate.png`,
             imageAlign: 'top',
             title: 'Easy to Type. Easy to Test.',
           },
           {
-            content: 'Indigo was designed for crisp, beautiful pixel art that leverages modern rendering techniques like dynamic lighting.</br>(Also supports non-pixel art games!)',
-            image: `${baseUrl}img/undraw_operating_system.svg`,
+            content: 'Indigo was designed for crisp, modern, beautiful pixel art. You can make non-pixel art games too!',
+            image: `${baseUrl}img/site_consoles.png`,
             imageAlign: 'top',
             title: 'Big Beautiful Pixels.',
-          },
-          {
-            content: 'Indigo will work with any build system that support Scala.js, and has additional tooling for SBT and Mill.',
-            image: `${baseUrl}img/undraw_operating_system.svg`,
-            imageAlign: 'top',
-            title: 'You favourite build tool.',
           },
         ]}
       </Block>
     );
 
-    // const Showcase = () => {
-    //   if ((siteConfig.users || []).length === 0) {
-    //     return null;
-    //   }
-
-    //   const showcase = siteConfig.users
-    //     .filter(user => user.pinned)
-    //     .map(user => (
-    //       <a href={user.infoLink} key={user.infoLink}>
-    //         <img src={user.image} alt={user.caption} title={user.caption} />
-    //       </a>
-    //     ));
-
-    //   const pageUrl = page => baseUrl + (language ? `${language}/` : '') + page;
-
-    //   return (
-    //     <div className="productShowcaseSection paddingBottom">
-    //       <h2>Who is Using This?</h2>
-    //       <p>This project is used by all these people</p>
-    //       <div className="logos">{showcase}</div>
-    //       <div className="more-users">
-    //         <a className="button" href={pageUrl('users.html')}>
-    //           More {siteConfig.title} Users
-    //         </a>
-    //       </div>
-    //     </div>
-    //   );
-    // };
+    const Description = () => (
+      <div className="container paddingBottom paddingTop descriptionContainer" style={{ backgroundColor: '#8749C4' }}>
+        <div className="wrapper" style={{ textAlign: 'left' }}>
+          <div className="gridBlock">
+            <div className="blockElement alignLeft imageAlignTop twoByGridBlock">
+              <h2>Let's have some fun!</h2>
+              <MarkdownBlock>
+              Indigo is a game engine for programmers. People who know how to code and want to make games _by writing code_ - just for the fun of it!
+              </MarkdownBlock>
+              <MarkdownBlock>
+              The engine has been designed specifically with programmers in mind. It focuses on developer productivity and ease of testing.
+              </MarkdownBlock>
+              <MarkdownBlock>
+              Indigo is written in [**Scala**](https://www.scala-lang.org/) (powered by [**Scala.js**](https://www.scala-js.org/)), as are the amazing games you'll make. It's intended for the people who _really_ like pure functions, but being Scala, allows you too flip back to a more procedural or object oriented style if that suits you or your game better.
+              </MarkdownBlock>
+            </div>
+            <div className="blockElement alignLeft imageAlignTop twoByGridBlock">
+            <h2>&nbsp;</h2>
+              <MarkdownBlock>
+              Building games in Indigo is just like working any other Scala project, we've worked hard to keep the surprises to a minimum. You can even use all your favourite Scala.js compatible libraries and build tools, with extra support for SBT and Mill built in.
+              </MarkdownBlock>
+              <MarkdownBlock>
+              Indigo is free to use and the engine is open source. There are no limits on its use, or fees or royalties to pay, ever.
+              </MarkdownBlock>
+              <MarkdownBlock>
+                    We can't wait to see what you're going to build!
+              </MarkdownBlock>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
 
     return (
       <div>
         <HomeSplash siteConfig={siteConfig} language={language} />
         <div className="mainContainer">
           <Features />
-          {/* <FeatureCallout /> */}
-          {/* <LearnHow /> */}
           <Description />
-          {/* <TryOut /> */}
-          {/* <Showcase /> */}
         </div>
       </div>
     );
