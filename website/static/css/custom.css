@@ -37,3 +37,30 @@ h2.headerTitleWithLogo {
   height: 200px;
   margin: 0px;
 } */
+
+.fixedHeaderContainer {
+  background-color: #29016A;
+}
+
+.homeContainer {
+  background-color: #0F033A;
+}
+
+.projectTitle {
+  color: white;
+}
+
+.promoRow .button {
+  color: white;
+  border-color: white;
+}
+
+.homeContainer .homeWrapper .projectLogo {
+  display: block;
+  position: relative;
+  padding: 2em 100px 2em;
+}
+
+.navigationSlider .slidingNav ul li a:hover {
+  background-color: #29016A;
+}
