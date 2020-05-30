@@ -4,7 +4,6 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-
 const React = require('react');
 
 const CompLibrary = require('../../core/CompLibrary.js');
@@ -122,7 +121,7 @@ class Index extends React.Component {
             <div className="blockElement alignLeft imageAlignTop twoByGridBlock">
               <h2>Let's have some fun!</h2>
               <MarkdownBlock>
-              Indigo is a game engine for programmers. People who know how to code and want to make games _by writing code_ - just for the fun of it!
+              Indigo is a game engine for programmers. People who know how to code and want to make games _by writing code_. Just for the fun of it!
               </MarkdownBlock>
               <MarkdownBlock>
               The engine has been designed specifically with programmers in mind. It focuses on developer productivity and ease of testing.
@@ -140,7 +139,7 @@ class Index extends React.Component {
               Indigo is free to use and the engine is open source. There are no limits on its use, or fees or royalties to pay, ever.
               </MarkdownBlock>
               <MarkdownBlock>
-                    We can't wait to see what you're going to build!
+              We can't wait to see what you're going to build!
               </MarkdownBlock>
             </div>
           </div>
