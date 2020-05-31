@@ -29,7 +29,7 @@ const siteConfig = {
   //   url: 'https://facebook.github.io',
   //   baseUrl: '/test-site/',
 
-  // customDocsPath: 'indigodocs',
+  customDocsPath: 'indigodocs',
 
   // Used for publishing and more
   projectName: 'indigo-site',
@@ -40,7 +40,7 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    {doc: 'quickstart/setup-and-configuration', label: 'Docs'},
+    // {doc: 'quickstart/setup-and-configuration', label: 'Docs'},
     // {doc: 'doc4', label: 'API'},
     // {page: 'help', label: 'Tools'},
     // {blog: true, label: 'Blog'},
