@@ -36,13 +36,13 @@ class Footer extends React.Component {
             )}
           </a>
           <div>
-            <h5>Getting Started</h5>
-            <a href={this.docUrl('setup-and-configuration.html', this.props.language)}>
+            <h5>Getting Started (coming soon)</h5>
+            {/* <a href={this.docUrl('setup-and-configuration.html', this.props.language)}>
               Setup & Configuration
             </a>
             <a href={this.docUrl('hello-indigo.html', this.props.language)}>
               Quickstart Tutorial
-            </a>
+            </a> */}
           </div>
           <div>
             <h5>Community</h5>
@@ -66,7 +66,7 @@ class Footer extends React.Component {
           <div>
             <h5>More</h5>
             {/* <a href={`${this.props.config.baseUrl}blog`}>Blog</a> */}
-            <a href="https://github.com/">GitHub</a>
+            <a href="https://github.com/PurpleKingdomGames/indigo">GitHub</a>
             <a
               className="github-button"
               href={this.props.config.repoUrl}
