@@ -42,7 +42,7 @@ const siteConfig = {
   headerLinks: [
     // {doc: 'quickstart/setup-and-configuration', label: 'Docs'},
     // {doc: 'doc4', label: 'API'},
-    // {page: 'help', label: 'Tools'},
+    {page: 'tools', label: 'Tools'},
     // {blog: true, label: 'Blog'},
   ],
 
