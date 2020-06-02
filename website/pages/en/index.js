@@ -56,6 +56,8 @@ class HomeSplash extends React.Component {
       </div>
     );
 
+    const pageUrl = page => baseUrl + (language ? `${language}/` : '') + page;
+
     return (
       <SplashContainer>
         <Logo img_src={`${baseUrl}img/indigo_logo_full.svg`} />
@@ -64,7 +66,7 @@ class HomeSplash extends React.Component {
           <PromoSection>
             {/* <Button href={docUrl('hello-indigo.html')}>Let's build a game</Button> */}
             <Button href="#">Let's build a game</Button>
-            <Button href="https://davesmith00000.github.io/snake-demo/">Quick game of snake?</Button>
+            <Button href={pageUrl('snake.html')}>Quick game of snake?</Button>
           </PromoSection>
         </div>
       </SplashContainer>
