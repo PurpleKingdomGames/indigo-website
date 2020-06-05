@@ -2,15 +2,14 @@
   "docs": {
     "Getting started": [
       "quickstart/setup-and-configuration",
-      "quickstart/hello-indigo"
+      "quickstart/examples"
     ],
     "General information": [
       "information/key-concepts",
+      "information/rendering-technology",
       "information/motivation-and-constraints",
-      "information/performance",
       "information/prior-art",
-      "information/alternatives",
-      "information/rendering-technology"
+      "information/alternatives"
     ]
   }
 }

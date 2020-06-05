@@ -3,7 +3,7 @@ id: alternatives
 title: Alternatives to Indigo
 ---
 
-If Indigo isn't quite doing it for you - we quite understand! Here are some possible alternatives to help you get your game dev fix. Each of these suggestions has something in common with Indigo, there are of course lots of other engines out there!
+If Indigo isn't quite working out for you - we quite understand! Here are some possible alternatives to help you get your game dev fix. Each of these suggestions has something in common with Indigo, there are of course lots of other engines out there!
 
 **Code-only!** - If you're looking for a code only engine, try [Haxe](https://haxe.org/) with [Heaps](https://heaps.io/). Battle hardened on commerically successful titles and increasingly incorporates functional programming ideas and syntax. Without going into the history, Haxe is a spin off from Flash (a notorious game dev platform itself, even today), but don't be put off by that; Haxe is very modern and does not require the imfamous Flash Player to run.
 
