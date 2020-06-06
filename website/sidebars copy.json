@@ -1,0 +1,15 @@
+{
+  "docs": {
+    "Getting started": [
+      "quickstart/setup-and-configuration",
+      "quickstart/examples"
+    ],
+    "General information": [
+      "information/key-concepts",
+      "information/rendering-technology",
+      "information/motivation-and-constraints",
+      "information/prior-art",
+      "information/alternatives"
+    ]
+  }
+}

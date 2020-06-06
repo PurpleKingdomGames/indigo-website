@@ -5,27 +5,39 @@ title: Key Concepts
 
 ## Making a game testable
 
-If you want to be able to test a frame of a game, a whole frame, then you need one thing: Referential transparency.
+If you want to be able to test a single frame of a game, a whole frame, then you need one thing: Referential transparency.
 
-Referential transparency allows you to ask for the next frame of a game, and compare it to an expected value, confident that they will always always be equivalent, provided your expected value is correct.
+>An expression is called referentially transparent if it can be replaced with its corresponding value without changing the program's behavior. ~ John C. Mitchell (2002). Concepts in Programming Languages, [via the wikipedia page on referential transparency](https://en.wikipedia.org/wiki/Referential_transparency).
 
-The problem is that games are random, time sensitive, and usually use mutable state for better performance.
+Referential transparency allows you to ask for the next frame of a game, and compare it to the expected frame definition, confident that they will always always be equivalent, provided your expected value is correct. Which means that if you have referentially transparent frames, then you can test them! Example in nonesense psuedocode:
 
-Some of he key things that Indigo gives you then:
+```scala
+val gameTime = GameTime.is(Seconds(123))
+
+val actual: (Model, View) =
+  MyGame.calculateNextFrame(gameTime)
+
+val expected: (Model, View) =
+  (expectedModel, expectedView)
+
+assert(actual == expected)
+```
+
+The above would only hold true if there are no side effects. The problem is that games are random, time sensitive, and usually use mutable state for better performance - all of which are normally side effecting issues.
+
+Some of he key things that Indigo gives you:
 
 1. Known time - each frame's logic gets one time value regardless of how long it takes to process the frame.
-2. Psuedo randomness - seeded from the game's running time, but you can always find out what "random" values were used.
+2. Psuedo randomness - seeded from the game's running time, but you can always find out what "random" values were used provided you use a propagated `dice` instance.
 3. Immutability - the state and all inputs to a frame are immutable, leading to consistent results.
-4. Side effect free*, Declaritive API's - since your state is immutable, you must describe what you'd like to happen next, rather than being able to directly action it now, all but eliminating race conditions.
+4. Side effect free, declaritive API's - since your state is immutable, you must describe what you'd like to happen next, rather than being able to directly action it now, all but eliminating race conditions.
 5. Predictable scene composition - `SceneUpdateFragment`s are combined very simply allowing you to test the view description in an ordinary unit test.
-
->*One exception... bounds calculations can be very expensive and currently are sometimes cached for performance reasons. It's an area under active consideration.
 
 ## "Your whole game, as a single, pure, stateless function."
 
-The default interfaces you're presented with as part of Indigo's framework offer a range of functions and values that you need to decide how to implement, but that is all just to improve the user experience.
+The default interfaces you're presented with as part of Indigo's framework offer a range of functions and values that you need to decide how to implement, but that's all just to improve the user experience.
 
-Beneath the API is a single function that looks something like this:
+Beneath the API is a _single function_ that looks something like this:
 
 ```scala
 def run(
@@ -39,13 +51,9 @@ def run(
   ): Outcome[(Model, ViewModel, SceneUpdateFragment)]
 ```
 
->Please note that game time, global events, input states, dice and the boundary locator are wrapped up in the `FrameContext` on the standard Indigo APIs.
+The point of this function is purity: What you get out, should be a result of what you put in and nothing else.
 
-The point of this function is purity.
-
-Games in other engines are pretty hard to reason about, in that it is difficult to know what is going to happen between one frame and the next, and that makes writing tests for games equally tricky.
-
-Indigo is about making games fun to build for functional programmers. Caring more about _developer performance_ than _engine performance_. Yes that's right, you heard it here first, there are faster more performant engines out there! Instead, Indigo is designed to give the developer a high degree of confidence in their code. All the power of Scala's type system, backed up by a framework you can write tests for, and a life cycle you can predict.
+>Scala is an impure functional programming language, so you are not restricted to writing games that obey these notions of purity and referential transparency, but you should start there.
 
 ## Inputs are immutable and predicatable
 
@@ -53,7 +61,7 @@ It will come as no surprise to Scala functional programmers, but all of the inpu
 
 Walking through them one at a time:
 
-- `model: Model` - This is the read-only state of the model, as caculated by the previous frame (or the initial state).
+- `model: Model` - This is the read-only state of the model, as calculated by the previous frame (or the initial state).
 - `viewModel: ViewModel` - This is the read-only state of the view-model, as caculated by the previous frame (or the initial state).
 - `gameTime: GameTime` - Time information such as frame deltas, all based on the current running time of your game.
 - `globalEvents: List[GlobalEvent]` - `GlobalEvents` only last for one frame, and can only be accessed in the next frame. This list then, is all* of the events generated by the previous frame.
@@ -63,7 +71,7 @@ Walking through them one at a time:
 
 > *With the exception that some events, intended to instruct Indigo itself to do something, will not be available to the next frame. For example an emitted `PlaySound` event will be delivered to the Audio system, but not to the next frame.
 
-## Outputs are monoidal
+## Key outputs are Monoids
 
 Some clarification, the return type of the function above is:
 
@@ -74,12 +82,14 @@ Outcome[(Model, ViewModel, SceneUpdateFragment)]
 But it's easier to think of this as:
 
 1. An updated model
-1. An updated view model
-1. A new scene to draw (`SceneUpdateFragment`)
-1. A list of events to be processed and passed to the relevant systems or the next frame. (`List[GlobalEvent]`)
+2. An updated view model
+3. A new scene to draw (`SceneUpdateFragment`)
+4. A list of events to be processed and passed to the relevant systems or the next frame. (`List[GlobalEvent]`)
 
-The model and view model are defined by the game developer and are therefore not assumed to be monoidal, they are simply recorded and passed as input to the next frame.
+The first two, the model and view model, are not really used by the indigo engine at all, they are simply recorded and passed as input to the next frame.
 
-The `SceneUpdateFragment` and `List[GlobalEvent]` however are monoidal i.e. they have an identity value and can be combined following all the appropriate rules.
+The `SceneUpdateFragment` and `List[GlobalEvent]` however are critical as they are the instructions that tell Indigo what side effects to produce! Rendering graphics, playing sounds, storing a fetching data, communicating over a network, etc.
 
-This has the incredibilibly useful property that you don't need to describe your frame's results (graph and events) all in one go. You can defined them in little modules (such as Indigo's `SubSystem`s) and be sure that indigo will combine them predictably and testably when the game is run.
+Since the scene and events can be produced as outputs from a range of processes, it's essential that they can be combined reliably and predictably (hence, Monoidal).
+
+This has the incredibility useful property that you don't need to describe your frame's results (graph and events) all in one go. You can defined them in little modules (such as Indigo's `SubSystem`s) and be sure that indigo will combine them in a predictable and test friendly when the game is run.

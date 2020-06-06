@@ -7,7 +7,7 @@ Indigo was not built in a vacuum, it's the conflation of lots of different borro
 
 ## Functional Reactive Programming
 
-You can't move in the "Function Programming for Games" space without hearing about Function Reactive Programming (FRP), which is seen as the way to tackle this problem. Indigo is _NOT_ an FRP system, but ideas have been borrorwed.
+You can't move in the "Function Programming for Games" space without hearing about [Function Reactive Programming](https://en.wikipedia.org/wiki/Functional_reactive_programming) ([FRP](https://wiki.haskell.org/Functional_Reactive_Programming)), which is seen as the way to tackle this problem. Indigo is _NOT_ an FRP system, but ideas have been borrorwed.
 
 FRP, and in particular Arrowized FRP which uses reactive combinators for a point free style of programming, is all about modelling time seriously. Events are either discrete or continuous, and are associated one way or another with a sampled point in time, which is fed as input through a series of functions to generate a rendered view.
 
@@ -37,4 +37,4 @@ Elm uses a very similar Model -> Update -> View style immutable architecture, an
 
 ## Yampa
 
-[Yampa](https://wiki.haskell.org/Yampa) is a Haskell based Arrowized FRP system that has been used for [game engine development](https://wiki.haskell.org/Yampa/game_engine). Some of the papers around Yampa have been both interesting and inspirational in Indigo's development, particularly ["Testing and Debugging Functional Reactive Programming"](http://www.cs.nott.ac.uk/~psxip1/papers/2017-ICFP-Perez-Nilsson-TestingAndDebuggingFRP-latest.pdf)
+[Yampa](https://wiki.haskell.org/Yampa) is a Haskell based Arrowized FRP system that has been used for [game engine development](https://wiki.haskell.org/Yampa/game_engine). Some of the papers around Yampa have been both interesting and inspirational in Indigo's development, particularly ["Testing and Debugging Functional Reactive Programming"](http://www.cs.nott.ac.uk/~psxip1/papers/2017-ICFP-Perez-Nilsson-TestingAndDebuggingFRP-latest.pdf). Indigo includes a limited but very useful `Signal` and `SignalFunction` suite, but doesn't go anywhere near as far as Yampa, and shies away from stateful signals completely (to the authors limited understanding).

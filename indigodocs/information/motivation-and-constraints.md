@@ -5,24 +5,28 @@ title: Motivation & Constraints
 
 ## Motivation
 
-There were two drivers for building Indigo:
+There were two questions driving Indigo's development:
 
 1. Building games is hard, and testing games is harder... but does it have to be?
-2. Can we build a game engine for functional programmers that is fun and productive?
+2. Can we build a game engine for functional programmers that is fun, productive, and reasonably easy to pick up?
 
 The reason testing games is hard is the perception that they are random, and their behaviour non-deterministic by default, but this doesn't have to be the case.
 
 Indigo encodes the idea of a frame update into one single, pure, stateless, immutable function. The new frame is always predictably the direct outcome of the values it was supplied at the beginning of the update. Even apparently random elements are in fact pseudo-random.
 
-On of the aims of Indigo is to make frame updates referentially transparent. Of course, this depends on the game programmer. If they put a `Random` in the middle there isn't much we can do about it! (Use the `Dice` instead!)
+One of the aims of Indigo is to make frame updates referentially transparent. Of course, this depends on the game programmer. If they put a `Random` in the middle there isn't much we can do about it! (Use a propagated `Dice` instance instead!)
 
 To further increase reliability and code correctness, Indigo is written in Scala in order to take full advantage of it's relatively advanced type checker.
 
-Indigo is not an FRP engine, and does not force a particular programming model on the developer. A game programmer could write "Scala-Java" or as close to pure FP code as Scala allows. To further empower the developer, the engine has very few dependencies, so mixing in a library like Cats or Scalaz should be no problem at all.
+Indigo is not an FRP engine, and does not force a particular programming model on the developer. A game programmer could write "Scala-Java" or as close to pure FP code as Scala allows. To further empower the developer, the engine has very few dependencies, so mixing in a library like Cats should be no problem at all.
 
-## Creative Constraints and subsequent limitations
+Further more, the framework API "entry points" you get by default are just sugar on top of the `FrameProcessor` - you can [write your own](https://github.com/PurpleKingdomGames/indigo/blob/master/indigo/indigo/src/main/scala/indigo/IndigoSandbox.scala)!
 
-There is a piece of general wisdom in the gaming community that can be summarised as:
+## Creative Constraints
+
+Why is indigo the way it it? Why isn't their proper font rendering for example?
+
+Building a game engine is hard, and takes a long time. There is a piece of general wisdom in the gaming community that can be summarised as:
 
 > Never build your own game engine.
 
@@ -30,35 +34,29 @@ Why not? Well a lot of people who decide to build game engines actually start ou
 
 There is only one reason to build a game engine that people seem to agree on: There isn't already another one out there that does the very -very- specific thing you wanted from your engine.
 
-What we wanted was a game engine that:
+So in order to make building Indigo possible (4 years and counting...), we cut the scope. What is the smallest amount of functionality we'd need to build an engine we'd be happy to use? A few of those constraints included:
 
-1. Supported Mac and Linux based development as a first class citizen;
-2. Was a code only engine, we didn't want a big graphical editor;
-3. Used a statically typed functional programming language to build it's games;
-4. Was accessible, easy to understand and fun.
-
-We looked hard at the options available, and started work on Indigo when we realised there wasn't anything else that quite fit our needs.
-
-But building a game engine is not a small problem, games engines do a lot of different things like networking, asset management, rendering, sound, storage, and animation to name but a few.
-
-The only way to stand a chance of completeing the work was the build the bare minimum by imposing contraints on what the first cut of the engine would be able to do and how it would work, including but not limited to:
-
-1. Scala only - A full blooded FP language with a mac / linux friendly ecosystem.
+1. Scala only - A full FP language with a mac / linux friendly ecosystem.
 2. 2D only - with pixel art as a first class citizen specifically.
-3. Browser only - avoid platform purmutation issues.
+3. Browser only - avoid platform permutation issues.
 4. No fonts - simplified text support.
-5. No custom shaders - most people don't need them.
+5. No custom shaders - nice to have, but we can do without them.
 
-So if you look at indigo and wonder why something that might be standard in other engines isn't present, it is probably because it wasn't considered a bare minimum!
+Some of the initial constraints were relaxed, and some features that might be considered unnecessary were added just for fun, but if you look at indigo and wonder why something that might be standard in other engines isn't present, it is probably just because it wasn't considered part of a minimal spec!
 
-## Pixel art
+## The influence of Pixel Art
 
-Indigo is aimed primarily at Pixel Art! Why Pixel Art? Well, two reasons:
+Indigo is a 2D game engine (you have go HD if you want to!), but is particularly aimed at Pixel Art. Why Pixel Art?
 
-1. Pixel Art is relatively cheap to produce, and done well - like any other style - is still a wonderfully expressive graphical style. It's not about technical restrictions, it's about being able to make fun games efficiently.
-1. If you want to make a AAA title with photo-realistic graphics or even a superslick 2D games and you have the resources to do that, there are better tools out there for the job! Pixel art requires us to build games that are _good games to play_ in spite of a limited visual style, games that draw people in because they are engaging, not because you can see every wrinkle on a characters face. Not unlike board games.
+Pixel Art is a relatively accessible art form. Like any other artistic medium you could choose, it can be done poorly and look cheap, or it can be done brilliantly and be every bit as expressive and evocatively as any other style of art.
 
-Forcing the engine to be aimed at pixel art has created a few interesting design outcomes:
+The difference is that the barrier to entry is lower. Amazing and low cost tools like [Aseprite](https://www.aseprite.org/) and [Tiled](https://www.mapeditor.org/) help put good game art within the reach of the many, no the few.
 
-1. Your game can be magnified. You design and code it to work on a 1 to 1 pixel scale, increase the magnification and everything goes with it. For instance, mouse positions and clicks are rescaled to remain accurate to your graphics.
-1. Perfect pixel rendering. The whole engine works on whole pixels, and the shaders are written to render beautifully crisp, whole pixels.
+Pixel Art is commercially viable too, there are many many commercially successful pixel art games released every year! Games like [Moonlighter](https://store.steampowered.com/app/606150/Moonlighter/), [Celeste](https://store.steampowered.com/app/504230/Celeste/), and [Dead Cells](https://store.steampowered.com/app/588650/Dead_Cells/) to name but a few.
+
+If you want to make a AAA title with photo-realistic graphics or even a super-slick 2D games and you have the resources to do that, there are better tools out there for the job! Pixel art requires us to build games that are _good games to play_ in spite of a limited visual style, games that draw people in because they are engaging, not because you can see every wrinkle on a characters face. Not unlike board games.
+
+Forcing the engine to be aimed at pixel art, however, has influenced how it works:
+
+1. Magnification. You design and code it to work as if it was on a 1 to 1 pixel scale, increase the magnification and everything goes with it. For instance, mouse positions and clicks are rescaled to remain accurate to your graphics. You can even dynamically set different magnifications per game layer, allowing for instance, an HD UI over a chunky pixel game.
+1. Pixel perfect rendering. The whole engine works on whole pixels, and the shaders are written to render beautifully crisp, whole pixels at any scale. You don't have to do anything clever to get perfect results.

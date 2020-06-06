@@ -11,7 +11,20 @@ Indigo games are completely normal [Scala.js](https://www.scala-js.org/) project
 
 You can use either [Mill](http://www.lihaoyi.com/mill/) or [SBT](https://www.scala-sbt.org/) to build your games, and for your convenience both Mill and SBT have associated plugins, `mill-indigo` and `sbt-indigo` respectively.
 
-The plugins help you bootstrap your game during development, they marshall your assets and serve as a reference implementation for one way to embed your game into a web page.
+The plugins help you bootstrap your game during development, they marshall your assets and serve as a reference implementation for _one_ way to embed your game into a web page.
+
+Example output from a Mill indigo build of the [Snake example game](https://github.com/PurpleKingdomGames/indigo/tree/master/demos/snake), the SBT version is nearly identical:
+
+```bash
+> mill snake.buildGame
+[46/48] snake.indigoBuildJS
+dirPath: /Users/(...)/indigo/demos/snake/out/snake/indigoBuildJS/dest
+Copying assets...
+/Users/(...)/indigo/demos/snake/out/snake/indigoBuildJS/dest/index.html
+[48/48] snake.buildGame
+```
+
+The second to last line is an absolute path to where your game is.
 
 ### Running your game locally
 
@@ -21,6 +34,14 @@ Most modern browsers do not allow you to run local sites that load in assets and
 1. Navigate to the output directory shown after running the indigo plugin.
 1. Run `http-server -c-1` - which means "serve this directory as a static site with no caching".
 1. Go to [http://127.0.0.1:8080/](http://127.0.0.1:8080/) (or whatever `http-server` says in it output) and marvel at your creation..
+
+## Scala.js "Fast" vs "Full" Optimisation
+
+The examples below show you how to publish with both "fast" and "full" optimisation of your Scala.js project.
+
+The difference is speed and size. As the name implies, the "fast" version compiles _very significantly_ faster than the "full" version, but even small projects will result in ~5Mb of JavaScript, where the "full" version will be in the region of ~500kb. The "full" version may also be more performant at run time, for more information please refer to the official [Scala.js performance page](https://www.scala-js.org/doc/internals/performance.html).
+
+Note that during development the fast version is perfectly acceptable. Your browser will chew through 5-10Mb of JavaScript with no problem at all, the performance difference is generally not noticable, and the compilation time reduction is definitely worth it.
 
 ## Mill Guide
 
@@ -132,7 +153,7 @@ Run the following:
 
 This will output your game and all the correctly referenced assets into `target/indigo-js/`. Note that the plugin will give you a full path at the end of it's output.
 
-Navigate to the folder, run `http-server -c-1`, and got to [http://127.0.0.1:8080/](http://127.0.0.1:8080/) in your browser of choice.
+Navigate to the folder, run `http-server -c-1`, and go to [http://127.0.0.1:8080/](http://127.0.0.1:8080/) in your browser of choice.
 
 ### Rolling it up into one command
 
