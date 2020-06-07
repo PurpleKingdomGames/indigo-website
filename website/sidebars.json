@@ -6,7 +6,8 @@
       "quickstart/hello-indigo"
     ],
     "Detailed topics": [
-      "topics/depth-and-layers"
+      "topics/depth-and-layers",
+      "topics/text-and-fonts"
     ],
     "General information": [
       "information/key-concepts",
