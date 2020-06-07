@@ -66,8 +66,8 @@ object mygame extends ScalaJSModule with MillIndigo {
   val title: String                = "My Game"
 
   def ivyDeps = Agg(
-    ivy"indigo::indigo-json-circe::0.1.0",
-    ivy"indigo::indigo::0.1.0"
+    ivy"io.indigoengine::indigo-json-circe::0.1.0",
+    ivy"io.indigoengine::indigo::0.1.0"
   )
 
 }
@@ -117,7 +117,7 @@ Add the following to your `project/plugins.sbt` file:
 
 ```scala
 addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.0.1")
-addSbtPlugin("indigo" % "sbt-indigo" % "0.1.0")
+addSbtPlugin("io.indigoengine" % "sbt-indigo" % "0.1.0")
 ```
 
 ### build.sbt
@@ -139,8 +139,8 @@ lazy val mygame =
       title := "My Game",
       gameAssetsDirectory := "assets",
       libraryDependencies ++= Seq(
-        "indigo" %%% "indigo" % "0.1.0"
-        "indigo" %%% "indigo-json-circe" % "0.1.0",
+        "io.indigoengine" %%% "indigo" % "0.1.0",
+        "io.indigoengine" %%% "indigo-json-circe" % "0.1.0",
       )
     )
 ```
