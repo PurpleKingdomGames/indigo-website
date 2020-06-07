@@ -5,6 +5,9 @@
       "quickstart/examples",
       "quickstart/hello-indigo"
     ],
+    "Detailed topics": [
+      "topics/depth-and-layers"
+    ],
     "General information": [
       "information/key-concepts",
       "information/rendering-technology",
