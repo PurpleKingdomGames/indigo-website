@@ -55,7 +55,7 @@ import mill.scalalib._
 import mill.scalajslib._
 import mill.scalajslib.api._
 
-import $ivy.`indigo::mill-indigo:0.1.0`, millindigo._
+import $ivy.`io.indigoengine::mill-indigo:0.1.0`, millindigo._
 
 object mygame extends ScalaJSModule with MillIndigo {
   def scalaVersion   = "2.13.2"
