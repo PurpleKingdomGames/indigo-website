@@ -24,7 +24,7 @@ Further more, the framework API "entry points" you get by default are just sugar
 
 ## Creative Constraints
 
-Why is indigo the way it it? Why isn't their proper font rendering for example?
+Why is indigo the way it it? Why isn't there proper font rendering for example?
 
 Building a game engine is hard, and takes a long time. There is a piece of general wisdom in the gaming community that can be summarised as:
 
