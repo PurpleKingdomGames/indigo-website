@@ -2,7 +2,8 @@
   "docs": {
     "Getting started": [
       "quickstart/setup-and-configuration",
-      "quickstart/examples"
+      "quickstart/examples",
+      "quickstart/hello-indigo"
     ],
     "General information": [
       "information/key-concepts",
