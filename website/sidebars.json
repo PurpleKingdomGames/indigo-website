@@ -6,7 +6,12 @@
       "quickstart/hello-indigo"
     ],
     "Detailed topics": [
+      "topics/animation",
       "topics/depth-and-layers",
+      "topics/outcome",
+      "topics/primitives",
+      "topics/scene-update-fragment",
+      "topics/subsystems",
       "topics/text-and-fonts"
     ],
     "General information": [

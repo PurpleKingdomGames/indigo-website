@@ -1,4 +1,7 @@
-# Outcome
+---
+id: outcome
+title: Outcome Type
+---
 
 ## What is an Outcome?
 
@@ -18,24 +21,33 @@ Outcome(model.copy(totalScore = calculateFinalScore(...)))
   .addGlobalEvents(JumpTo(GameOverScene.name))
 ```
 
+Outcome isn't optional and isn't expected to fail, so you can always retrieve the state and global events it contains by simply accessing them:
+
+```scala
+outcome.state
+outcome.globalEvents
+```
+
 ## Examples of Operations on Outcomes
 
 There are lots of ways to manipulate Outcomes, and all of them preserve the events contained in each Outcome.
 
-### Functor, Applicative, and Monad:
+### Basic operations
+
+An Outcome behaves much like other Monadic types in Scala, bias towards the state it holds rather than the events. Some basic operations are below:
 
 ```scala
-import indigo.syntax._
-
-Outcome(10).map(_ * 20) // Outcome(200)
-Outcome(10).flatMap(i => Outcome(i * 20)) // Outcome(200)
+Outcome(10)                                // Outcome(10)
+Outcome(10).map(_ * 20)                    // Outcome(200)
 Outcome(10).ap(Outcome((i: Int) => i * 5)) // Outcome(50)
-(Outcome(10), Outcome(20)).map2(_ + _) // Outcome(30)
+Outcome(10).flatMap(i => Outcome(i * 20))  // Outcome(200)
+Outcome(10).merge(Outcome(20))(_ + _)      // Outcome(30)
+Outcome("a") |+| Outcome("b")              // Outcome(("a", "b"))
 ```
 
-With or without the syntax import, you can also do things like mapState (which map delegates to) or mapEvents.
+`Outcome`'s map function is an alias for `mapState[A]`, but you can also modify the events with `mapGlobalEvents`.
 
-### Sequencing
+Sequencing can be done as follows:
 
 ```scala
 import Outcome._
@@ -43,15 +55,9 @@ import Outcome._
 List(Outcome(1), Outcome(2), Outcome(3)).sequence // Outcome(List(1, 2, 3))
 ```
 
-### Combine (as Product / Tuple)
+## Creating events based on the state
 
-```scala
-Outcome("a") |+| Outcome("b") // Outcome(("a", "b"))
-```
-
-## Creating events
-
-Sometimes, you need to do something like this:
+Sometimes, you need to reference the new state to decide if we should emit an event:
 
 ```scala
 
@@ -62,7 +68,7 @@ Outcome(newState)
   .addGlobalEvents(events)
 ```
 
-But this is boring and requires the creation of a couple of variables. The thing to observe is that this scenario is about creating events based on the updated state. Instead, you can do this:
+But this is boring and requires the creation of a couple of variables. The thing to observe is that this scenario is about creating events based on the _updated_ state rather than the original state. Instead, you can do this:
 
 ```scala
 Outcome(Foo(count = 10))

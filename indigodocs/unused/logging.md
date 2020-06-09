@@ -3,6 +3,7 @@
 Sometimes, you just need a log message, and Indigo comes with a very simple logger with a couple of quirks for game dev.
 
 The available logging options are:
+
 ```
 import IndigoLogger._
 

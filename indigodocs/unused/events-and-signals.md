@@ -4,7 +4,7 @@
 
 Indigo is powered by events, `GlobalEvent`s to be exact. Events represent discrete actions that took place in the previous frame, such as a mouse click.
 
-The lifecycle of events in Indigo is very strict so that we can support referential transparency.
+The life-cycle of events in Indigo is very strict so that we can support referential transparency.
 
 - Events are immutable.
 - Events are ordered.
