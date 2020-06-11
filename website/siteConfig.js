@@ -74,6 +74,10 @@ const siteConfig = {
   },
   */
 
+  //GA
+  gaTrackingId: "UA-169190516-1",
+  gaGtag: true,
+
   // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
   copyright: `Copyright © ${new Date().getFullYear()} Purple Kingdom Games Limited`,
 
