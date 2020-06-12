@@ -15,7 +15,7 @@ The way raw engine performance is typically achieved is by utilizing clever data
 
 All of that can lead to high performance, but it takes careful management since your guarantees around runtime behavior are reduced, and bugs can occur.
 
-In order to bring performance up Indigo itself does all this too. Where Indigo and normal game engines diverge is that while these techniques are used by Indigo under the covers, it is strongly discouraged at the API level. Why is that?
+In order to bring performance up, Indigo itself does all this too. Where Indigo and normal game engines diverge is that while these techniques are used by Indigo under the covers, it is strongly discouraged at the API level. Why is that?
 
 What if you could build games with an expectation of no bugs? Games that you _know_ work before you play them because you can bring to bear an advanced type system, refinement types, property based testing and any other code quality tool you can think of?
 
@@ -148,9 +148,17 @@ Graphics do not accept events / interactions in the same way that Sprites and Te
 
 For one off interactive elements though, you can avoid using a Sprite by mimicking the event handler behavior manually. For example, you can check the mouse position and whether or not it was clicked within graphic node's very cheap to calculate bounds during the view presentation function.
 
-### Use UpdateList
+### Faster processing
 
-Split expensive calculation work over multiple frames. This is probably unusual since it's a CPU rather than a memory allocation / GC issue, but possibly worth mentioning.
+In terms of view processing, memory allocations are typically the problem, but you can also experience CPU bottlenecks depending on the kind of game you're building.
+
+#### Use appropriate data structures
+
+In many cases, a simple array of things to process will do. However, just as an example, if you're processing something spacial like collision detection or available moves on large playing grid, you should look for data structures that can efficiently ignore / avoid processing irrelevant areas, such as a [BSP](https://en.wikipedia.org/wiki/Binary_space_partitioning) or [Quadtree](https://en.wikipedia.org/wiki/Quadtree) structures.
+
+#### Use UpdateList
+
+Split expensive calculation work over multiple frames.
 
 **Scenario:**
 
@@ -160,4 +168,14 @@ To help with the time element, you could use a `TimeVaryingValue` that will auto
 
 If you wrap your crops up in an `UpdateList` you can specific an update pattern, for example you could update 25% of the crops this frame, and 25% on each of the next three subsequent frames until they're all done. As long as your calculation is time based, and the accuracy of when you need to know the crops are ready is acceptable to be within 4 frames of the actual completion time, you can quarter your per frame processing costs.
 
-> Note that you're still allocating for the whole grid! The assumption here is that it isn't the memory but the cost of calculating the next state that is causing your performance problems.
+Note that you're still allocating for the whole grid in this scenario! Consider combining these with better data structures as discussed above for further gains.
+
+## Don't fear mutability.
+
+Your last angle of attack is to use mutable data and imperative programming techniques.
+
+Scala is an impure functional language and there is nothing wrong with taking advantage of that. You should always pull for purity and immutability first, but games by their very nature are always pushing the resource constraints of their system, and finding game performance is constant discussion about trade-offs. _Sometimes_ the trade off is your purely functional sensibilities!
+
+If you've measured and identified an area of your code that is causing a bottleneck, _sometimes_ the best solution is to roll up your sleeves and use a more imperative solution to do a bit of specific, localized, optimization. ***Never ever*** do this without profiling your code first, or you're probably wasting your time.
+
+Remember, a function is pure and referentially transparent as long as for a given set of arguments you always get the same result - there are no limits on how you make that happen. Write good tests, and use strong encapsulation.
