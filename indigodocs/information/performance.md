@@ -84,7 +84,7 @@ An Automata system is just a SubSystem. If you need simple particles in high vol
 
 >WebGL 2.0 only!
 
-[Clones](primitives.md) are Indigo's version of what is know as "instancing". Say you want to render lots (lots and lots and lots!) of things that are more or less identical, such as blades of grass or tiles in a tile map, you should consider using clones.
+Clones are Indigo's version of what is know as "instancing". Say you want to render lots (lots and lots and lots!) of things that are more or less identical, such as blades of grass or tiles in a tile map, you should consider using clones.
 
 With clones, you set up a reference object (that you can update as you like), and then tell indigo to render many more of them. This shortcuts a lot of processing in the pipeline and allows for vast numbers of things to be drawn at the cost of a lack of variety (although basic properties can be changed).
 
