@@ -1,5 +1,8 @@
 {
   "docs": {
+    "Indigo": [
+      "development-status"
+    ],
     "Getting started": [
       "quickstart/setup-and-configuration",
       "quickstart/hello-indigo",
@@ -8,6 +11,7 @@
     "Detailed topics": [
       "topics/animation",
       "topics/depth-and-layers",
+      "topics/effects",
       "topics/outcome",
       "topics/primitives",
       "topics/scene-update-fragment",
@@ -16,6 +20,7 @@
     ],
     "General information": [
       "information/key-concepts",
+      "information/performance",
       "information/rendering-technology",
       "information/motivation-and-constraints",
       "information/prior-art",
