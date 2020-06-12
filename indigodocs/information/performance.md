@@ -156,7 +156,7 @@ In terms of view processing, memory allocations are typically the problem, but y
 
 In many cases, a simple array of things to process will do. However, just as an example, if you're processing something spacial like collision detection or available moves on large playing grid, you should look for data structures that can efficiently ignore / avoid processing irrelevant areas, such as a [BSP](https://en.wikipedia.org/wiki/Binary_space_partitioning) or [Quadtree](https://en.wikipedia.org/wiki/Quadtree) structures.
 
-#### Use UpdateList
+#### Use `UpdateList`
 
 Split expensive calculation work over multiple frames.
 
@@ -170,12 +170,12 @@ If you wrap your crops up in an `UpdateList` you can specific an update pattern,
 
 Note that you're still allocating for the whole grid in this scenario! Consider combining these with better data structures as discussed above for further gains.
 
-## Don't fear mutability.
+## Don't fear mutability
 
 Your last angle of attack is to use mutable data and imperative programming techniques.
 
-Scala is an impure functional language and there is nothing wrong with taking advantage of that. You should always pull for purity and immutability first, but games by their very nature are always pushing the resource constraints of their system, and finding game performance is constant discussion about trade-offs. _Sometimes_ the trade off is your purely functional sensibilities!
+Scala is an impure functional language and there is nothing wrong with taking advantage of that. You should always pull for purity and immutability first, but games by their very nature are always pushing the resource constraints of their system in one way or another, and finding game performance is about making trade-offs. _Sometimes_ the trade off is your purely functional sensibilities!
 
 If you've measured and identified an area of your code that is causing a bottleneck, _sometimes_ the best solution is to roll up your sleeves and use a more imperative solution to do a bit of specific, localized, optimization. ***Never ever*** do this without profiling your code first, or you're probably wasting your time.
 
-Remember, a function is pure and referentially transparent as long as for a given set of arguments you always get the same result - there are no limits on how you make that happen. Write good tests, and use strong encapsulation.
+Remember, a function is pure and referentially transparent as long as for a given set of arguments you always get the same result - there are no limits on how you make that happen. Using a while loop and a var is not against the rules! Just write good tests, and use strong encapsulation.
