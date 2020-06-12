@@ -12,6 +12,7 @@
       "topics/animation",
       "topics/depth-and-layers",
       "topics/effects",
+      "topics/events",
       "topics/outcome",
       "topics/primitives",
       "topics/scene-update-fragment",
