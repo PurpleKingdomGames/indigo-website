@@ -6,7 +6,8 @@
     "Getting started": [
       "quickstart/setup-and-configuration",
       "quickstart/hello-indigo",
-      "quickstart/examples"
+      "quickstart/examples",
+      "quickstart/project-templates"
     ],
     "Detailed topics": [
       "topics/animation",
