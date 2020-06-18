@@ -5,7 +5,7 @@ title: Hello, Indigo!
 
 This is a quick start tutorial to help you build something with Indigo.
 
-There is a [repository](https://github.com/PurpleKingdomGames/hello-indigo) that goes with this guide, please note that you can follow the games progression by looking through the commits.
+There are [Mill](https://github.com/PurpleKingdomGames/hello-indigo) and [SBT](https://github.com/PurpleKingdomGames/hello-indigo-sbt) repositories that go with this guide, please note that you can follow the games progression by looking through the commits on the _Mill_ version.
 
 ## Choose your game API style
 
