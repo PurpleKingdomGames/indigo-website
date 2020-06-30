@@ -7,7 +7,7 @@ title: Assets & Asset Loading
 
 There are three types of assets that Indigo understands how to load and make available:
 
-1. Images - which can be JPEG or PNG format (others may work but are untested) - max size of 4k i.e. 4096 x 4096.
+1. Images - which can be JPEG or PNG format (others may work but are untested) - max size of 4096 x 4096.
 2. Text - Any plain text format be it prose, yaml, json or xml. Indigo does not understand the text format, it just loads the text and makes it available.
 3. Sound - Any browser supported audio format
 
@@ -15,9 +15,32 @@ When assets are loaded they are registered, and in the case of Sounds and Images
 
 Text is different. Plain text isn't useful in of itself in the scene construction, and the only time you can access text assets is during Startup via the `AssetCollection`, this give you an opportuntity to read/decode the contents and build them into your model somewhere.
 
+### `AssetCollection`s
+
+The `IndigoSandbox` entry point defines a setup function with the following signature:
+
+```scala
+def setup(assetCollection: AssetCollection, dice: Dice): Startup[StartupErrors, StartupData]
+```
+
+The idea of this function is to give you an opportunity to do some light processing or preparation before you game starts (or re-starts), and this process can suceed or fail. The `Dice` provides a random element, and the `AssetCollection` gives you your _one and only_ opportunity to directly access asset data directly.
+
+As previously mentioned, this is particularly useful for reading plain text files and parsing them.
+
+The interesting methods on an `AssetCollection` are:
+
+```scala
+  def exists(name: AssetName): Boolean
+  def findImageDataByName(name: AssetName): Option[AssetDataFormats.ImageDataFormat]
+  def findTextDataByName(name: AssetName): Option[AssetDataFormats.TextDataFormat]
+  def findAudioDataByName(name: AssetName): Option[AssetDataFormats.AudioDataFormat]
+```
+
+> `AssetDataFormats.TextDataFormat` in this case is just a `String`. Although Indigo only works in the browser currently, architecturally it is somewhat organised for other platforms too.
+
 ## Asset Loading
 
-Asset loading happens in one or two phases depending on whether you need the assets before your game starts or want to load it later.
+Asset loading happens in either one or two phases, depending on whether you only need your assets before the game starts, or also want to load some of them later.
 
 ### Load ahead of game start
 
@@ -50,13 +73,13 @@ def boot(flags: Map[String, String]): BootResult[Data] = {
     )
 ```
 
-> The important thing to know here is that whichever entry point style you're using, all of those assets will be forced to load completely before your game will show anything on the screen _at all_.
+> The important thing to know here is that whichever entry point style you're using, all of those assets will be forced to load completely before your game will show anything on the screen _at all_. If the can't be loaded, the game will halt.
 
-For demos and tests or local development with no network latency, requiring all the assets to be primed and ready before your game starts is no big deal, even for substantial amounts of data. It is even advantageous since there is a cost to loading images like generating texture atlases.
+For demos and tests or local development with no network latency, requiring all the assets to be primed and ready before your game starts is no big deal, even for substantial amounts of data. It is even advantageous, since there is a cost to loading images later, such as re-generating texture atlases.
 
 ### Dynamic asset loading
 
-When you're dealing with large amounts of asset data, you may not be happy to leave your player staring at a blank screen while Indigo loads and prepares everything. You might prefer to show them a loading screen! (Sometimes called a pre-loader.)
+When you're dealing with large amounts of asset data, you may not be happy to leave your player staring at a blank screen while Indigo loads and prepares everything. You might prefer to show them a loading screen, sometimes called a pre-loader.
 
 The basic flow we want to achieve is:
 
@@ -67,17 +90,17 @@ The basic flow we want to achieve is:
 1. As the assets arrive, update a progress bar / animation on the loading screen.
 1. Once they all arrive and have been processed, proceed to the next scene of the game - perhaps a menu screen.
 
-> Note that the dynamic asset loading approach can be used to add assets any time, not just  as the above flow suggest, and will make use of the browser cache to avoid re-delivery.
+> Note that the dynamic asset loading approach can be used to add assets _at any time_, not just at the beginning as the above flow suggests, and will make use of the browser cache to avoid re-delivery.
 
-You can either use the basic inbuilt events to load your assets, and manage the process yourself, or you can use the provided `AssetBundleLoader` `SubSystem` to do the work for you. There is nothing special about the `AssetBundleLoader`, it uses the same events you have access to, it just abstracts over the problem to give you a friendlier experience. The remainder of this article assumes you are using the subsystem.
+You can either use the basic inbuilt events to load your assets, and manage the process yourself, or you can use the provided `AssetBundleLoader` `SubSystem` to do the work for you. There is nothing special about the `AssetBundleLoader`, it uses the same basic indigo asset events you have access to, it just abstracts over the problem to give you a friendlier experience. The remainder of this article assumes you are using the subsystem.
 
-[There is an example of the `AssetBundleLoader` running in the main indigo repo.](https://github.com/PurpleKingdomGames/indigo/blob/master/examples/assetLoading/src/main/scala/com/example/assetloading/AssetLoadingExample.scala)
+[There is a small example of the `AssetBundleLoader` running in the main indigo repo.](https://github.com/PurpleKingdomGames/indigo/blob/master/examples/assetLoading/src/main/scala/com/example/assetloading/AssetLoadingExample.scala)
 
 ### Using the Asset Bundler Loader
 
-> Important! One advantage of loading everything up front is that you, the game developer, will find out _immediately_ whether or not you have an asset that can't load for some reason or other. If however, as an example, you defer an asset load until just before the last level, and don't give yourself a way to jump to the last level for testing - you won't know you have a bad asset until that point in your game's testing cycle.
+> Important! One advantage of loading everything up front is that you, the game developer, will find out _immediately_ whether or not you have an asset that can't load for some reason or other. If however, as an example, you defer an asset load until just before the last level, and don't give yourself a way to jump to the last level for testing - you won't know you have a bad asset until that point in your game's testing cycle - which could be very long indeed! Load everything as early as possible to avoid disappointment.
 
-To kick off an asset bundle, you need to fire off an `AssetBundleLoaderEvent.Load` event but attaching it to an `Outcome` or `SceneUpdateFragment`. In the example linked to above, we use a button (I've simplified here slightly):
+To kick off an asset bundle load, you need to fire off an `AssetBundleLoaderEvent.Load` event by attaching it to an `Outcome` or `SceneUpdateFragment`. In the example linked to above, we use a button (I've simplified here slightly):
 
 ```scala
 val otherAssetsToLoad =
@@ -128,9 +151,11 @@ def updateModel(context: FrameContext, model: MyGameModel): GlobalEvent => Outco
 }
 ```
 
+> Note that the percent loaded is based on items received not data transfered, i.e. 5 out of 10 items loaded is 50%, 5.5 items out of 10 is still 50%!
+
 #### Stating the obvious
 
-You can't use an asset before you've loaded it, I think that should be clear.
+You can't use an asset before you've loaded it.
 
 The eagle eyed among you may have noticed that the super simple model above has a loaded flag in it's definition, here is the whole thing:
 
@@ -153,4 +178,4 @@ SceneUpdateFragment(
 
 #### Using dynamically loaded `Text` assets
 
-As previously discussed, images and sounds can be used directly but text can only be accessed during startup. As such, a bundle load triggers a full engine restart (which in our admittedly small tests, isn't noticeable) meaning that you can check for the existence of a text item at start up and use it if available.
+As previously discussed, images and sounds can be used directly but text can only be accessed during startup. As such, a bundle load triggers a full engine restart (which in our admittedly small tests, isn't noticeable) with the current game state preserved. This means that you can check for the existence of a text item (and indeed any asset) at start up and use it if and when it becomes available.
