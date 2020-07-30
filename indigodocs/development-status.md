@@ -3,7 +3,7 @@ id: development-status
 title: Indigo's Development Status
 ---
 
-> Indigo version 0.1.0 was released on the 6th of June 2020, and should be considered to be in an "alpha" state i.e. We believe it's useful, but we expect issues will emerge as people start to use it.
+> Indigo version 0.2.0 was released on the 29th of July 2020, and should be considered to be in an "alpha" state i.e. We believe it's useful, but we expect issues will emerge as people start to use it.
 
 ## Can I use Indigo to build my game?
 

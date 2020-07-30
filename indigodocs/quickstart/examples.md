@@ -7,20 +7,10 @@ At various points in Indigo's development, little games and examples have been m
 
 They are not always very polished, but they are small and reasonably easy to follow.
 
-## Snake
+> The examples have moved. They now track the latest public release!
 
-One of the earliest complete, albeit simple games, was an implementation of Snake.
+They can all be found in the [indigo-examples](https://github.com/PurpleKingdomGames/indigo-examples) repo.
 
-Although the code is originally several years old and possibly not what the authors would do now if they were starting again, the code base has nonetheless been kept up to date. Snake has been part of Indigo's standard build process for a long time now, helping us ensure we haven't broken anything!
+Please visit the [repo](https://github.com/PurpleKingdomGames/indigo-examples) for more information.
 
-The code is freely accessible for you to use as reference as the following location:
-
-[https://github.com/PurpleKingdomGames/indigo/tree/master/demos/snake](https://github.com/PurpleKingdomGames/indigo/tree/master/demos/snake)
-
-## Working feature examples
-
-Also as part of indigo's build, exists a suite of examples that allow us to quickly check individual features:
-
-[https://github.com/PurpleKingdomGames/indigo/tree/master/examples](https://github.com/PurpleKingdomGames/indigo/tree/master/examples)
-
-They aren't always glamorous, but they are handy for reference!
+You can play a game of [Snake](/snake.html) and try the [The Cursed Pirate](/pirate.html) demo on this site. Please note that The Cursed Pirate demo is not a game, just a little demo of how you might build a platformer.

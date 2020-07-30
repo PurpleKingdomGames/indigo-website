@@ -25,11 +25,12 @@ class Snake extends React.Component {
     return (
       <div className="docMainWrapper wrapper">
         <Container className="mainContainer documentContainer postContainer">
-          <Game snakegame_script_path={`${baseUrl}scripts/snakegame.js`} gamepage_script_path={`${baseUrl}scripts/gamepage.js`} />
+          <Game snakegame_script_path={`${baseUrl}scripts/pirategame.js`} gamepage_script_path={`${baseUrl}scripts/gamepage.js`} />
           <div align="center">
             For more information, please visit the <a href="https://github.com/PurpleKingdomGames/indigo-examples">examples repo</a>.<br />
-            Keyboard controls: Use Space bar and arrows keys to navigate and accept menus.<br />
-            Game controls are either left and right arrow keys to tunr left and right relative to the snake,<br />or press the arrow to change to the corresponding direction.<br />
+            Requirements: Keyboard or PS4 controller, runs at fixed resolution of 1280x720.<br />
+            Keyboard: Left & right arrow keys to move. Up arrow or Spacebar to jump.<br />
+            PS4 Controllor: Left analog to move and 'X' button to jump.
           </div>
         </Container>
       </div>
