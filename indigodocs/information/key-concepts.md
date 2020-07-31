@@ -25,7 +25,7 @@ assert(actual == expected)
 
 The above would only hold true if there are no side effects. The problem is that games are random, time sensitive, and usually use mutable state for better performance - all of which are normally side effecting issues.
 
-Some of he key things that Indigo gives you:
+Some of the key things that Indigo gives you:
 
 1. Known time - each frame's logic gets one time value regardless of how long it takes to process the frame.
 2. Psuedo randomness - seeded from the game's running time, but you can always find out what "random" values were used provided you use a propagated `dice` instance.
@@ -55,7 +55,7 @@ The point of this function is purity: What you get out, should be a result of wh
 
 >Scala is an impure functional programming language, so you are not restricted to writing games that obey these notions of purity and referential transparency, but you should start there.
 
-## Inputs are immutable and predicatable
+## Inputs are immutable and predictable
 
 It will come as no surprise to Scala functional programmers, but all of the inputs to the run function above are immutable. You can access them and read from them but you can't change them. This eliminates a whole class of errors around race conditions during frame evaluation.
 
@@ -92,4 +92,4 @@ The `SceneUpdateFragment` and `List[GlobalEvent]` however are critical as they a
 
 Since the scene and events can be produced as outputs from a range of processes, it's essential that they can be combined reliably and predictably (hence, Monoidal).
 
-This has the incredibility useful property that you don't need to describe your frame's results (graph and events) all in one go. You can defined them in little modules (such as Indigo's `SubSystem`s) and be sure that indigo will combine them in a predictable and test friendly when the game is run.
+This has the incredibly useful property that you don't need to describe your frame's results (graph and events) all in one go. You can define them in little modules (such as Indigo's `SubSystem`s) and be sure that Indigo will combine them in a predictable and test friendly way when the game is run.
