@@ -3,7 +3,7 @@ id: subsystems
 title: SubSystems
 ---
 
-> Note: SubSystems have change substantially between versions 0.1.0 and 0.2.0 of Indigo. There were essentially OO constructs, where now they are FP, in that their data is separated from their functions.
+> Note: SubSystems have change substantially between versions 0.1.0 and 0.2.0 of Indigo, having moved from OO to FP in both style and form.
 
 ## What SubSystems are
 
