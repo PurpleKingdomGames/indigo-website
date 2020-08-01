@@ -69,7 +69,7 @@
 <li><code>IndigoGame</code> - Like demo, but with Scene management built it.</li>
 </ol>
 <blockquote>
-<p>You can also write you're own entry point, take a look at the code for IndigoSandbox in the repo.</p>
+<p>You can also write you're own entry point, take a look at the code for <code>IndigoSandbox</code> in the repo.</p>
 </blockquote>
 <p>In this guide, we'll be using <code>IndigoSandbox</code> for brevity and our &quot;game&quot; will be called <code>helloindigo</code>.</p>
 <blockquote>
@@ -106,13 +106,13 @@
     ()
 
   <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">updateModel</span></span>(
-      context: <span class="hljs-type">FrameContext</span>,
+      context: <span class="hljs-type">FrameContext</span>[<span class="hljs-type">Unit</span>],
       model: <span class="hljs-type">Unit</span>
   ): <span class="hljs-type">GlobalEvent</span> =&gt; <span class="hljs-type">Outcome</span>[<span class="hljs-type">Unit</span>] =
     _ =&gt; <span class="hljs-type">Outcome</span>(())
 
   <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">present</span></span>(
-      context: <span class="hljs-type">FrameContext</span>,
+      context: <span class="hljs-type">FrameContext</span>[<span class="hljs-type">Unit</span>],
       model: <span class="hljs-type">Unit</span>
   ): <span class="hljs-type">SceneUpdateFragment</span> =
     <span class="hljs-type">SceneUpdateFragment</span>.empty
@@ -121,16 +121,20 @@
 </code></pre>
 <p>A lot of this is self explanatory hopefully, but let's go through a couple of the more note worthy points.</p>
 <p>The <code>indigo._</code> import is optional, but conveniently brings in all of the basic syntax so that you don't need to worry about finding things.</p>
+<p>Next up is the only like of Scala.js you have to know:</p>
 <pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> scala.scalajs.js.annotation.<span class="hljs-type">JSExportTopLevel</span>
 <span class="hljs-meta">@JSExportTopLevel</span>(<span class="hljs-string">"IndigoGame"</span>)
 </code></pre>
-<p>Indigo games are Scala.js projects. We've worked hard to make Indigo feel as much like a normal Scala project as possible, however, we do need a hook for the page. If you're using the standard Indigo Mill or SBT plugins, you <em>must</em> name your game &quot;IndigoGame&quot; or it won't work. Once you move to your own page embed you can call it whatever you like!</p>
+<p>Indigo games are Scala.js projects. We've worked hard to make Indigo feel as much like a normal Scala project as possible, however, we do need a hook for the page. If you're using the standard Indigo Mill or SBT plugins, you <strong><em>must name your game &quot;IndigoGame&quot; or it won't work</em></strong>. Once you move to your own page embed you can call it whatever you like!</p>
+<p><code>IndigoSandbox</code> takes two type parameters that define your start up data type, and the type of your model. Later on we'll introduce a real model, but for now we're just using <code>Unit</code> to say &quot;I'm not using these&quot;.</p>
 <pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">HelloIndigo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">IndigoSandbox</span>[<span class="hljs-type">Unit</span>, <span class="hljs-type">Unit</span>]</span>
 </code></pre>
-<p><code>IndigoSandbox</code> takes two type parameters that define your start up data type, and the type of your model. Later on we'll introduce a real model, but for now we're just using <code>Unit</code> to say &quot;I'm not using these&quot;.</p>
-<p>Everything else is just filling in the blanks to make it compile. Note the use of <code>Unit</code> all over the place, to match the type parameters on the trait. Also most types in Indigo try to provide sensible defaults such as <code>GameConfig.default</code> and <code>SceneUpdateFragment.empty</code>, so it's always worth checking the companion object.</p>
+<p>The other entry points mentioned earlier require you to declare more type parameters to cover: Boot data, start up data, model, and view model.</p>
+<p>Everything else is just filling in the blanks to make it compile.</p>
+<p>One small thing to note is that most types in Indigo try to provide sensible defaults such as <code>GameConfig.default</code> and <code>SceneUpdateFragment.empty</code>, so it's always worth checking the companion object.</p>
 <h3><a class="anchor" aria-hidden="true" id="running-the-demo---a-blank-screen"></a><a href="#running-the-demo---a-blank-screen" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Running the demo - a blank screen!</h3>
-<p>Assuming you have <a href="http://www.lihaoyi.com/mill/">Mill</a> and http-server set up as the <a href="/docs/quickstart/setup-and-configuration">guide</a> suggests, to run the demo, do the following from your command line:</p>
+<p>We're going to follow the Mill version of the project below, but the SBT version is almost identical, substituting <code>sbt buildGame</code> in place of <code>mill helloindigo.buildGame</code>.</p>
+<p>So assuming you have <a href="http://www.lihaoyi.com/mill/">Mill</a> and http-server set up as the <a href="/docs/quickstart/setup-and-configuration">guide</a> suggests, to run the demo, do the following from your command line:</p>
 <pre><code class="hljs css language-bash">mill helloindigo.buildGame
 </code></pre>
 <p>Which will generate output similar to:</p>
@@ -149,7 +153,7 @@ Copying assets...
 <li>Navigate to <a href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a> in your browser of choice.</li>
 </ol>
 <h2><a class="anchor" aria-hidden="true" id="putting-something-on-the-screen"></a><a href="#putting-something-on-the-screen" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Putting something on the screen</h2>
-<p>Assuming you've got the same assets as the demo repo (note that you can change the asset source folder in the build settings!).</p>
+<p>On the assumption that you have the same assets as the demo repo (note that you can change the asset source folder in the build settings!):</p>
 <p>Replace:</p>
 <pre><code class="hljs css language-scala"><span class="hljs-keyword">val</span> assets: <span class="hljs-type">Set</span>[<span class="hljs-type">AssetType</span>] =
   <span class="hljs-type">Set</span>()
@@ -161,7 +165,7 @@ Copying assets...
   <span class="hljs-type">AssetType</span>.<span class="hljs-type">Image</span>(assetName, <span class="hljs-type">AssetPath</span>(<span class="hljs-string">"assets/dots.png"</span>))
 )
 </code></pre>
-<p>This tells indigo to load your image asset and file it away for future reference. To recall it when needed, you give it an <code>AssetName</code>.</p>
+<p>This tells indigo to load your image asset and file it away for future reference. To recall it when needed, you give it an <code>AssetName</code> as an identifier.</p>
 <p>Next replace:</p>
 <pre><code class="hljs css language-scala"><span class="hljs-type">SceneUpdateFragment</span>.empty
 </code></pre>
@@ -171,9 +175,9 @@ Copying assets...
 )
 </code></pre>
 <p>Note the use of <code>assetName</code> again to identify which image you want to use.</p>
-<p>Graphic is a member of the <code>SceneGraphNode</code> types, which also include things like <code>Sprite</code>, <code>Text</code>, <code>Group</code>, and <code>Clone</code>. Please note that most of these have a range of constructors to try and make using them easier, and all of them follow a fluent API design to modify their parameters.</p>
+<p><code>Graphic</code> is a member of the <code>SceneGraphNode</code> types, which also include things like <code>Sprite</code>, <code>Text</code>, <code>Group</code>, and <code>Clone</code>. Please note that most of these have a range of constructors to try and make using them easier, and all of them follow a fluent API design to modify their parameters.</p>
 <p>Run the demo again and you should see a graphic in the top left corner at position <code>(0,0)</code>!</p>
-<p>It's quite small though... so come back to you code and replace <code>GameConfig.default</code> with:</p>
+<p>It's quite small though... so come back to your code and replace <code>GameConfig.default</code> with:</p>
 <pre><code class="hljs css language-scala"><span class="hljs-keyword">val</span> magnification = <span class="hljs-number">3</span>
 
 <span class="hljs-keyword">val</span> config: indigo.<span class="hljs-type">GameConfig</span> =
@@ -181,7 +185,7 @@ Copying assets...
 </code></pre>
 <p>Indigo is built for pixel art, and will automatically scale up not just your graphics, but also things like mouse positions. You just have to build your game as if the game was running at a 1:1 pixel ratio and Indigo will do the rest.</p>
 <h2><a class="anchor" aria-hidden="true" id="what-else-can-graphics-do"></a><a href="#what-else-can-graphics-do" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What else can <code>Graphic</code>s do?</h2>
-<p>Graphic are relatively cheap on-screen objects, but their unique party trick is being able to crop their contents. Update this:</p>
+<p>Graphic are relatively cheap on-screen objects, in terms of performance, but their unique party trick is being able to crop their contents. Update this:</p>
 <pre><code class="hljs css language-scala"><span class="hljs-type">SceneUpdateFragment</span>(
   <span class="hljs-type">Graphic</span>(<span class="hljs-type">Rectangle</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">32</span>, <span class="hljs-number">32</span>), <span class="hljs-number">1</span>, <span class="hljs-type">Material</span>.<span class="hljs-type">Textured</span>(assetName))
 )
@@ -195,7 +199,10 @@ Copying assets...
     .moveTo(config.viewport.giveDimensions(magnification).center)
 )
 </code></pre>
-<p>Run it again and you should now have just the yellow circle right in the middle of the screen. The image is 32x32, and we've cropped down to the bottom right corner which is at location 16x16 and is 16x16 pixels in size. We've then moved the &quot;reference point&quot; which is the point Indigo used to position, scale, and rotate things to being in the middle of the new graphic, i.e. 8x8. Finally we moved it to the middle of the screen. Normally the top left of the image would now be at the screen's center, but because we moved the reference point, the graphic is placed evenly over the mid point.</p>
+<p>Run it again and you should now have just the yellow circle right in the middle of the screen. The image is 32x32, and we've cropped down to the bottom right corner which is at location 16x16 and is 16x16 pixels in size. We've then moved the &quot;reference point&quot; which is the point Indigo uses to position, scale, and rotate things to being in the middle of the new graphic, i.e. 8x8. Finally we moved it to the middle of the screen. Normally the top left of the image would now be at the screen's center, but because we moved the reference point, the graphic is placed evenly over the mid point.</p>
+<blockquote>
+<p>An important but subtle thing has happened here, that if you're used to conventional game engines might surprise you. Normally to add an entity to the screen you have to explicitly add it (perhaps after a callback or event), and then later, explicitly remove or delete it but location in the tree or by id. This is because usually scene graphs are mutable trees of some kind, and each leaf carries state and so on. In Indigo, the view is stateless and simply draws whatever is currently returned by the <code>present</code> function. So &quot;deleting&quot; something from the view is just the same as omitting it from the returned <code>SceneUpdateFragment</code> on this frame.</p>
+</blockquote>
 <h2><a class="anchor" aria-hidden="true" id="lets-make-the-dot-move"></a><a href="#lets-make-the-dot-move" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Let's make the dot move</h2>
 <p>We're going to make the dot move using a <code>Signal</code>. Signals are powerful but a bit complicated, so we're going to use it here just to show you them in action and get rid of it again in the next step.</p>
 <p>Replace:</p>
@@ -209,24 +216,27 @@ Copying assets...
     .at(context.gameTime.running)
 )
 </code></pre>
-<p>Signals are just a function from <code>t:Time =&gt; A</code>. This code uses an inbuilt Signal called Orbit that rotates around a point at a fixed distance based on the current time.</p>
+<p>Signals are just a function from <code>t:Time =&gt; A</code> (Time is really the type <code>Seconds</code>). This code uses an inbuilt Signal called Orbit that rotates around a point at a fixed distance based on the current time.</p>
 <pre><code class="hljs css language-text">Question: Orbit looks a bit simple, what if you wanted it to rotate slower or faster?
 
-Answer: Slow down or speed up time!
+Answer: Slow down or speed up time! (There is an `affectTime` function for this.)
 </code></pre>
-<p>Stepping through the code, we request an Orbit signal that rotates around the center of the screen at a distance of 30 pixels. The signal produces a <code>Vector2</code> so we have to map that to a <code>Point</code> because Indigo insists that everything is drawn on a whole pixel. Finally we tell the signal what time it is, and it produces the value we want: A point to move our dot to.</p>
+<p>Stepping through the code, we request an Orbit signal that rotates around the center of the screen at a distance of 30 pixels. The signal produces a <code>Vector2</code> so we have to convert that to a <code>Point</code> because Indigo insists that everything is drawn on a whole pixel. Finally we tell the signal what time it is, and it produces the value we want: A point to move our dot to.</p>
 <h2><a class="anchor" aria-hidden="true" id="time-matters"></a><a href="#time-matters" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Time matters</h2>
 <p>Before we move on, if you're new to game dev, it's worth noting the importance of that last bit. All movement in your real game should be based on time, one way or another.</p>
 <p>Consider how we might move something along the x-axis:</p>
 <pre><code class="hljs css language-scala">graphic.moveBy(<span class="hljs-number">10</span>, <span class="hljs-number">0</span>)
 </code></pre>
 <p>Every time that code is run, it will increment the graphic's x position by 10. Great! our games runs at 60 frames per second (FPS) so we're going to move at a velocity of 600 pixels per second. Or are we?</p>
-<p>The problem is the frame processing times vary, meaning that at <em>best</em> you'll get 60 FPS / 600 pixels movement, but more likely your frame rate will fluctuate, peaking at 60 and occasionally dropping lower, maybe for a minor GC pause, maybe because you suddenly had a massive bit of processing to do for your game.</p>
+<p>The problem is the frame processing times vary, meaning that at <em>best</em> you'll get 60 FPS / 600 pixels movement, but more likely your frame rate will fluctuate, peaking at 60 and occasionally dropping lower, maybe for a minor GC pause, maybe because you suddenly had a massive bit of processing to do for your game or just just started drawing more stuff on the screen.</p>
 <p>Either way the result is that your x-axis movement is no longer smooth.</p>
 <p>The solution is to do this:</p>
 <pre><code class="hljs css language-scala">graphic.moveBy(<span class="hljs-number">600</span> * time delta in seconds, <span class="hljs-number">0</span>)
 </code></pre>
 <p>That is, we say that we want a velocity of 600 pixels per second, but multiply that 600 by the fraction of a second since the last frame update. At 60 FPS, <code>600 * 0.01666 = 9.996</code> i.e near as makes no odds the 10 pixel movement we wanted, while at a dip to 55 FPS we get <code>600 * 0.01818 = 10.908</code>, meaning that you move a little further to make up for lost time.</p>
+<blockquote>
+<p>This is known as <strong><em>frame independent movement</em></strong>.</p>
+</blockquote>
 <h2><a class="anchor" aria-hidden="true" id="it-isnt-a-game-if-you-cant-play-with-it"></a><a href="#it-isnt-a-game-if-you-cant-play-with-it" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>It isn't a game, if you can't play with it.</h2>
 <p>Time to turn our animation into something you can fiddle with, if not exactly &quot;play&quot;.</p>
 <p>Please note that you can see the <a href="https://github.com/PurpleKingdomGames/hello-indigo/commit/ca6f16c09c0d1be29da960dc26a9b7b5e8198bab">real diff here</a>.</p>
@@ -234,10 +244,10 @@ Answer: Slow down or speed up time!
 <p>So far, we've just been drawing things, and we haven't needed to remember anything in order to decide what to draw or where it should go on the screen, and that's been fine.</p>
 <p>As soon as you need to start remembering things, you need to use a <code>Model</code> or a <code>ViewModel</code>.</p>
 <p>The idea of the <code>Model</code> is that it should be about storing the <em>abstract version of your game</em> meaning that it has no concept of pixels or screen dimensions of or anything like that. The <code>Model</code> should normally be decoupled from the view and all view logic (other than the view reading the model). Normally a save game would be generated from the model only.</p>
-<p>Sometimes though, you need to remember things in screen space, concrete details about positions and animation states, and in those cases you use a <code>ViewModel</code>. Conversely, a <code>ViewModel</code> should not hold any data you wouldn't mind losing, i.e. presentation data only, no game data.</p>
-<p><strong>One limitation of the Sandbox is that it has no <code>ViewModel</code>, so we're going to have to immediately break our rule a bit.</strong></p>
+<p>Sometimes though, you need to remember things in screen space, concrete details about positions and animation states, and in those cases you would use a <code>ViewModel</code>. Conversely, a <code>ViewModel</code> should not hold any data you wouldn't mind losing, i.e. presentation data only, no game data.</p>
+<p><strong>One limitation of the Sandbox is that it has no <code>ViewModel</code>, so we're going to have to immediately break our rule a bit!</strong></p>
 <h3><a class="anchor" aria-hidden="true" id="adding-interaction"></a><a href="#adding-interaction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Adding interaction</h3>
-<p>What we're going to do is make it so that the screen starts empty (apart from our graphic in the corner), and when you click the screen, a yellow dot is put into orbit at the distance you clicked.</p>
+<p>What we're going to do is make it so that the screen starts empty (apart from our graphic in the corner), and when you click the screen, a yellow dot is put into orbit around the center of the screen, at the distance you clicked.</p>
 <p>To do that we're going to need a simple model, so let us define some case classes to hold our data.</p>
 <p>Add this to the bottom of your file:</p>
 <pre><code class="hljs css language-scala"><span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Model</span>(<span class="hljs-params">center: <span class="hljs-type">Point</span>, dots: <span class="hljs-type">List</span>[<span class="hljs-type">Dot</span>]</span>) </span>{
@@ -250,6 +260,7 @@ Answer: Slow down or speed up time!
 <span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">Model</span> </span>{
   <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initial</span></span>(center: <span class="hljs-type">Point</span>): <span class="hljs-type">Model</span> = <span class="hljs-type">Model</span>(center, <span class="hljs-type">Nil</span>)
 }
+
 <span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dot</span>(<span class="hljs-params">orbitDistance: <span class="hljs-type">Int</span>, angle: <span class="hljs-type">Radians</span></span>) </span>{
   <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update</span></span>(timeDelta: <span class="hljs-type">Seconds</span>): <span class="hljs-type">Dot</span> =
     <span class="hljs-keyword">this</span>.copy(angle = angle + <span class="hljs-type">Radians</span>.fromSeconds(timeDelta))
@@ -259,12 +270,21 @@ Answer: Slow down or speed up time!
 <ol>
 <li>We've got an <code>initial</code> model definition - got to start somewhere!</li>
 <li>For convenience we've got an <code>addDot</code> method on the model</li>
-<li>We've also got an simple update function that cascades through our model objects propagating the time delta we talked about earlier.</li>
+<li>We've also got a simple <code>update</code> function that cascades through our model objects propagating the time delta we talked about earlier.</li>
 </ol>
 <p>Angles are measured in Radians, if you're not used to Radians then the <code>Radian</code> class has a <code>fromDegrees</code> function ...but you're a game developer now! Learn about radians!</p>
-<p>For Maths magic, you can't do better than <a href="https://twitter.com/FreyaHolmer">Freya Holmér's twitter feed</a>, <a href="https://twitter.com/FreyaHolmer/status/1202648662049996801">here</a> and <a href="https://twitter.com/FreyaHolmer/status/1173752820954214400?s=20">especially here</a> is how Radians work for example.</p>
+<p>Crash course:</p>
+<pre><code class="hljs"><span class="hljs-number">360</span> degress = TAU
+TAU = <span class="hljs-number">2</span> * <span class="hljs-literal">PI</span>
+<span class="hljs-literal">PI</span> = <span class="hljs-number">3.1415926536</span>
+
+So, <span class="hljs-number">360</span> degrees in radians is <span class="hljs-number">6.2831853072</span>.
+
+A lot of game engines still talk about radians in terms of <span class="hljs-literal">PI</span>, but it's far more convenient to use TAU, and the Radians class has TAU based constants (as well as <span class="hljs-literal">PI</span> based ones).
+</code></pre>
+<p>For Maths magic, you can't do better than <a href="https://twitter.com/FreyaHolmer">Freya Holmér's twitter feed</a>, <a href="https://twitter.com/FreyaHolmer/status/1202648662049996801">here</a> and <a href="https://twitter.com/FreyaHolmer/status/1173752820954214400?s=20">especially here</a> is how Radians work, for example.</p>
 <p>I digress: Let's set up our model.</p>
-<p>First you need to tell Indigo what class you're using for your Model like so:</p>
+<p>First you need to tell Indigo what class you're using for your Model, like so:</p>
 <pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">HelloIndigo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">IndigoSandbox</span>[<span class="hljs-type">Unit</span>, <span class="hljs-type">Unit</span>] </span>{
 </code></pre>
 <p>becomes:</p>
@@ -319,7 +339,7 @@ Answer: Slow down or speed up time!
 </code></pre>
 <p>The model update function is just a function that has been partially applied with the context of this frame, and then a big pattern match on the event types.</p>
 <blockquote>
-<p><code>GlobalEvent</code> is a trait used to tag things as events. The largest source of errors / surprises in Indigo - in my experience so far - is from the fact that we can't exhaustively check these events at the moment. There are some ideas about how to improve that in a future release.</p>
+<p><code>GlobalEvent</code> is a trait used to tag things as events. The largest source of errors / surprises in Indigo - in my experience so far - is from the fact that we can't enforce exhaustively checks on these events at the moment.</p>
 </blockquote>
 <p>In this case, we're interested in two events. A <code>MouseEvent.Click(x, y)</code> so that we can add a new dot, and a <code>FrameTick</code>. FrameTick is a bit special because it always happens last.. and it always happens!</p>
 <p>When a mouse click is noticed, we call our <code>addDot</code> method with a new Dot, providing the orbital distance and the angle from the center of the screen two the point where we clicked the mouse.</p>
@@ -357,5 +377,12 @@ Answer: Slow down or speed up time!
   }
 </code></pre>
 <p>Run it, and hopefully clicking on the screen will add yellow dots!</p>
-<p>If it doesn't work, remember you can always <a href="https://github.com/PurpleKingdomGames/hello-indigo">compare with the repo</a>.</p>
+<p>If it doesn't work, remember you can always <a href="https://github.com/PurpleKingdomGames/hello-indigo">compare with the repo</a>!</p>
+<p>Hopefully this has given you a little taste of how Indigo works. Next you could try:</p>
+<ol>
+<li>Sticking with the sandbox and trying out other features - perhaps take a look at the <a href="https://github.com/PurpleKingdomGames/indigo-examples/tree/master/examples">examples</a> for ideas?</li>
+<li>Switch to a different entry point (<code>IndigoDemo</code> or <code>IndigoGame</code>), and see if you can modify the example above to fit. Could you make use of the view model? You'd probably only need one scene, but how would it be set up?</li>
+<li>Try porting the code above to a <code>SubSystem</code> - what will the relationship between the main game and the subsystem be?</li>
+</ol>
+<p>We hope you enjoyed creating something - however simple - that was visual, interactive and fun in Scala, and we look forward to seeing what you create next!</p>
 </span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/quickstart/setup-and-configuration"><span class="arrow-prev">← </span><span>Setup &amp; Configuration</span></a><a class="docs-next button" href="/docs/quickstart/examples"><span>Examples</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#choose-your-game-api-style">Choose your game API style</a></li><li><a href="#hello-indigo">&quot;Hello, Indigo!&quot;</a><ul class="toc-headings"><li><a href="#running-the-demo---a-blank-screen">Running the demo - a blank screen!</a></li></ul></li><li><a href="#putting-something-on-the-screen">Putting something on the screen</a></li><li><a href="#what-else-can-graphics-do">What else can <code>Graphic</code>s do?</a></li><li><a href="#lets-make-the-dot-move">Let's make the dot move</a></li><li><a href="#time-matters">Time matters</a></li><li><a href="#it-isnt-a-game-if-you-cant-play-with-it">It isn't a game, if you can't play with it.</a><ul class="toc-headings"><li><a href="#remembering-things">Remembering things</a></li><li><a href="#adding-interaction">Adding interaction</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/indigo_logo.svg" alt="Indigo" width="66" height="58"/></a><div><h5>Getting Started</h5><a href="/docs/en/quickstart/setup-and-configuration">Setup &amp; Configuration Guide</a><a href="/docs/en/quickstart/hello-indigo">&quot;Hello, Indigo!&quot; Tutorial</a><a href="/docs/en/quickstart/examples">Links to examples</a></div><div><h5>Community</h5><a href="https://discord.gg/b5CD47g">Discord</a><a href="https://twitter.com/indigoengine" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="https://github.com/PurpleKingdomGames/indigo">GitHub</a><a class="github-button" href="https://github.com/PurpleKingdomGames/indigo" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 Purple Kingdom Games Limited</section></footer></div></body></html>
