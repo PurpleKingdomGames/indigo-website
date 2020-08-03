@@ -11,15 +11,15 @@ title: Performance
 
 Performance is relative. When people talk about game engine performance, they are usually talking about how many things it can do at once.
 
-The way raw engine performance is typically achieved is by utilizing clever data structures, mutable data stores, reusing allocated memory to keep usage constant, insisting on never creating new objects, and multi-threading.
+The way raw engine performance is typically achieved is by utilizing clever data structures, mutable data stores, reusing allocated memory to keep usage constant, insisting on never creating new objects, and utilizing multi-threading.
 
-All of that can lead to high performance, but it takes careful management since your guarantees around runtime behavior are reduced, and bugs can occur.
+All of that _can_ lead to higher performance, but it takes careful management since your guarantees around runtime behavior are reduced, and bugs can occur.
 
 In order to bring performance up, Indigo itself does all this too. Where Indigo and normal game engines diverge is that while these techniques are used by Indigo under the covers, it is strongly discouraged at the API level. Why is that?
 
-What if you could build games with an expectation of no bugs? Games that you _know_ work before you play them because you can bring to bear an advanced type system, refinement types, property based testing and any other code quality tool you can think of?
+What if you could build games with an expectation of no bugs? Games that you _know_ work before you play them because you can bring to bear an advanced type system, refinement types, property based testing, TDD (without excessive mocking), and any other code quality tool you can think of?
 
-Couldn't developer productivity be considered a type of performance too? The design of Indigo is the take an engine performance hit at the API level, in order to increase developer performance (easy to reason about, easy to test) and game production efficiency.
+Couldn't developer productivity be considered a type of performance too? The design of Indigo is to take an engine performance hit at the API level, in order to increase developer performance (easy to reason about, easy to test) and game production efficiency.
 
 _Please note: You're still going to have to play your game at some point. No automated test suite in the world will tell you if you've made something fun or not!_
 
@@ -30,9 +30,9 @@ Having establishing that you're never going to get [a billion triangles](https:/
 Well, two slightly disappointing observations that we've made about 2D games during Indigo's development:
 
 1. Most 2D games on the market don't actually have that many elements on screen at any one time - there's only so much screen real estate available for use when you have no real perspective or depth. (Naturally there are exceptions)
-2. Most game logic is quite straight forward. The complexity is in how the elements interact.
+2. Most game logic is quite straight forward, and revolve around a few core mechanics. The complexity is in how the elements interact.
 
-Knowing that, Indigo absolutely is fast enough without you have to do anything clever or special, and still being able to hit 60 frames per second.
+With that in mind then: Indigo is fast enough that you should not have to do anything clever or special to be able to hit a respectable frame rate for most games.
 
 ### Start on the assumption that it will be fast enough
 
@@ -57,13 +57,13 @@ Indigo is single threaded and runs in the browser. JavaScript code execution the
 
 **Your main enemy in the quest for performance is memory allocation and subsequent garbage collection pauses.**
 
-The near universal mantra of game developers is to never allocate memory / create new objects during a frame. Ever. Reuse, reuse, reuse. Unfortunately, Indigo is built on Scala offering up an immutable API, so we're going to be making new objects _all the time_.
+The near universal mantra of game developers is to never allocate memory, i.e. create new objects, during a frame. Ever. Reuse, reuse, reuse. Unfortunately, Indigo is built on Scala offering up an immutable API, so we're going to be making new objects _all the time_.
 
 Generally your performance will suffer the more things you add to the screen. Our goal is to get the same effect you get by adding lots of things, but by doing less work. Here are a few tips for squeezing out some extra juice.
 
 ### Measure twice, cut once
 
-> Be Aware: Running profiling tooling is, itself, expensive! You're game might do 58 FPS normally and 47 under profiling.
+> Be Aware: Running profiling tooling is, itself, expensive! You're game might do 58 FPS normally and 47 under profiling. Try plugging in the FPS Counter `SubSystem` for another view.
 
 Modern browsers have amazing profiling tools built into them these days. Get to know them by recording the performance of your running game, and then look for evidence of where you're creating things like GC pauses or large numbers of allocations, and try to track down the culprit code.
 
@@ -73,9 +73,11 @@ If you aren't improving the slowest bottleneck of your game code, you aren't imp
 
 ### If you can't see it, don't draw it
 
-Normally when you create a game element like a sprite in a game engine, they hang around until you remove them. Indigo only draws what your `SceneUpdateFragment` describes **right now**. As such, Indigo assumes you know what you're doing and doesn't try to do any clever interpretation of your scene.
+Normally when you create a game element like a sprite in a conventional game engine, they hang around until you remove them. Indigo only draws what your `SceneUpdateFragment` describes **right now**. As such, Indigo assumes you know what you're doing and doesn't try to do any clever interpretation of your scene*.
 
-For example: A normal practice is to do ["Viewing-frustum culling"](https://en.wikipedia.org/wiki/Viewing_frustum) to remove things that aren't visible on the screen i.e it's "off camera". In Indigo, it's up to you as the game developer to do this, by only adding things to be drawn to the current frames `SceneUpdateFragment`. We make no assumptions about how you implement your camera / view description. The renderer will cull elements that are not on screen, but this will not stop the associated view objects from being wastefully processed.
+> *Culling at the render level will occur, but that won't prevent the processing of your scene elements.
+
+Normal practice is to perform ["Viewing-frustum culling"](https://en.wikipedia.org/wiki/Viewing_frustum) to remove things that aren't visible on the screen i.e it's "off camera".
 
 ### Render batch size
 
@@ -87,9 +89,9 @@ In general fiddling will only affect games with a lot of scene elements.
 
 ### Automata
 
-Automata a great fun, and a very convenient way to manage and program short lived little entities with simple life cycles e.g. the points that appear above a characters head when they pick up a coin.
+Automata are great fun, and a very convenient way to manage and program short lived little entities with simple life cycles e.g. the points that appear above a characters head when they pick up a coin.
 
-However, they can allocate a relatively large amount because the structures they use to make them fun and easy to use, are _not_ the most light weight way to solve the problem. Rule of thumb: A few hundred are probably fine.
+However, they can allocate relatively large amounts of memory because the structures they use to make them fun to use, are _not_ the most light weight way to solve the problem. As a rule of thumb: A few hundred are probably fine.
 
 #### Tweak the pool size
 
@@ -97,7 +99,7 @@ A simple way to improve performance of automata - depending on the circumstances
 
 #### SubSystems vs Automata
 
-An Automata system is just a SubSystem. If you need simple particles in high volumes and are prepared to manage the state yourself, you can write much leaner code by hand crafting a `SubSystem`, especially in combination with clones.
+The Automata system is just a SubSystem. If you need simple particles in high volumes and are prepared to manage the state yourself, you can write much leaner code by hand crafting a `SubSystem`, especially in combination with clones.
 
 ### Use Clones
 
@@ -105,7 +107,7 @@ An Automata system is just a SubSystem. If you need simple particles in high vol
 
 Clones are Indigo's version of what is known as "instancing". Say you want to render lots (lots and lots and lots!) of things that are more or less identical, such as blades of grass or tiles in a tile map, you should consider using clones.
 
-With clones, you set up a reference object (that you can update as you like), and then tell indigo to render many more of them. This shortcuts a lot of processing in the pipeline and allows for vast numbers of things to be drawn at the cost of a lack of variety (although basic properties can be changed).
+With clones, you set up a reference object (that you can update as normal), and then tell indigo to render many more of them. This shortcuts a lot of processing in the pipeline and allows for vast numbers of copies to be drawn at the cost of a lack of variety, although a limited set of properties can be changed.
 
 Clone batches can also be declared static for even more performance, if they never change.
 
