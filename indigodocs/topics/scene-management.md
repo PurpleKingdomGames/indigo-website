@@ -53,22 +53,22 @@ The notable points in this interface compared with the others are:
 
 ## Building a Scene
 
-A scene is built by creating an object (or class) that extends `Scene[GameModel, ViewModel]`. Here's the trait:
+A scene is built by creating an object (or class) that extends `Scene[StartupData, GameModel, ViewModel]`. Here's the trait:
 
 ```scala
-trait Scene[GameModel, ViewModel] {
+trait Scene[StartupData, GameModel, ViewModel] {
   type SceneModel
   type SceneViewModel
 
   val name: SceneName
-  val sceneModelLens: Lens[GameModel, SceneModel]
-  val sceneViewModelLens: Lens[ViewModel, SceneViewModel]
+  val modelLens: Lens[GameModel, SceneModel]
+  val viewModelLens: Lens[ViewModel, SceneViewModel]
+  val eventFilters: EventFilters
+  val subSystems: Set[SubSystem]
 
-  val sceneSubSystems: Set[SubSystem]
-
-  def updateSceneModel(context: FrameContext, sceneModel: SceneModel): GlobalEvent => Outcome[SceneModel]
-  def updateSceneViewModel(context: FrameContext, sceneModel: SceneModel, sceneViewModel: SceneViewModel): Outcome[SceneViewModel]
-  def updateSceneView(context: FrameContext, sceneModel: SceneModel, sceneViewModel: SceneViewModel): SceneUpdateFragment
+  def updateModel(context: FrameContext[StartupData], model: SceneModel): GlobalEvent => Outcome[SceneModel]
+  def updateViewModel(context: FrameContext[StartupData], model: SceneModel, viewModel: SceneViewModel): GlobalEvent => Outcome[SceneViewModel]
+  def present(context: FrameContext[StartupData], model: SceneModel, viewModel: SceneViewModel): SceneUpdateFragment
 }
 ```
 
