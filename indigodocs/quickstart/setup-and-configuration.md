@@ -11,7 +11,7 @@ Indigo games are completely normal [Scala.js](https://www.scala-js.org/) project
 
 You can use either [Mill](http://www.lihaoyi.com/mill/) or [SBT](https://www.scala-sbt.org/) to build your games, and for your convenience both Mill and SBT have associated plugins, `mill-indigo` and `sbt-indigo` respectively.
 
-The plugins help you bootstrap your game during development, they marshall your assets and serve as a reference implementation for _one_ way to embed your game into a web page.
+The plugins help you bootstrap your game during development, they marshal your assets and serve as a reference implementation for _one_ way to embed your game into a web page.
 
 Example output from a Mill indigo build of the [Snake example game](https://github.com/PurpleKingdomGames/indigo/tree/master/demos/snake), the SBT version is nearly identical:
 
@@ -55,19 +55,19 @@ import mill.scalalib._
 import mill.scalajslib._
 import mill.scalajslib.api._
 
-import $ivy.`io.indigoengine::mill-indigo:0.1.0`, millindigo._
+import $ivy.`io.indigoengine::mill-indigo:0.2.0`, millindigo._
 
 object mygame extends ScalaJSModule with MillIndigo {
-  def scalaVersion   = "2.13.2"
-  def scalaJSVersion = "1.0.1"
+  def scalaVersion   = "2.13.3"
+  def scalaJSVersion = "1.1.0"
 
   val gameAssetsDirectory: os.Path = os.pwd / "assets"
   val showCursor: Boolean          = true
   val title: String                = "My Game"
 
   def ivyDeps = Agg(
-    ivy"io.indigoengine::indigo-json-circe::0.1.0",
-    ivy"io.indigoengine::indigo::0.1.0"
+    ivy"io.indigoengine::indigo-json-circe::0.2.0",
+    ivy"io.indigoengine::indigo::0.2.0"
   )
 
 }
@@ -116,8 +116,8 @@ Which allows you to run `mill mygame.buildGame` and `mill mygame.publishGame` fr
 Add the following to your `project/plugins.sbt` file:
 
 ```scala
-addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.0.1")
-addSbtPlugin("io.indigoengine" % "sbt-indigo" % "0.1.0")
+addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.1.1")
+addSbtPlugin("io.indigoengine" % "sbt-indigo" % "0.2.0")
 ```
 
 ### build.sbt
@@ -131,7 +131,7 @@ lazy val mygame =
     .settings( // Standard SBT settings
       name := "mygame",
       version := "0.0.1",
-      scalaVersion := "2.13.2",
+      scalaVersion := "2.13.3",
       organization := "org.mygame"
     )
     .settings( // Indigo specific settings
@@ -139,8 +139,8 @@ lazy val mygame =
       title := "My Game",
       gameAssetsDirectory := "assets",
       libraryDependencies ++= Seq(
-        "io.indigoengine" %%% "indigo" % "0.1.0",
-        "io.indigoengine" %%% "indigo-json-circe" % "0.1.0",
+        "io.indigoengine" %%% "indigo" % "0.2.0",
+        "io.indigoengine" %%% "indigo-json-circe" % "0.2.0",
       )
     )
 ```
