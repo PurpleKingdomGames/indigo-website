@@ -60,13 +60,13 @@
               }
             });
         </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Hello, Indigo!</h1></header><article><div><span><p>This is a quick start tutorial to help you build something with Indigo.</p>
-<p>There are <a href="https://github.com/PurpleKingdomGames/hello-indigo">Mill</a> and <a href="https://github.com/PurpleKingdomGames/hello-indigo-sbt">SBT</a> repositories that go with this guide, please note that you can follow the games progression by looking through the commits on the <em>Mill</em> version.</p>
+<p>There are <a href="https://github.com/PurpleKingdomGames/hello-indigo">Mill</a> and <a href="https://github.com/PurpleKingdomGames/hello-indigo-sbt">SBT</a> repositories that go with this guide, please note that you can follow the games original development progression by looking through the commits on the <em>Mill</em> version.</p>
 <h2><a class="anchor" aria-hidden="true" id="choose-your-game-api-style"></a><a href="#choose-your-game-api-style" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Choose your game API style</h2>
 <p>Indigo comes with three game templates. Called entry points, they are just traits you extend that help give your game some shape, and can be described as:</p>
 <ol>
-<li><code>IndigoSandbox</code> - The smallest API interface, great for trying things out, doesn't scale as well and is missing some functionality.</li>
+<li><code>IndigoSandbox</code> - The smallest API interface, great for trying things out but doesn't scale as well, and is missing some functionality.</li>
 <li><code>IndigoDemo</code> - Technically gives you access to everything, but doesn't provide Scene management (you'd have to roll your own).</li>
-<li><code>IndigoGame</code> - Like demo, but with Scene management built it.</li>
+<li><code>IndigoGame</code> - Like <code>IndigoDemo</code>, but with Scene management built it.</li>
 </ol>
 <blockquote>
 <p>You can also write you're own entry point, take a look at the code for <code>IndigoSandbox</code> in the repo.</p>
@@ -134,24 +134,9 @@
 <p>One small thing to note is that most types in Indigo try to provide sensible defaults such as <code>GameConfig.default</code> and <code>SceneUpdateFragment.empty</code>, so it's always worth checking the companion object.</p>
 <h3><a class="anchor" aria-hidden="true" id="running-the-demo---a-blank-screen"></a><a href="#running-the-demo---a-blank-screen" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Running the demo - a blank screen!</h3>
 <p>We're going to follow the Mill version of the project below, but the SBT version is almost identical, substituting <code>sbt buildGame</code> in place of <code>mill helloindigo.buildGame</code>.</p>
-<p>So assuming you have <a href="http://www.lihaoyi.com/mill/">Mill</a> and http-server set up as the <a href="/docs/quickstart/setup-and-configuration">guide</a> suggests, to run the demo, do the following from your command line:</p>
-<pre><code class="hljs css language-bash">mill helloindigo.buildGame
+<p>So assuming you have <a href="http://www.lihaoyi.com/mill/">Mill</a> and http-server set up as the <a href="/docs/quickstart/setup-and-configuration">guide</a> suggests, to run the demo (as of version 0.3.0), do the following from your command line:</p>
+<pre><code class="hljs css language-bash">mill helloindigo.runGame
 </code></pre>
-<p>Which will generate output similar to:</p>
-<pre><code class="hljs css language-bash">&gt; mill helloindigo.buildGame
-(...)
-[44/46] helloindigo.indigoBuildJS
-dirPath: /Users/(...)/hello-indigo/out/helloindigo/indigoBuildJS/dest
-Copying assets...
-/Users/(...)/hello-indigo/out/helloindigo/indigoBuildJS/dest/index.html
-[46/46] helloindigo.buildGame
-</code></pre>
-<p>Then do:</p>
-<ol>
-<li><code>cd /Users/(...)/hello-indigo/out/helloindigo/indigoBuildJS/dest/</code></li>
-<li><code>http-server -c-1</code></li>
-<li>Navigate to <a href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a> in your browser of choice.</li>
-</ol>
 <h2><a class="anchor" aria-hidden="true" id="putting-something-on-the-screen"></a><a href="#putting-something-on-the-screen" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Putting something on the screen</h2>
 <p>On the assumption that you have the same assets as the demo repo (note that you can change the asset source folder in the build settings!):</p>
 <p>Replace:</p>
@@ -227,7 +212,7 @@ Answer: Slow down or speed up time! (There is an `affectTime` function for this.
 <p>Consider how we might move something along the x-axis:</p>
 <pre><code class="hljs css language-scala">graphic.moveBy(<span class="hljs-number">10</span>, <span class="hljs-number">0</span>)
 </code></pre>
-<p>Every time that code is run, it will increment the graphic's x position by 10. Great! our games runs at 60 frames per second (FPS) so we're going to move at a velocity of 600 pixels per second. Or are we?</p>
+<p>Every time that code is run, it will increment the graphic's x position by 10. Great! Our games runs at 60 frames per second (FPS) so we're going to move at a velocity of 600 pixels per second. Or are we?</p>
 <p>The problem is the frame processing times vary, meaning that at <em>best</em> you'll get 60 FPS / 600 pixels movement, but more likely your frame rate will fluctuate, peaking at 60 and occasionally dropping lower, maybe for a minor GC pause, maybe because you suddenly had a massive bit of processing to do for your game or just just started drawing more stuff on the screen.</p>
 <p>Either way the result is that your x-axis movement is no longer smooth.</p>
 <p>The solution is to do this:</p>
