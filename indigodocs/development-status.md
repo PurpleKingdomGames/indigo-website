@@ -3,11 +3,11 @@ id: development-status
 title: Indigo's Development Status
 ---
 
-> Indigo version 0.2.0 was released on the 29th of July 2020, and should be considered to be in an "alpha" state i.e. We believe it's useful, but we expect issues will emerge as people start to use it.
+> Indigo version 0.3.0 was released on the 23th of August 2020, and should be considered to be in an "alpha" state i.e. We believe it's useful, but we expect issues will emerge through use.
 
 ## Can I use Indigo to build my game?
 
-Yes! At this stage, we think it would be particularly suitable for small titles, prototypes and [game jams!](https://itch.io/jams/upcoming)
+Yes! At this stage, we think it would be particularly suitable for small titles, prototypes, and [game jams!](https://itch.io/jams/upcoming)
 
 We'd love you to try building your game in Indigo and let us know how you get on. After several years development, and the building of countless demos and small test games, we have every reason to believe it will work as expected.
 
@@ -29,8 +29,4 @@ Game engines have to do a broad range of jobs to meet the needs of general purpo
 
 Development across the breath of features has been uneven. Since Indigo is unusual in the way it works, some areas of the code, like the main scene processing pipeline, have had huge amounts of time spent on them. Other areas by contrast are probably shockingly naive because we did the simple thing, saw that it worked, moved on, and have had no reason to revisit them.
 
-We would be grateful if you highlighted any areas you feel need improvement by [raising an issue](https://github.com/PurpleKingdomGames/indigo/issues).
-
-## Is there a road map?
-
-There is! We will make it publicly available in due course.
+We would be grateful if you highlighted any areas you feel need improvement by [raising an issue](https://github.com/PurpleKingdomGames/indigo/issues) or getting involved with development!

@@ -5,21 +5,21 @@ title: Hello, Indigo!
 
 This is a quick start tutorial to help you build something with Indigo.
 
-There are [Mill](https://github.com/PurpleKingdomGames/hello-indigo) and [SBT](https://github.com/PurpleKingdomGames/hello-indigo-sbt) repositories that go with this guide, please note that you can follow the games progression by looking through the commits on the _Mill_ version.
+There are [Mill](https://github.com/PurpleKingdomGames/hello-indigo) and [SBT](https://github.com/PurpleKingdomGames/hello-indigo-sbt) repositories that go with this guide, please note that you can follow the games original development progression by looking through the commits on the _Mill_ version.
 
 ## Choose your game API style
 
 Indigo comes with three game templates. Called entry points, they are just traits you extend that help give your game some shape, and can be described as:
 
-1. `IndigoSandbox` - The smallest API interface, great for trying things out, doesn't scale as well and is missing some functionality.
+1. `IndigoSandbox` - The smallest API interface, great for trying things out but doesn't scale as well, and is missing some functionality.
 2. `IndigoDemo` - Technically gives you access to everything, but doesn't provide Scene management (you'd have to roll your own).
-3. `IndigoGame` - Like demo, but with Scene management built it.
+3. `IndigoGame` - Like `IndigoDemo`, but with Scene management built it.
 
 > You can also write you're own entry point, take a look at the code for `IndigoSandbox` in the repo.
 
 In this guide, we'll be using `IndigoSandbox` for brevity and our "game" will be called `helloindigo`.
 
->Reminder: The sandbox is limited in what it can do, and it geared towards briefly trying things out without the clutter of the two larger interfaces.
+> Reminder: The sandbox is limited in what it can do, and it geared towards briefly trying things out without the clutter of the two larger interfaces.
 
 ## "Hello, Indigo!"
 
@@ -99,29 +99,11 @@ One small thing to note is that most types in Indigo try to provide sensible def
 
 We're going to follow the Mill version of the project below, but the SBT version is almost identical, substituting `sbt buildGame` in place of `mill helloindigo.buildGame`.
 
-So assuming you have [Mill](http://www.lihaoyi.com/mill/) and http-server set up as the [guide](setup-and-configuration.md) suggests, to run the demo, do the following from your command line:
+So assuming you have [Mill](http://www.lihaoyi.com/mill/) and http-server set up as the [guide](setup-and-configuration.md) suggests, to run the demo (as of version 0.3.0), do the following from your command line:
 
 ```bash
-mill helloindigo.buildGame
+mill helloindigo.runGame
 ```
-
-Which will generate output similar to:
-
-```bash
-> mill helloindigo.buildGame
-(...)
-[44/46] helloindigo.indigoBuildJS
-dirPath: /Users/(...)/hello-indigo/out/helloindigo/indigoBuildJS/dest
-Copying assets...
-/Users/(...)/hello-indigo/out/helloindigo/indigoBuildJS/dest/index.html
-[46/46] helloindigo.buildGame
-```
-
-Then do:
-
-1. `cd /Users/(...)/hello-indigo/out/helloindigo/indigoBuildJS/dest/`
-2. `http-server -c-1`
-3. Navigate to [http://127.0.0.1:8080/](http://127.0.0.1:8080/) in your browser of choice.
 
 ## Putting something on the screen
 
@@ -244,7 +226,7 @@ Consider how we might move something along the x-axis:
 graphic.moveBy(10, 0)
 ```
 
-Every time that code is run, it will increment the graphic's x position by 10. Great! our games runs at 60 frames per second (FPS) so we're going to move at a velocity of 600 pixels per second. Or are we?
+Every time that code is run, it will increment the graphic's x position by 10. Great! Our games runs at 60 frames per second (FPS) so we're going to move at a velocity of 600 pixels per second. Or are we?
 
 The problem is the frame processing times vary, meaning that at _best_ you'll get 60 FPS / 600 pixels movement, but more likely your frame rate will fluctuate, peaking at 60 and occasionally dropping lower, maybe for a minor GC pause, maybe because you suddenly had a massive bit of processing to do for your game or just just started drawing more stuff on the screen.
 

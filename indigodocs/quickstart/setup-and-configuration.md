@@ -3,32 +3,62 @@ id: setup-and-configuration
 title: Setup & Configuration
 ---
 
+> Updated for release 0.3.0, where the plugins were overhauled and Electron support added.
+
 ## Building Indigo Games
 
 Indigo games are completely normal [Scala.js](https://www.scala-js.org/) projects.
 
->Please not that we currently only publish against specific versions of Scala (2.13.2) and Scala.js (1.0.1).
+>Please not that we currently only publish against specific versions of Scala (2.13.3) and Scala.js (SBT: 1.1.1, Mill: 1.1.0).
 
 You can use either [Mill](http://www.lihaoyi.com/mill/) or [SBT](https://www.scala-sbt.org/) to build your games, and for your convenience both Mill and SBT have associated plugins, `mill-indigo` and `sbt-indigo` respectively.
 
-The plugins help you bootstrap your game during development, they marshal your assets and serve as a reference implementation for _one_ way to embed your game into a web page.
+The plugins help you bootstrap your game during development, they marshal your assets and serve as a reference implementation for _one_ fairly basic way to embed your game into a web page or electron app.
+
+The plugins let you build a simple web page via the `indigoBuild` task, or run an Electron app of your game with `indigoRun`.
 
 Example output from a Mill indigo build of the [Snake example game](https://github.com/PurpleKingdomGames/indigo/tree/master/demos/snake), the SBT version is nearly identical:
 
 ```bash
 > mill snake.buildGame
-[46/48] snake.indigoBuildJS
-dirPath: /Users/(...)/indigo/demos/snake/out/snake/indigoBuildJS/dest
+[46/48] snake.indigoBuild
+dirPath: /Users/(...)/indigo/demos/snake/out/snake/indigoBuild/dest
 Copying assets...
-/Users/(...)/indigo/demos/snake/out/snake/indigoBuildJS/dest/index.html
+/Users/(...)/indigo/demos/snake/out/snake/indigoBuild/dest/index.html
 [48/48] snake.buildGame
 ```
 
 The second to last line is an absolute path to where your game is.
 
-### Running your game locally
+### Running your game locally (Electron Application)
 
-Most modern browsers do not allow you to run local sites that load in assets and modules just by opening the html file in your browser. So if you use the Indigo build tool to produce a bootstrapped game, the quickest way to run it is to use [http-server](https://www.npmjs.com/package/http-server) as follows:
+You will need to have electron installed globally, install with npm as follows:
+
+```bash
+npm install -g electron
+```
+
+Then from your command line:
+
+```bash
+mill mygame.fastOpt # Compiles and produces the JS file of your game.
+mill snake.indigoRun # First runs indigoBuild, then bundles it into an app and runs it.
+```
+
+Your game should appear on your desktop.
+
+### Running your game locally (Web)
+
+If your game is in active development, you might prefer to run it as a website that is slightly quicker to refresh and develop against.
+
+First you need to build your game, as follows:
+
+```bash
+mill mygame.fastOpt # Compiles and produces the JS file of your game.
+mill snake.indigoBuild # Marshall scripts and assets together and link them to an HTML file.
+```
+
+Most modern browsers do not allow you to run local sites that load in assets and modules just by opening the HTML file in your browser. So if you use the Indigo build tool to produce a bootstrapped game, the quickest way to run it is to use [http-server](https://www.npmjs.com/package/http-server) as follows:
 
 1. Install with `npm install -g http-server`.
 1. Navigate to the output directory shown after running the indigo plugin.
@@ -39,9 +69,9 @@ Most modern browsers do not allow you to run local sites that load in assets and
 
 The examples below show you how to publish with both "fast" and "full" optimisation of your Scala.js project.
 
-The difference is speed and size. As the name implies, the "fast" version compiles _very significantly_ faster than the "full" version, but even small projects will result in ~5Mb of JavaScript, where the "full" version will be in the region of ~500kb. The "full" version may also be more performant at run time, for more information please refer to the official [Scala.js performance page](https://www.scala-js.org/doc/internals/performance.html).
+The difference is speed and size. As the name implies, the "fast" version compiles _very significantly_ faster than the "full" version, but even small projects will result in ~5Mb of JavaScript, where the "full" version will be in the region of ~500kb. The "full" version will likely be more performant at run time, for more information please refer to the official [Scala.js performance page](https://www.scala-js.org/doc/internals/performance.html).
 
-Note that during development the fast version is perfectly acceptable. Your browser will chew through 5-10Mb of JavaScript with no problem at all, the performance difference is generally not noticable, and the compilation time reduction is definitely worth it.
+Note that during development the fast version is perfectly acceptable. Your browser will chew through 5-10Mb of JavaScript with no problem at all, the performance difference is generally is small enough not to be a big deal, and the compilation time reduction is definitely worth it.
 
 ## Mill Guide
 
@@ -55,7 +85,7 @@ import mill.scalalib._
 import mill.scalajslib._
 import mill.scalajslib.api._
 
-import $ivy.`io.indigoengine::mill-indigo:0.2.0`, millindigo._
+import $ivy.`io.indigoengine::mill-indigo:0.3.0`, millindigo._
 
 object mygame extends ScalaJSModule with MillIndigo {
   def scalaVersion   = "2.13.3"
@@ -66,24 +96,32 @@ object mygame extends ScalaJSModule with MillIndigo {
   val title: String                = "My Game"
 
   def ivyDeps = Agg(
-    ivy"io.indigoengine::indigo-json-circe::0.2.0",
-    ivy"io.indigoengine::indigo::0.2.0"
+    ivy"io.indigoengine::indigo-json-circe::0.3.0",
+    ivy"io.indigoengine::indigo::0.3.0"
   )
 
 }
 ```
 
-### Building with Mill
+### Running via Mill
 
 Run the following:
 
 1. `mill mygame.compile`
 1. `mill mygame.fastOpt`
-1. `mill mygame.indigoBuildJS`
+1. `mill mygame.indigoRun`
 
-This will output your game and all the correctly referenced assets into `out/mygame/indigoBuildJS/`. Note that the module will give you a full path at the end of it's output.
+### Building via Mill
 
-Navigate to the folder, run `http-server -c-1`, and got to [http://127.0.0.1:8080/](http://127.0.0.1:8080/) in your browser of choice.
+Run the following:
+
+1. `mill mygame.compile`
+1. `mill mygame.fastOpt`
+1. `mill mygame.indigoBuild`
+
+This will output your game and all the correctly referenced assets into `out/mygame/indigoBuild/`. Note that the module will give you a full path at the end of it's output.
+
+To run as a web site, navigate to the folder, run `http-server -c-1`, and got to [http://127.0.0.1:8080/](http://127.0.0.1:8080/) in your browser of choice.
 
 ### Rolling it up into one command
 
@@ -94,20 +132,36 @@ You can also define the following in your `build.sc` file inside the `mygame` ob
     T {
       compile()
       fastOpt()
-      indigoBuildJS()() // Note the double parenthesis!
+      indigoBuild()() // Note the double parenthesis!
     }
   }
 
-  def publishGame() = T.command {
+  def runGame() = T.command {
+    T {
+      compile()
+      fastOpt()
+      indigorun()() // Note the double parenthesis!
+    }
+  }
+
+  def buildGameFull() = T.command {
     T {
       compile()
       fullOpt()
-      indigoBuildFullJS()() // Note the double parenthesis!
+      indigoBuildFull()() // Note the double parenthesis!
+    }
+  }
+
+  def runGameFull() = T.command {
+    T {
+      compile()
+      fullOpt()
+      indigoRunFull()() // Note the double parenthesis!
     }
   }
 ```
 
-Which allows you to run `mill mygame.buildGame` and `mill mygame.publishGame` from the command line.
+Which allows you to run `mill mygame.buildGame` and `mill mygame.runGame` from the command line for the "fast" compile version.
 
 ## SBT Guide
 
@@ -117,7 +171,7 @@ Add the following to your `project/plugins.sbt` file:
 
 ```scala
 addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.1.1")
-addSbtPlugin("io.indigoengine" % "sbt-indigo" % "0.2.0")
+addSbtPlugin("io.indigoengine" %% "sbt-indigo" % "0.3.0") // Note the double %%
 ```
 
 ### build.sbt
@@ -139,29 +193,37 @@ lazy val mygame =
       title := "My Game",
       gameAssetsDirectory := "assets",
       libraryDependencies ++= Seq(
-        "io.indigoengine" %%% "indigo" % "0.2.0",
-        "io.indigoengine" %%% "indigo-json-circe" % "0.2.0",
+        "io.indigoengine" %%% "indigo" % "0.3.0",
+        "io.indigoengine" %%% "indigo-json-circe" % "0.3.0",
       )
     )
 ```
 
-### Building with SBT
+### Running via SBT
 
 Run the following:
 
-`sbt compile fastOptJS indigoBuildJS`
+`sbt compile fastOptJS indigoRun`
 
-This will output your game and all the correctly referenced assets into `target/indigo-js/`. Note that the plugin will give you a full path at the end of it's output.
+### Building via SBT
 
-Navigate to the folder, run `http-server -c-1`, and go to [http://127.0.0.1:8080/](http://127.0.0.1:8080/) in your browser of choice.
+Run the following:
+
+`sbt compile fastOptJS indigoBuild`
+
+This will output your game and all the correctly referenced assets into `target/indigoBuild/`. Note that the plugin will give you a full path at the end of it's output.
+
+To run as a web site, navigate to the folder, run `http-server -c-1`, and go to [http://127.0.0.1:8080/](http://127.0.0.1:8080/) in your browser of choice.
 
 ### Rolling it up into one command
 
 You can also define the following in your `build.sbt` file:
 
 ```scala
-addCommandAlias("buildGame", ";compile;fastOptJS;indigoBuildJS")
-addCommandAlias("publishGame", ";compile;fullOptJS;indigoPublishJS")
+addCommandAlias("buildGame", ";compile;fastOptJS;indigoBuild")
+addCommandAlias("buildGame", ";compile;fastOptJS;indigoRun")
+addCommandAlias("buildGameFull", ";compile;fullOptJS;indigoBuildFull")
+addCommandAlias("buildGameFull", ";compile;fullOptJS;indigoRunFull")
 ```
 
 Which give you some convenient shortcuts to speed up development.

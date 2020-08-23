@@ -3,7 +3,7 @@ id: subsystems
 title: SubSystems
 ---
 
-> Note: SubSystems have change substantially between versions 0.1.0 and 0.2.0 of Indigo, having moved from OO to FP in both style and form.
+> Note: SubSystems have change substantially between versions 0.1.0 and >0.2.0 of Indigo, having moved from OO to FP in both style and form.
 
 ## What SubSystems are
 
