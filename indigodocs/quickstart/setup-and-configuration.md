@@ -11,7 +11,7 @@ Indigo games are completely normal [Scala.js](https://www.scala-js.org/) project
 
 >Please not that we currently only publish against specific versions of Scala (2.13.3) and Scala.js (SBT: 1.1.1, Mill: 1.1.0).
 
-You can use either [Mill](http://www.lihaoyi.com/mill/) or [SBT](https://www.scala-sbt.org/) to build your games, and for your convenience both Mill and SBT have associated plugins, `mill-indigo` and `sbt-indigo` respectively.
+You can use either [Mill](http://www.lihaoyi.com/mill/) (Mill 0.7.4 or above) or [SBT](https://www.scala-sbt.org/) (recommend sbt 1.3.13 or greater) to build your games, and for your convenience both Mill and SBT have associated plugins, `mill-indigo` and `sbt-indigo` respectively.
 
 The plugins help you bootstrap your game during development, they marshal your assets and serve as a reference implementation for _one_ fairly basic way to embed your game into a web page or electron app.
 
@@ -36,6 +36,12 @@ You will need to have electron installed globally, install with npm as follows:
 
 ```bash
 npm install -g electron
+```
+
+On Linux, you may find that command is insufficient, you may need something like:
+
+```bash
+sudo npm install -g electron --unsafe-perm=true --allow-root
 ```
 
 Then from your command line:

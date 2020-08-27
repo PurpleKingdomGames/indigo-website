@@ -53,7 +53,7 @@ def run(
 
 The point of this function is purity: What you get out, should be a result of what you put in and nothing else.
 
->Scala is an impure functional programming language, so you are not restricted to writing games that obey these notions of purity and referential transparency, but you should start there.
+> Scala is an impure functional programming language, so you are not restricted to writing games that obey these notions of purity and referential transparency, but you should start there.
 
 ## Inputs are immutable and predictable
 

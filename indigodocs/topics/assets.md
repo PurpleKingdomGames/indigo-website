@@ -13,7 +13,7 @@ There are three types of assets that Indigo understands how to load and make ava
 
 When assets are loaded they are registered, and in the case of Sounds and Images, some amount of preparation is immediately done to ensure they're usable.
 
-Text is different. Plain text isn't useful in of itself in the scene construction, and the only time you can access text assets is during Startup via the `AssetCollection`, this give you an opportuntity to read/decode the contents and build them into your model somewhere.
+Text is different. Plain text isn't useful in of itself in the scene construction, and the only time you can access text assets is during Startup via the `AssetCollection`, this give you an opportunity to read/decode the contents and build them into your model somewhere.
 
 ### `AssetCollection`s
 
@@ -23,7 +23,7 @@ The `IndigoSandbox` entry point defines a setup function with the following sign
 def setup(assetCollection: AssetCollection, dice: Dice): Startup[StartupErrors, StartupData]
 ```
 
-The idea of this function is to give you an opportunity to do some light processing or preparation before you game starts (or re-starts), and this process can suceed or fail. The `Dice` provides a random element, and the `AssetCollection` gives you your _one and only_ opportunity to directly access asset data directly.
+The idea of this function is to give you an opportunity to do some light processing or preparation before you game starts (or re-starts), and this process can succeed or fail. The `Dice` provides a random element, and the `AssetCollection` gives you your _one and only_ opportunity to directly access asset data directly.
 
 As previously mentioned, this is particularly useful for reading plain text files and parsing them.
 
@@ -36,7 +36,7 @@ The interesting methods on an `AssetCollection` are:
   def findAudioDataByName(name: AssetName): Option[AssetDataFormats.AudioDataFormat]
 ```
 
-> `AssetDataFormats.TextDataFormat` in this case is just a `String`. Although Indigo only works in the browser currently, architecturally it is somewhat organised for other platforms too.
+> `AssetDataFormats.TextDataFormat` in this case is just a `String`. Although Indigo only works in the browser currently, architecturally it is somewhat organized for other platforms too.
 
 ## Asset Loading
 
