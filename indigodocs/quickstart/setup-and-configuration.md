@@ -100,6 +100,8 @@ object mygame extends ScalaJSModule with MillIndigo {
   val gameAssetsDirectory: os.Path = os.pwd / "assets"
   val showCursor: Boolean          = true
   val title: String                = "My Game"
+  val windowStartWidth: Int        = 720 // Width of Electron window, used with `indigoRun`.
+  val windowStartHeight: Int       = 480 // Height of Electron window, used with `indigoRun`.
 
   def ivyDeps = Agg(
     ivy"io.indigoengine::indigo-json-circe::0.3.0",
@@ -198,6 +200,8 @@ lazy val mygame =
       showCursor := true,
       title := "My Game",
       gameAssetsDirectory := "assets",
+      windowStartWidth := 720, // Width of Electron window, used with `indigoRun`.
+      windowStartHeight := 480, // Height of Electron window, used with `indigoRun`.
       libraryDependencies ++= Seq(
         "io.indigoengine" %%% "indigo" % "0.3.0",
         "io.indigoengine" %%% "indigo-json-circe" % "0.3.0",
@@ -227,9 +231,9 @@ You can also define the following in your `build.sbt` file:
 
 ```scala
 addCommandAlias("buildGame", ";compile;fastOptJS;indigoBuild")
-addCommandAlias("buildGame", ";compile;fastOptJS;indigoRun")
+addCommandAlias("runGame", ";compile;fastOptJS;indigoRun")
 addCommandAlias("buildGameFull", ";compile;fullOptJS;indigoBuildFull")
-addCommandAlias("buildGameFull", ";compile;fullOptJS;indigoRunFull")
+addCommandAlias("runGameFull", ";compile;fullOptJS;indigoRunFull")
 ```
 
 Which give you some convenient shortcuts to speed up development.
