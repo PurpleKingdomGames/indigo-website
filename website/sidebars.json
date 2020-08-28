@@ -11,6 +11,8 @@
     ],
     "Detailed topics": [
       "topics/animation",
+      "topics/assets",
+      "topics/boot-and-start-up",
       "topics/depth-and-layers",
       "topics/effects",
       "topics/events",
