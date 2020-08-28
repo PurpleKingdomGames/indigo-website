@@ -146,7 +146,7 @@ You can also define the following in your `build.sc` file inside the `mygame` ob
     T {
       compile()
       fastOpt()
-      indigorun()() // Note the double parenthesis!
+      indigoRun()() // Note the double parenthesis!
     }
   }
 
