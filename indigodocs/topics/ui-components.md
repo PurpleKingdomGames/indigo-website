@@ -72,6 +72,17 @@ for {
 
 First we have to update the button, which is done by calling the buttons's built in update method and supplying the current state of the mouse on this frame. The button update returns an [`Outcome`](topics/outcome.md) because as well as containing a freshly updated button, it can also return events that will need to be collected at the end of the frame. Since we need to return an outcome containing an updated view model at the end of the frame, we then need to map over the outcome, and insert the button in the view model.
 
+***A word of caution***, you might be tempted to do this instead, which appears to work and compiles just fine:
+
+```scala
+val updatedButton = viewModel.button.update(context.inputState.mouse).state
+val updatedViewModel = viewModel.copy(button = updatedButton)
+
+Outcome(updatedViewModel)
+```
+
+The trouble is the by pulling the button instance out of the `Outcome` after the update by calling `.state`, ***you lose any events that the button generated during it's update***. You must `map` or `flatMap` over the `Outcome` types.
+
 ### Input Fields
 
 Input fields are text boxes that all users to type values into them. As with button, you need to provide some assets, specifically font information and a graphic to use as the cursor while a user is inputing values. Indigo's input field is quite basic, but input fields are a bit fiddly to implement. Hopefully it will either save someone some time or be useful as a reference to someone who'd like to do make something more sophisticated.
