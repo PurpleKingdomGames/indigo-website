@@ -23,7 +23,8 @@
       "topics/scene-management",
       "topics/scene-update-fragment",
       "topics/subsystems",
-      "topics/text-and-fonts"
+      "topics/text-and-fonts",
+      "topics/ui-components"
     ],
     "General information": [
       "information/key-concepts",
