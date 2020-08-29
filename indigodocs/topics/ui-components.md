@@ -39,6 +39,39 @@ Button(
 
 [The full button example is in the indigo-examples repo.](https://github.com/PurpleKingdomGames/indigo-examples/tree/master/examples/button)
 
+A quick explanation of the `updateViewModel` function in the example above, it looks like this:
+
+```scala
+def updateViewModel(context: FrameContext[Unit], model: MyGameModel, viewModel: MyViewModel): GlobalEvent => Outcome[MyViewModel] = {
+  case FrameTick =>
+    viewModel.button.update(context.inputState.mouse).map { btn =>
+      viewModel.copy(button = btn)
+    }
+
+  case _ =>
+    Outcome(viewModel)
+}
+```
+
+To help see what's happening here, we could rewrite this:
+
+```scala
+viewModel.button.update(context.inputState.mouse).map { btn =>
+  viewModel.copy(button = btn)
+}
+```
+
+...as:
+
+```scala
+for {
+  updatedButton    <- viewModel.button.update(context.inputState.mouse)
+  updatedViewModel <- Outcome(viewModel.copy(button = updatedButton))
+} yield updatedViewModel
+```
+
+First we have to update the button, which is done by calling the buttons's built in update method and supplying the current state of the mouse on this frame. The button update returns an [`Outcome`](topics/outcome.md) because as well as containing a freshly updated button, it can also return events that will need to be collected at the end of the frame. Since we need to return an outcome containing an updated view model at the end of the frame, we then need to map over the outcome, and insert the button in the view model.
+
 ### Input Fields
 
 Input fields are text boxes that all users to type values into them. As with button, you need to provide some assets, specifically font information and a graphic to use as the cursor while a user is inputing values. Indigo's input field is quite basic, but input fields are a bit fiddly to implement. Hopefully it will either save someone some time or be useful as a reference to someone who'd like to do make something more sophisticated.
