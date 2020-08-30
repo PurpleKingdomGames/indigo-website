@@ -12,6 +12,7 @@
     "Detailed topics": [
       "topics/animation",
       "topics/assets",
+      "topics/audio",
       "topics/boot-and-start-up",
       "topics/depth-and-layers",
       "topics/effects",
