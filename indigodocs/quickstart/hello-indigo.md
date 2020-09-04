@@ -386,9 +386,11 @@ The model update function is just a function that has been partially applied wit
 
 >`GlobalEvent` is a trait used to tag things as events. The largest source of errors / surprises in Indigo - in my experience so far - is from the fact that we can't enforce exhaustively checks on these events at the moment.
 
-In this case, we're interested in two events. A `MouseEvent.Click(x, y)` so that we can add a new dot, and a `FrameTick`. FrameTick is a bit special because it always happens last.. and it always happens!
+In this case, we're interested in two events. A `MouseEvent.Click(x, y)` so that we can add a new dot, and a `FrameTick`. FrameTick is a bit special because it always happens last... and it always happens!
 
 When a mouse click is noticed, we call our `addDot` method with a new Dot, providing the orbital distance and the angle from the center of the screen two the point where we clicked the mouse.
+
+Keep in mind that multiple events can happen between frame ticks, which should only lead to model updates related to each specific event. In particular, changes that are intended to occur at a constant rate, like motion at a regular speed, should only be applied on frame ticks. Otherwise funny time-dilating side effects can occur.
 
 Notice that everything is wrapped in an `Outcome`. An `Outcome[A]` is a Monad that holds a new state `A` and can also capture any events that are the ...outcome... of processing part of a frame. `Outcome`s can be composed together in lots of useful ways.
 

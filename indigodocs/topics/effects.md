@@ -45,8 +45,6 @@ graphic.withTint(RGBA.Red)
 
 ### WebGL 2 only effects
 
-> Please note that the WebGL 2 only effects below have less friendly methods than tint, alpha, and flip. This is an oversight and there is [an issue open](https://github.com/PurpleKingdomGames/indigo/issues/15) to fix it.
-
 ### Color Overlay (WebGL 2)
 
 Where tint removes color, color overlay adds it. So to take the same examples:
@@ -57,9 +55,7 @@ Where tint removes color, color overlay adds it. So to take the same examples:
 - `RGBA.Red.withRed(0.5)` which is (r=0.5, g=0.0, b=0.0, a=1.0) adds 50% red to each pixel up to a maximum value of 1.0.
 
 ```scala
-graphic.withEffects(
-  graphic.effects.withColorOverlay(Overlay.Color(RGBA.Red))
-)
+graphic.withOverlay(Overlay.Color(RGBA.Red))
 ```
 
 ### Gradient Overlay (WebGL 2)
@@ -74,14 +70,12 @@ Works the same way as color overlay but allows a linear gradient to be applied i
 
 ```scala
 // For a 16x16 graphic where we want to go top left to bottom right
-graphic.withEffects(
-  graphic.effects.withGradiantOverlay(
-    Overlay.LinearGradiant(
-      Point.zero,
-      RGBA.Magenta,
-      Point(16, 16),
-      RGBA.Cyan
-    )
+graphic.withOverlay(
+  Overlay.LinearGradiant(
+    Point.zero,
+    RGBA.Magenta,
+    Point(16, 16),
+    RGBA.Cyan
   )
 )
 ```
@@ -91,13 +85,11 @@ graphic.withEffects(
 Borders are a limited edge effect. You can use inner and / or outer borders and both can be set to `Thin` (1 pixel) or `Thick` (2 pixels).
 
 ```scala
-graphic.withEffects(
-  graphic.effects.withBorder(
-    Border(
-      color = RGBA.Green,
-      innerThickness = Thickness.None,
-      outerThickness = Thickness.Thick
-    )
+graphic.withBorder(
+  Border(
+    color = RGBA.Green,
+    innerThickness = Thickness.None,
+    outerThickness = Thickness.Thick
   )
 )
 ```
@@ -107,13 +99,11 @@ graphic.withEffects(
 Glow is a limited edge effect. You can use inner and / or outer glows and both can have an amount set.
 
 ```scala
-graphic.withEffects(
-  graphic.effects.withGlow(
-    Glow(
-      color = RGBA.Green,
-      innerGlowAmount = 0.0,
-      outerGlowAmount = 1.0
-    )
+graphic.withGlow(
+  Glow(
+    color = RGBA.Green,
+    innerGlowAmount = 0.0,
+    outerGlowAmount = 1.0
   )
 )
 ```
