@@ -75,8 +75,8 @@ trait Scene[StartupData, GameModel, ViewModel] {
 As you can hopefully see, mostly this is very much like a normal game, but for a few exceptions:
 
 1. No initialization, animations or fonts, that all happens in the main game (shown in the previous section).
-1. Scene's have a name, which is important for navigation.
-1. Scene's have their own models and view models, more on that later.
+1. Scenes have a name, which is important for navigation.
+1. Scenes have their own models and view models, more on that later.
 1. The game can have global sub systems, and scenes can also have their own subsystems too.
 
 ## Funny types
