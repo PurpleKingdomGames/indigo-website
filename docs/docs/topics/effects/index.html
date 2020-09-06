@@ -86,9 +86,6 @@ graphic.flipVertical(<span class="hljs-literal">false</span>)
 <pre><code class="hljs css language-scala">graphic.withTint(<span class="hljs-type">RGBA</span>.<span class="hljs-type">Red</span>)
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="webgl-2-only-effects"></a><a href="#webgl-2-only-effects" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>WebGL 2 only effects</h3>
-<blockquote>
-<p>Please note that the WebGL 2 only effects below have less friendly methods than tint, alpha, and flip. This is an oversight and there is <a href="https://github.com/PurpleKingdomGames/indigo/issues/15">an issue open</a> to fix it.</p>
-</blockquote>
 <h3><a class="anchor" aria-hidden="true" id="color-overlay-webgl-2"></a><a href="#color-overlay-webgl-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Color Overlay (WebGL 2)</h3>
 <p>Where tint removes color, color overlay adds it. So to take the same examples:</p>
 <ul>
@@ -97,9 +94,7 @@ graphic.flipVertical(<span class="hljs-literal">false</span>)
 <li><code>RGBA.Red</code> Makes the image red (alpha is respected).</li>
 <li><code>RGBA.Red.withRed(0.5)</code> which is (r=0.5, g=0.0, b=0.0, a=1.0) adds 50% red to each pixel up to a maximum value of 1.0.</li>
 </ul>
-<pre><code class="hljs css language-scala">graphic.withEffects(
-  graphic.effects.withColorOverlay(<span class="hljs-type">Overlay</span>.<span class="hljs-type">Color</span>(<span class="hljs-type">RGBA</span>.<span class="hljs-type">Red</span>))
-)
+<pre><code class="hljs css language-scala">graphic.withOverlay(<span class="hljs-type">Overlay</span>.<span class="hljs-type">Color</span>(<span class="hljs-type">RGBA</span>.<span class="hljs-type">Red</span>))
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="gradient-overlay-webgl-2"></a><a href="#gradient-overlay-webgl-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Gradient Overlay (WebGL 2)</h3>
 <p>Has the definition:</p>
@@ -107,38 +102,32 @@ graphic.flipVertical(<span class="hljs-literal">false</span>)
 </code></pre>
 <p>Works the same way as color overlay but allows a linear gradient to be applied instead of one solid color. The <code>Point</code> positions are relative to the node being drawn and move around with the node.</p>
 <pre><code class="hljs css language-scala"><span class="hljs-comment">// For a 16x16 graphic where we want to go top left to bottom right</span>
-graphic.withEffects(
-  graphic.effects.withGradiantOverlay(
-    <span class="hljs-type">Overlay</span>.<span class="hljs-type">LinearGradiant</span>(
-      <span class="hljs-type">Point</span>.zero,
-      <span class="hljs-type">RGBA</span>.<span class="hljs-type">Magenta</span>,
-      <span class="hljs-type">Point</span>(<span class="hljs-number">16</span>, <span class="hljs-number">16</span>),
-      <span class="hljs-type">RGBA</span>.<span class="hljs-type">Cyan</span>
-    )
+graphic.withOverlay(
+  <span class="hljs-type">Overlay</span>.<span class="hljs-type">LinearGradiant</span>(
+    <span class="hljs-type">Point</span>.zero,
+    <span class="hljs-type">RGBA</span>.<span class="hljs-type">Magenta</span>,
+    <span class="hljs-type">Point</span>(<span class="hljs-number">16</span>, <span class="hljs-number">16</span>),
+    <span class="hljs-type">RGBA</span>.<span class="hljs-type">Cyan</span>
   )
 )
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="border-webgl-2"></a><a href="#border-webgl-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Border (WebGL 2)</h3>
 <p>Borders are a limited edge effect. You can use inner and / or outer borders and both can be set to <code>Thin</code> (1 pixel) or <code>Thick</code> (2 pixels).</p>
-<pre><code class="hljs css language-scala">graphic.withEffects(
-  graphic.effects.withBorder(
-    <span class="hljs-type">Border</span>(
-      color = <span class="hljs-type">RGBA</span>.<span class="hljs-type">Green</span>,
-      innerThickness = <span class="hljs-type">Thickness</span>.<span class="hljs-type">None</span>,
-      outerThickness = <span class="hljs-type">Thickness</span>.<span class="hljs-type">Thick</span>
-    )
+<pre><code class="hljs css language-scala">graphic.withBorder(
+  <span class="hljs-type">Border</span>(
+    color = <span class="hljs-type">RGBA</span>.<span class="hljs-type">Green</span>,
+    innerThickness = <span class="hljs-type">Thickness</span>.<span class="hljs-type">None</span>,
+    outerThickness = <span class="hljs-type">Thickness</span>.<span class="hljs-type">Thick</span>
   )
 )
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="glow-webgl-2"></a><a href="#glow-webgl-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Glow (WebGL 2)</h3>
 <p>Glow is a limited edge effect. You can use inner and / or outer glows and both can have an amount set.</p>
-<pre><code class="hljs css language-scala">graphic.withEffects(
-  graphic.effects.withGlow(
-    <span class="hljs-type">Glow</span>(
-      color = <span class="hljs-type">RGBA</span>.<span class="hljs-type">Green</span>,
-      innerGlowAmount = <span class="hljs-number">0.0</span>,
-      outerGlowAmount = <span class="hljs-number">1.0</span>
-    )
+<pre><code class="hljs css language-scala">graphic.withGlow(
+  <span class="hljs-type">Glow</span>(
+    color = <span class="hljs-type">RGBA</span>.<span class="hljs-type">Green</span>,
+    innerGlowAmount = <span class="hljs-number">0.0</span>,
+    outerGlowAmount = <span class="hljs-number">1.0</span>
   )
 )
 </code></pre>
