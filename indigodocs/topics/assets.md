@@ -23,7 +23,7 @@ The `IndigoSandbox` entry point defines a setup function with the following sign
 def setup(assetCollection: AssetCollection, dice: Dice): Startup[StartupErrors, StartupData]
 ```
 
-The idea of this function is to give you an opportunity to do some light processing or preparation before you game starts (or re-starts), and this process can succeed or fail. The `Dice` provides a random element, and the `AssetCollection` gives you your _one and only_ opportunity to directly access asset data directly.
+The idea of this function is to give you an opportunity to do some light processing or preparation before your game starts (or re-starts), and this process can succeed or fail. The `Dice` provides a random element, and the `AssetCollection` gives you your _one and only_ opportunity to directly access asset data directly.
 
 As previously mentioned, this is particularly useful for reading plain text files and parsing them.
 
@@ -73,7 +73,7 @@ def boot(flags: Map[String, String]): BootResult[Data] = {
     )
 ```
 
-> The important thing to know here is that whichever entry point style you're using, all of those assets will be forced to load completely before your game will show anything on the screen _at all_. If the can't be loaded, the game will halt.
+> The important thing to know here is that whichever entry point style you're using, all of those assets will be forced to load completely before your game will show anything on the screen _at all_. If they can't be loaded, the game will halt.
 
 For demos and tests or local development with no network latency, requiring all the assets to be primed and ready before your game starts is no big deal, even for substantial amounts of data. It is even advantageous, since there is a cost to loading images later, such as re-generating texture atlases.
 

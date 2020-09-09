@@ -102,7 +102,7 @@ The non-empty list of scenes in the original declaration is static, and cannot b
 Here's the one from Snake:
 
 ```scala
-def scenes(bootData: GameViewport): NonEmptyList[Scene[SnakeGameModel, SnakeViewModel]] =
+def scenes(bootData: GameViewport): NonEmptyList[Scene[SnakeStartupData, SnakeGameModel, SnakeViewModel]] =
     NonEmptyList(StartScene, ControlsScene, GameScene, GameOverScene)
 ```
 
