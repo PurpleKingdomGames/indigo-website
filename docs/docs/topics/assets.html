@@ -72,7 +72,7 @@
 <p>The <code>IndigoSandbox</code> entry point defines a setup function with the following signature:</p>
 <pre><code class="hljs css language-scala"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setup</span></span>(assetCollection: <span class="hljs-type">AssetCollection</span>, dice: <span class="hljs-type">Dice</span>): <span class="hljs-type">Startup</span>[<span class="hljs-type">StartupErrors</span>, <span class="hljs-type">StartupData</span>]
 </code></pre>
-<p>The idea of this function is to give you an opportunity to do some light processing or preparation before you game starts (or re-starts), and this process can succeed or fail. The <code>Dice</code> provides a random element, and the <code>AssetCollection</code> gives you your <em>one and only</em> opportunity to directly access asset data directly.</p>
+<p>The idea of this function is to give you an opportunity to do some light processing or preparation before your game starts (or re-starts), and this process can succeed or fail. The <code>Dice</code> provides a random element, and the <code>AssetCollection</code> gives you your <em>one and only</em> opportunity to directly access asset data directly.</p>
 <p>As previously mentioned, this is particularly useful for reading plain text files and parsing them.</p>
 <p>The interesting methods on an <code>AssetCollection</code> are:</p>
 <pre><code class="hljs css language-scala">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">exists</span></span>(name: <span class="hljs-type">AssetName</span>): <span class="hljs-type">Boolean</span>
@@ -113,7 +113,7 @@
     )
 </code></pre>
 <blockquote>
-<p>The important thing to know here is that whichever entry point style you're using, all of those assets will be forced to load completely before your game will show anything on the screen <em>at all</em>. If the can't be loaded, the game will halt.</p>
+<p>The important thing to know here is that whichever entry point style you're using, all of those assets will be forced to load completely before your game will show anything on the screen <em>at all</em>. If they can't be loaded, the game will halt.</p>
 </blockquote>
 <p>For demos and tests or local development with no network latency, requiring all the assets to be primed and ready before your game starts is no big deal, even for substantial amounts of data. It is even advantageous, since there is a cost to loading images later, such as re-generating texture atlases.</p>
 <h3><a class="anchor" aria-hidden="true" id="dynamic-asset-loading"></a><a href="#dynamic-asset-loading" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Dynamic asset loading</h3>
