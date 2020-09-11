@@ -77,7 +77,7 @@ The examples below show you how to publish with both "fast" and "full" optimisat
 
 The difference is speed and size. As the name implies, the "fast" version compiles _very significantly_ faster than the "full" version, but even small projects will result in ~5Mb of JavaScript, where the "full" version will be in the region of ~500kb. The "full" version will likely be more performant at run time, for more information please refer to the official [Scala.js performance page](https://www.scala-js.org/doc/internals/performance.html).
 
-Note that during development the fast version is perfectly acceptable. Your browser will chew through 5-10Mb of JavaScript with no problem at all, the performance difference is generally is small enough not to be a big deal, and the compilation time reduction is definitely worth it.
+Note that during development the fast version is perfectly acceptable. Your browser will chew through 5-10Mb of JavaScript with no problem at all, the performance difference is generally small enough not to be a big deal, and the compilation time reduction is definitely worth it.
 
 ## Mill Guide
 
