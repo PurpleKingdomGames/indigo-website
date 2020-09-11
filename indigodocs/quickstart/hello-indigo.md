@@ -15,7 +15,7 @@ Indigo comes with three game templates. Called entry points, they are just trait
 2. `IndigoDemo` - Technically gives you access to everything, but doesn't provide Scene management (you'd have to roll your own).
 3. `IndigoGame` - Like `IndigoDemo`, but with Scene management built it.
 
-> You can also write you're own entry point, take a look at the code for `IndigoSandbox` in the repo.
+> You can also write your own entry point, take a look at the code for `IndigoSandbox` in the repo.
 
 In this guide, we'll be using `IndigoSandbox` for brevity and our "game" will be called `helloindigo`.
 
@@ -74,7 +74,7 @@ A lot of this is self explanatory hopefully, but let's go through a couple of th
 
 The `indigo._` import is optional, but conveniently brings in all of the basic syntax so that you don't need to worry about finding things.
 
-Next up is the only like of Scala.js you have to know:
+Next up is the only line of Scala.js you have to know:
 
 ```scala
 import scala.scalajs.js.annotation.JSExportTopLevel
@@ -161,7 +161,7 @@ Indigo is built for pixel art, and will automatically scale up not just your gra
 
 ## What else can `Graphic`s do?
 
-Graphic are relatively cheap on-screen objects, in terms of performance, but their unique party trick is being able to crop their contents. Update this:
+`Graphic`s are relatively cheap on-screen objects, in terms of performance, but their unique party trick is being able to crop their contents. Update this:
 
 ```scala
 SceneUpdateFragment(
@@ -183,7 +183,7 @@ SceneUpdateFragment(
 
 Run it again and you should now have just the yellow circle right in the middle of the screen. The image is 32x32, and we've cropped down to the bottom right corner which is at location 16x16 and is 16x16 pixels in size. We've then moved the "reference point" which is the point Indigo uses to position, scale, and rotate things to being in the middle of the new graphic, i.e. 8x8. Finally we moved it to the middle of the screen. Normally the top left of the image would now be at the screen's center, but because we moved the reference point, the graphic is placed evenly over the mid point.
 
-> An important but subtle thing has happened here, that if you're used to conventional game engines might surprise you. Normally to add an entity to the screen you have to explicitly add it (perhaps after a callback or event), and then later, explicitly remove or delete it but location in the tree or by id. This is because usually scene graphs are mutable trees of some kind, and each leaf carries state and so on. In Indigo, the view is stateless and simply draws whatever is currently returned by the `present` function. So "deleting" something from the view is just the same as omitting it from the returned `SceneUpdateFragment` on this frame.
+> An important but subtle thing has happened here, that if you're used to conventional game engines might surprise you. Normally to add an entity to the screen you have to explicitly add it (perhaps after a callback or event), and then later, explicitly remove or delete it by location in the tree or by id. This is because usually scene graphs are mutable trees of some kind, and each leaf carries state and so on. In Indigo, the view is stateless and simply draws whatever is currently returned by the `present` function. So "deleting" something from the view is just the same as omitting it from the returned `SceneUpdateFragment` on this frame.
 
 ## Let's make the dot move
 
@@ -228,7 +228,7 @@ graphic.moveBy(10, 0)
 
 Every time that code is run, it will increment the graphic's x position by 10. Great! Our games runs at 60 frames per second (FPS) so we're going to move at a velocity of 600 pixels per second. Or are we?
 
-The problem is the frame processing times vary, meaning that at _best_ you'll get 60 FPS / 600 pixels movement, but more likely your frame rate will fluctuate, peaking at 60 and occasionally dropping lower, maybe for a minor GC pause, maybe because you suddenly had a massive bit of processing to do for your game or just just started drawing more stuff on the screen.
+The problem is the frame processing times vary, meaning that at _best_ you'll get 60 FPS / 600 pixels movement, but more likely your frame rate will fluctuate, peaking at 60 and occasionally dropping lower, maybe for a minor GC pause, maybe because you suddenly had a massive bit of processing to do for your game or just started drawing more stuff on the screen.
 
 Either way the result is that your x-axis movement is no longer smooth.
 
@@ -388,7 +388,7 @@ The model update function is just a function that has been partially applied wit
 
 In this case, we're interested in two events. A `MouseEvent.Click(x, y)` so that we can add a new dot, and a `FrameTick`. FrameTick is a bit special because it always happens last... and it always happens!
 
-When a mouse click is noticed, we call our `addDot` method with a new Dot, providing the orbital distance and the angle from the center of the screen two the point where we clicked the mouse.
+When a mouse click is noticed, we call our `addDot` method with a new Dot, providing the orbital distance and the angle from the center of the screen to the point where we clicked the mouse.
 
 Keep in mind that multiple events can happen between frame ticks, which should only lead to model updates related to each specific event. In particular, changes that are intended to occur at a constant rate, like motion at a regular speed, should only be applied on frame ticks. Otherwise funny time-dilating side effects can occur.
 
