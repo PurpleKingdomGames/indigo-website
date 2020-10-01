@@ -74,3 +74,14 @@ h2.headerTitleWithLogo {
 article a {
   color: #AE2BE2;
 }
+
+.container.paddingTop {
+  padding-top: 20px;
+}
+.container.paddingBottom {
+  padding-bottom: 40px;
+}
+
+.lightLink a {
+  color: #AE2BE2;
+}

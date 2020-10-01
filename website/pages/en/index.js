@@ -150,12 +150,44 @@ class Index extends React.Component {
       </div>
     );
 
+    const GetInvolved = () => (
+      <div className="container paddingBottom paddingTop descriptionContainer" style={{ backgroundColor: '#29016A' }}>
+        <div className="wrapper" style={{ textAlign: 'left' }}>
+          <h2>Help make Indigo better!</h2>
+          <div className="gridBlock">
+            <div className="blockElement alignLeft imageAlignTop twoByGridBlock lightLink" style={{ backgroundColor: '#0F033A', borderRadius: '20px', paddingLeft: '30px', paddingRight: '30px' , paddingBottom: '10px' }}>
+              <h3>"Can I work on something?"</h3>
+              <MarkdownBlock>
+                Please do! If you have time on your hands, why not...
+              </MarkdownBlock>
+              <ul>
+                <li>Work on a new feature!</li>
+                <li>Report an issue!</li>
+                <li>Write documentation!</li>
+                <li><MarkdownBlock>[Discuss ideas and improvements!](https://discord.com/channels/716435281208672356)</MarkdownBlock></li>
+              </ul>
+            </div>
+            <div className="blockElement alignLeft imageAlignTop twoByGridBlock lightLink" style={{ backgroundColor: '#0F033A', borderRadius: '20px', paddingLeft: '30px', paddingRight: '30px' , paddingBottom: '10px' }}>
+              <h3>"Can I buy you a coffee?"</h3>
+              <MarkdownBlock>
+                Certainly! Indigo's development does cost some money from on-going running costs to tea and biscuits for the developers.
+              </MarkdownBlock>
+              <MarkdownBlock>
+                If you'd like to help with any of that, you can sponsor us via [GitHub](https://github.com/sponsors/PurpleKingdomGames) or [Patreon](https://www.patreon.com/indigoengine).
+              </MarkdownBlock>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
     return (
       <div>
         <HomeSplash siteConfig={siteConfig} language={language} />
         <div className="mainContainer">
           <Features />
           <Description />
+          <GetInvolved />
         </div>
       </div>
     );

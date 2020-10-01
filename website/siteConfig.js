@@ -40,10 +40,9 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    {doc: 'development-status', label: 'Docs'},
-    // {doc: 'doc4', label: 'API'},
-    {page: 'tools', label: 'Tools'},
-    // {blog: true, label: 'Blog'},
+    { href: "https://github.com/PurpleKingdomGames/indigo", label: "GitHub", external: true },
+    { doc: 'development-status', label: 'Docs' },
+    { page: 'tools', label: 'Tools' },
   ],
 
   // If you have users set above, you add it here:
