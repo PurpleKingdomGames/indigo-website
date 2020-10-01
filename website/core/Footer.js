@@ -82,7 +82,7 @@ class Footer extends React.Component {
             </a>
             <br />
             <br /> */}
-            <a href="https://github.com/sponsors/PurpleKingdomGames">GitHub Sponsorship</a>
+            <a href="https://github.com/sponsors/PurpleKingdomGames">GitHub</a>
             <a href="https://www.patreon.com/indigoengine">Patreon</a>
             {this.props.config.twitterUsername && (
               <div className="social">
