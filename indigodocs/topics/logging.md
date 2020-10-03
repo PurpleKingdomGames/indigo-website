@@ -26,18 +26,6 @@ debug(...)
 debugOnce(...)
 ```
 
-## `AsString` typeclass requirement
-
-Here is the signature of the info logger:
-
-```scala
-def info[A](valueA: A)(implicit showA: AsString[A]): Unit
-```
-
-Please note that currently this requires a instance of `AsString` to exist for *any* type you intend to log, although most of Indigo's types and a good number of Scala primitives are provided.
-
-> `AsString` is very similar to the `Show` typeclass, but please be aware this this is under review. It has the advantage of forcing the user to be specific, and the draw back of adding code bloat and a maintenance burden.
-
 ## Log Format
 
 Logs are currently written out in a fixed format:

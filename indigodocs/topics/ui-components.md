@@ -107,4 +107,31 @@ viewModel.myInputField.update(context)
 viewModel.myInputField.draw(context.gameTime, context.boundaryLocator)
 ```
 
+Input fields will also emit an `InputFieldChange` event when the text they hold is altered by a user.
+
 [The full input field example is in the indigo-examples repo.](https://github.com/PurpleKingdomGames/indigo-examples/tree/master/examples/inputfield)
+
+### Radio Buttons
+
+Radio buttons are a collection of buttons where only one of them can be in a selected state at any given time, and one must always be selected once an initial selection has been made. No doubt you've seen them on multiple choice forms.
+
+The main difference between radio buttons in Indigo and how you might have seen them work in other places, is that they do not come with labels. Indigo's radio buttons are just the button component, nothing else.
+
+To set up Radio buttons, you would initialize them in your view model as follows:
+
+```scala
+RadioButtonGroup(buttonAssets, 16, 16)
+  .withRadioButtons(
+    RadioButton(Point(5, 5))
+      .withSelectedActions(MyRadioButtonEvent(RGBA.Red))
+      .selected,
+    RadioButton(Point(25, 5)).withSelectedActions(MyRadioButtonEvent(RGBA.Green)),
+    RadioButton(Point(45, 5)).withSelectedActions(MyRadioButtonEvent(RGBA.Blue))
+  )
+```
+
+In the example above, we construct an empty `RadioButtonGroup` group with `ButtonAssets` display data, and a width and height. The width and height are really producing a hit area `Rectangle(0, 0, width, height)` that is used to decide if a mouse action should be accounted for. The hit area does not need to start at `0, 0` though, and can be changed with the `.withHitArea` method.
+
+We then add a group of radio buttons that all share the same button assets, giving each a unique position and defining what events will be fired as the radio button pass through the different states we care about.
+
+[The full radio button example is in the indigo-examples repo.](https://github.com/PurpleKingdomGames/indigo-examples/tree/master/examples/radio)

@@ -36,6 +36,8 @@ def boot(flags: Map[String, String]): BootResult[BootData]
 
 Running a game though one of the provided run methods, via the `indigoBuild` or `indigoRun` commands, is fine during general development, but at some point you're going to want to run your game in a real environment. Maybe it's going onto a game portal site, maybe its your own web site, maybe it's a desktop game. Whatever it is, those platforms come with practical problems to over come.
 
+> By default Indigo will provide a width and height flag in the standard integration code (that you can choose to use or not) so that you can start your game at the size of the window.
+
 Let's look at the [Snake game on our website as a simple example](https://indigoengine.io/snake.html). When running locally, the assets are marshaled into a nice consistent folder called `assets` in the same directory as our `index.html` page. However, on the real site the assets are served statically from a different location! How do we reconcile these two worlds?
 
 Well we use a flag, like this:
@@ -61,7 +63,9 @@ var flags = {
 IndigoGame.launch(flags);
 ```
 
-Flags can represent anything you like. In the Snake example we are providing the url to the assets folder, but you could for example do browser detection in the page and use your findings to instruct Indigo to specifically use WebGL 1.0 or 2.0, or to change the magnification setting, or starting view port size, or background color, or any number of other things.
+Flags can represent anything you like. In the Snake example we are providing the url to the assets folder, but you could do browser detection in the page and use your findings to instruct Indigo to specifically use WebGL 1.0 or 2.0, or to change the magnification setting, or starting view port size, or background color, or any number of other things.
+
+The main limitation on flags is that they are typed to `Map[String, String]`, which is bothersome if you're trying to supply a number for instance. Perhaps the best way to use more sophisticated data at start up would be to supply JSON by setting a data flag, e.g. `{ data = '{width: 10, height: 10}' }`, and then pulling out the data flag at boot time and parsing the JSON string.
 
 #### BootResult[_]
 
@@ -95,7 +99,7 @@ If "boot" is for marshaling your foundation game settings, then start up is for 
 The setup function signature looks like this:
 
 ```scala
-def setup(bootData: BootData, assetCollection: AssetCollection, dice: Dice): Startup[StartupErrors, StartUpData]
+def setup(bootData: BootData, assetCollection: AssetCollection, dice: Dice): Startup[StartUpData]
 ```
 
 > Important! The `StartUpData` type corresponds to one of the type parameters in `IndigoSandbox`, `IndigoDemo`, and `IndigoGame`.
@@ -105,12 +109,6 @@ def setup(bootData: BootData, assetCollection: AssetCollection, dice: Dice): Sta
 Unlike image and sound assets which are referenced directly in the presentation logic of your game. Text assets are only available for use during start up. The idea is that text is most likely not plain text, but actually string encoded data like JSON or perhaps a CSV. You can get hold of their data via the `AssetCollection` during start up / setup.
 
 ### The Startup Data Type
-
-The `Startup` type is a bit funny and under review as it's usability isn't ideal. Therefore it deserves some comment to relieve user suffering while we consider what to replace it with.
-
-The idea, once upon a time, was to allow users to create types that represented a successful start up, and a failed one. In theory then, you can create your own error type, as long as you also provide an instance of a `ToReportable` typeclass, which is pretty much identical to "`Show`" in that it is comprised of a function `def report(t: T): String`.
-
-However, we suggest you simply do the following instead:
 
 If your setup function has succeeded:
 
@@ -126,25 +124,13 @@ Startup.Success(MyStartUpData(maxParticles = 256))
 
 If you don't need say anything other than "success", you can just say `Startup.Success(())`.
 
-Should your setup function has fail, you should do something like this:
+Should your setup function has fail, you should report errors like this:
 
 ```scala
-Startup.Failure.withErrors(
+Startup.Failure(
   "error message 1",
   "error message 2",
   "error message 3"
-)
-
-// which is equivalent to:
-
-Startup.Failure(
-  StartupErrors(
-    List(
-      "error message 1",
-      "error message 2",
-      "error message 3"
-    )
-  )
 )
 ```
 

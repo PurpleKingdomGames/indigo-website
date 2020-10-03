@@ -29,6 +29,16 @@ You can create your own events by simply extending `GlobalEvent`.
 - `FrameTick` - the last event on a frame, used to update anything that must be updated every frame.
 - `ViewportResize(viewport)` - emitted when the game is resized so that your game layout can adapt.
 
+#### Full Screen
+
+- `ToggleFullScreen` - Attempt to enter or exit full screen mode
+- `EnterFullScreen` - Attempt to enter full screen mode
+- `ExitFullScreen` - Attempt to exit full screen mode
+- `FullScreenEntered` - The game entered full screen mode
+- `FullScreenEnterError` - A problem occurred trying to enter full screen
+- `FullScreenExited` - The game exited full screen mode
+- `FullScreenExitError` - A problem occurred trying to exit full screen
+
 ### `InputEvent`s
 
 #### `MouseEvent`s
