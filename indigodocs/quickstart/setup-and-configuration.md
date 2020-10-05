@@ -3,15 +3,24 @@ id: setup-and-configuration
 title: Setup & Configuration
 ---
 
-> Updated for release 0.3.0, where the plugins were overhauled and Electron support added.
+> Updated for release 0.4.0.
+
+## Version numbers
+
+Indigo version `0.4.0` is built against the following version numbers:
+
+- Scala `2.13.3`
+- Scala.js `1.2.0`
+- Mill `0.8.0`
+- SBT `1.13.13`
 
 ## Building Indigo Games
 
 Indigo games are completely normal [Scala.js](https://www.scala-js.org/) projects.
 
->Please not that we currently only publish against specific versions of Scala (2.13.3) and Scala.js (SBT: 1.1.1, Mill: 1.1.0).
+>Please not that we currently only publish against specific versions of Scala (2.13.3) and Scala.js (SBT: 1.2.0, Mill: 1.2.0).
 
-You can use either [Mill](http://www.lihaoyi.com/mill/) (Mill 0.7.4 or above) or [SBT](https://www.scala-sbt.org/) (recommend sbt 1.3.13 or greater) to build your games, and for your convenience both Mill and SBT have associated plugins, `mill-indigo` and `sbt-indigo` respectively.
+You can use either [Mill](http://www.lihaoyi.com/mill/) (Mill 0.8.0 or above) or [SBT](https://www.scala-sbt.org/) (recommend sbt 1.3.13 or greater) to build your games, and for your convenience both Mill and SBT have associated plugins, `mill-indigo` and `sbt-indigo` respectively.
 
 The plugins help you bootstrap your game during development, they marshal your assets and serve as a reference implementation for _one_ fairly basic way to embed your game into a web page or electron app.
 
@@ -48,7 +57,7 @@ Then from your command line:
 
 ```bash
 mill mygame.fastOpt # Compiles and produces the JS file of your game.
-mill snake.indigoRun # First runs indigoBuild, then bundles it into an app and runs it.
+mill mygame.indigoRun # First runs indigoBuild, then bundles it into an app and runs it.
 ```
 
 Your game should appear on your desktop.
@@ -61,7 +70,7 @@ First you need to build your game, as follows:
 
 ```bash
 mill mygame.fastOpt # Compiles and produces the JS file of your game.
-mill snake.indigoBuild # Marshall scripts and assets together and link them to an HTML file.
+mill mygame.indigoBuild # Marshall scripts and assets together and link them to an HTML file.
 ```
 
 Most modern browsers do not allow you to run local sites that load in assets and modules just by opening the HTML file in your browser. So if you use the Indigo build tool to produce a bootstrapped game, the quickest way to run it is to use [http-server](https://www.npmjs.com/package/http-server) as follows:
@@ -77,7 +86,7 @@ The examples below show you how to publish with both "fast" and "full" optimisat
 
 The difference is speed and size. As the name implies, the "fast" version compiles _very significantly_ faster than the "full" version, but even small projects will result in ~5Mb of JavaScript, where the "full" version will be in the region of ~500kb. The "full" version will likely be more performant at run time, for more information please refer to the official [Scala.js performance page](https://www.scala-js.org/doc/internals/performance.html).
 
-Note that during development the fast version is perfectly acceptable. Your browser will chew through 5-10Mb of JavaScript with no problem at all, the performance difference is generally small enough not to be a big deal, and the compilation time reduction is definitely worth it.
+Note that during development the fast version is perfectly acceptable. Your browser will chew through 5-10Mb of JavaScript or more with no problem at all, the performance difference is generally small enough not to be a big deal, and the compilation time reduction is definitely worth it.
 
 ## Mill Guide
 
@@ -91,11 +100,11 @@ import mill.scalalib._
 import mill.scalajslib._
 import mill.scalajslib.api._
 
-import $ivy.`io.indigoengine::mill-indigo:0.3.0`, millindigo._
+import $ivy.`io.indigoengine::mill-indigo:0.4.0`, millindigo._
 
 object mygame extends ScalaJSModule with MillIndigo {
   def scalaVersion   = "2.13.3"
-  def scalaJSVersion = "1.1.0"
+  def scalaJSVersion = "1.2.0"
 
   val gameAssetsDirectory: os.Path = os.pwd / "assets"
   val showCursor: Boolean          = true
@@ -104,8 +113,8 @@ object mygame extends ScalaJSModule with MillIndigo {
   val windowStartHeight: Int       = 480 // Height of Electron window, used with `indigoRun`.
 
   def ivyDeps = Agg(
-    ivy"io.indigoengine::indigo-json-circe::0.3.0",
-    ivy"io.indigoengine::indigo::0.3.0"
+    ivy"io.indigoengine::indigo-json-circe::0.4.0",
+    ivy"io.indigoengine::indigo::0.4.0"
   )
 
 }
@@ -131,7 +140,7 @@ This will output your game and all the correctly referenced assets into `out/myg
 
 To run as a web site, navigate to the folder, run `http-server -c-1`, and got to [http://127.0.0.1:8080/](http://127.0.0.1:8080/) in your browser of choice.
 
-### Rolling it up into one command
+### Rolling it up into one command in Mill
 
 You can also define the following in your `build.sc` file inside the `mygame` object:
 
@@ -178,8 +187,8 @@ Which allows you to run `mill mygame.buildGame` and `mill mygame.runGame` from t
 Add the following to your `project/plugins.sbt` file:
 
 ```scala
-addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.1.1")
-addSbtPlugin("io.indigoengine" %% "sbt-indigo" % "0.3.0") // Note the double %%
+addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.2.0")
+addSbtPlugin("io.indigoengine" %% "sbt-indigo" % "0.4.0") // Note the double %%
 ```
 
 ### build.sbt
@@ -203,8 +212,8 @@ lazy val mygame =
       windowStartWidth := 720, // Width of Electron window, used with `indigoRun`.
       windowStartHeight := 480, // Height of Electron window, used with `indigoRun`.
       libraryDependencies ++= Seq(
-        "io.indigoengine" %%% "indigo" % "0.3.0",
-        "io.indigoengine" %%% "indigo-json-circe" % "0.3.0",
+        "io.indigoengine" %%% "indigo" % "0.4.0",
+        "io.indigoengine" %%% "indigo-json-circe" % "0.4.0",
       )
     )
 ```
@@ -225,7 +234,7 @@ This will output your game and all the correctly referenced assets into `target/
 
 To run as a web site, navigate to the folder, run `http-server -c-1`, and go to [http://127.0.0.1:8080/](http://127.0.0.1:8080/) in your browser of choice.
 
-### Rolling it up into one command
+### Rolling it up into one command in SBT
 
 You can also define the following in your `build.sbt` file:
 
