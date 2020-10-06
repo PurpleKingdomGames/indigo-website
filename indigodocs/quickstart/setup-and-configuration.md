@@ -12,7 +12,7 @@ Indigo version `0.4.0` is built against the following version numbers:
 - Scala `2.13.3`
 - Scala.js `1.2.0`
 - Mill `0.8.0`
-- SBT `1.13.13`
+- SBT `1.3.13`
 
 ## Building Indigo Games
 
