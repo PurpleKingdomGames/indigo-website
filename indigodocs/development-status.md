@@ -3,18 +3,18 @@ id: development-status
 title: Indigo's Development Status
 ---
 
-> Indigo version 0.4.0 was released on the 5th of October 2020, and should be considered to be in an "alpha" state i.e. We believe it's useful, but we expect issues will emerge through use.
+> Indigo version 0.5.0 was released on the 23rd of October 2020, and should be considered to be in an "alpha" state i.e. We believe it's useful, but we expect issues will emerge through use.
 
 ## Library versions
 
 Currently Indigo is not cross compiled anywhere that isn't completely necessary. There is no intention to provide backwards compatibility at the moment, and each new release aims to bring all dependencies up to the latest versions. Once Indigo's code base stabilizes a bit, we expect that we will start to offer some degree of cross compiling, but this will probably not happen until _after_ Indigo has moved to Scala 3. Whether we will maintain support for Scala 2 and 3 for a while is as yet undecided.
 
-Indigo version `0.4.0` is built against the following version numbers:
+Indigo version `0.5.0` is built against the following version numbers:
 
 - Scala `2.13.3`
-- Scala.js `1.2.0`
+- Scala.js `1.3.0`
 - Mill `0.8.0`
-- SBT `1.3.13`
+- SBT `1.4.1`
 
 > Please note that if you're upgrading your Mill version, we've found some issues occur unless you fully delete the `out` folder on the first rebuild.
 
