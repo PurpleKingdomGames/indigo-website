@@ -5,7 +5,19 @@ title: Events
 
 ## The event loop
 
-Indigo uses a very strict event loop, that works as follows:
+The life-cycle of events in Indigo is very strict so that we can support referential transparency.
+
+Key features of events:
+
+- Events are immutable.
+- Events are ordered (First-In-First-Out).
+- Events that are present at the start of a frame, are all of the events.
+- Events generated during the frame will only become available in the next frame.
+- Events only last for a single frame, whether acted on or not, before being disposed of.
+
+> The events list received by the frame is never empty, it always contains one `Frametick` event, and it is always last.
+
+Indigo processes events as follows:
 
 1. The current frame emits events via `Outcome`s or the composed `SceneUpdateFragment`. These events are not available to the current frame.
 1. Most events are sent to a queue, but some system specific events will be processed and actioned immediately, specifically:
