@@ -9,35 +9,41 @@
       "quickstart/examples",
       "quickstart/project-templates"
     ],
-    "Detailed topics": [
-      "topics/animation",
-      "topics/assets",
-      "topics/audio",
-      "topics/boot-and-start-up",
-      "topics/cross-platform-publishing",
-      "topics/depth-and-layers",
-      "topics/effects",
-      "topics/events",
-      "topics/lighting",
-      "topics/logging",
-      "topics/materials",
-      "topics/model-viewmodel-view",
-      "topics/networking",
-      "topics/outcome",
-      "topics/primitives",
-      "topics/scene-management",
-      "topics/scene-update-fragment",
-      "topics/subsystems",
-      "topics/text-and-fonts",
-      "topics/ui-components"
+    "Organising your game": [
+      "organisation/boot-and-start-up",
+      "organisation/scene-management",
+      "organisation/subsystems"
     ],
-    "General information": [
+    "The game loop": [
+      "gameloop/events",
+      "gameloop/outcome"
+    ],
+    "Presentation": [
+      "presentation/animation",
+      "presentation/audio",
+      "presentation/depth-and-layers",
+      "presentation/effects",
+      "presentation/lighting",
+      "presentation/materials",
+      "presentation/primitives",
+      "presentation/scene-update-fragment",
+      "presentation/text-and-fonts",
+      "presentation/ui-components"
+    ],
+    "Platform & Publishing": [
+      "platform/assets",
+      "platform/cross-platform-publishing",
+      "platform/logging",
+      "platform/networking"
+    ],
+    "Other information": [
+      "information/alternatives",
       "information/key-concepts",
-      "information/performance",
-      "information/rendering-technology",
+      "information/model-viewmodel-view",
       "information/motivation-and-constraints",
+      "information/performance",
       "information/prior-art",
-      "information/alternatives"
+      "information/rendering-technology"
     ]
   }
 }
