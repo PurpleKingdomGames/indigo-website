@@ -31,7 +31,8 @@
       "presentation/ui-components"
     ],
     "Working with Time": [
-      "time/signals"
+      "time/signals",
+      "time/time-varying-values"
     ],
     "Platform & Publishing": [
       "platform/assets",
