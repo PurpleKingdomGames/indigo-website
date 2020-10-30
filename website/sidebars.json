@@ -30,6 +30,9 @@
       "presentation/text-and-fonts",
       "presentation/ui-components"
     ],
+    "Working with Time": [
+      "time/signals"
+    ],
     "Platform & Publishing": [
       "platform/assets",
       "platform/cross-platform-publishing",

@@ -202,13 +202,9 @@ Since the animation is now captured as a pure function based on time, you can no
 
 You can replicate something simple in a unit test, not unlike the examples above, or you can use property based testing as demonstrated in the [fireworks example](https://github.com/PurpleKingdomGames/indigo-examples/blob/master/examples/fireworks/src/test/scala/indigoexamples/model/TrailParticleSpecification.scala).
 
-## Signal composition
+## Signal construction
 
 Making signals can get complicated, particularly if you try to wrap up all of the business logic in a single `Signal` definition as we have done above.
-
-To help break things up, it useful to know that Signals themselves are quite composable, and that they have a combinators available called `SignalFunctions`.
-
-### Signals as Monads
 
 Signals are Monads, meaning that many of the usual functions like `map`, `ap`, and `flatMap` that you'd expect to see are available to use. For example, here is a signal being constructed in a for comprehension:
 
@@ -223,6 +219,84 @@ val signal =
 signal.at(Seconds.zero) // 60
 ```
 
-### `SignalFunction`s
+This helps a lot with building signal values, but another useful construct is the `SignalFunction`.
 
-// TODO
+## `SignalFunction`s
+
+`SignalFunction`s allow you to compose signals and functions that operator on signals together.
+
+Signal functions are combinators, and a combinator is a function that takes a function as an argument and returns another function, like this:
+
+```scala
+// A function that take as an argument a function that takes an
+// Int and returns a String, and then returns a function that
+// takes and Int and returns a Boolean
+val f: (Int => String) => (Int => Boolean)
+```
+
+A Signal function takes a `Signal[A]` and returns a `Signal[B]`. Recall that a `Signal[T]` is really just a function from `time` to `T`, thus:
+
+```scala
+SignalFunction(f: Signal[A] => Signal[B])
+```
+
+is really a combinator:
+
+```scala
+SignalFunction((time => A) => (time => B))
+```
+
+The constructor for a Signal function is actually `SignalFunction(f: A => B)`, as a pose to `SignalFunction(f: Signal[A] => Signal[B])`. this is much more convenient and better explains what you're actually doing with signal functions. Here's a simple example:
+
+```scala
+val signal = Signal.fixed(10) |> SignalFunction((i: Int) => "count: " + i.toString)
+
+signal.at(Seconds.zero)
+// "count: 10"
+```
+
+In this example we pipe a fixed value (ignores time) into a signal function which prints a string. So far, we could have achieved this by just using `map`:
+
+```scala
+val signal = Signal.fixed(10).map(i => "count: " + i.toString)
+
+signal.at(Seconds.zero)
+// "count: 10"
+```
+
+You don't _need_ signal functions, but they are a nice way to describe combining and processing signals. Here is an more interesting example:
+
+```scala
+val makeRange: SignalFunction[Boolean, List[Int]] =
+  SignalFunction { p =>
+    val num = if (p) 10 else 5
+    (1 to num).toList
+  }
+
+val chooseCatsOrDogs: SignalFunction[Boolean, String] =
+  SignalFunction(p => if (p) "dog" else "cat")
+
+val howManyPets: SignalFunction[(List[Int], String), List[String]] =
+  SignalFunction {
+    case (l, str) =>
+      l.map(_ + " " + str)
+  }
+
+// Pulse is a type of signal. Based on the time, it with produce
+// an on/off boolean like:
+//      ____    ____    ____
+//  ___|   |___|   |___|   |___
+val signal = Signal.Pulse(Seconds(1))
+
+// &&& / and - run in parallel and tuple the results
+// >>> / andThen - compose the functions together from left to right
+val signalFunction = (makeRange &&& chooseCatsOrDogs) >>> howManyPets
+// or
+// val signalFunction = (makeRange and chooseCatsOrDogs) andThen howManyPets
+
+(signal |> signalFunction).at(Seconds.zero)
+// List("1 dog", "2 dog", "3 dog", "4 dog", "5 dog", "6 dog", "7 dog", "8 dog", "9 dog", "10 dog")
+
+(signal |> signalFunction).at(Seconds(1))
+// List("1 cat", "2 cat", "3 cat", "4 cat", "5 cat")
+```
