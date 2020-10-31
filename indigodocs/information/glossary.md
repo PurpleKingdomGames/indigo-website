@@ -21,6 +21,10 @@ A pseudo-random number generator seeded on the current frames running time to fa
 
 # E
 
+### Entry point
+
+The main interface an Indigo game developer is exposed to when trying to write a game. It is a user friendly game template that constructs the Frame Processor that Indigo needs to run your game, and starts the game engine.
+
 ### Event
 
 A description of an action that is emitted during a frame and made available to the subsequent frame, such as a keyboard event.

@@ -11,6 +11,7 @@
     ],
     "Organising your game": [
       "organisation/boot-and-start-up",
+      "organisation/game-entry-points",
       "organisation/scene-management",
       "organisation/subsystems"
     ],
