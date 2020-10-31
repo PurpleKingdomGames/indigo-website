@@ -3,8 +3,6 @@ id: time-varying-values
 title: Time Varying Values
 ---
 
-## Time Varying Values
-
 Time varying values describe numeric values (`Double`s) that will change over time. They are supposed to live in your game model to help you do simple time based updates.
 
 They were designed for use with the NPC job system.
@@ -44,7 +42,7 @@ You then need to update the lumberJack during your frame tick update `lumberJack
 
 You can then render a progress bar as a percentage in the view by simply asking the `TimeVaryingValue` for its current `value`.
 
-### Types of time varying value
+## Types of time varying value
 
 - `Increase` - increases a starting value with no upper limit
 - `IncreaseTo` - increases a starting value until it reaches an upper limit

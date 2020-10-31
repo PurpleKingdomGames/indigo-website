@@ -3,8 +3,6 @@ id: loading-and-saving-data
 title: Loading & Saving Data
 ---
 
-## Loading & Saving
-
 Sooner or later, you're probably going to need to load data into your game or save user data.
 
 ### Dealing with save games

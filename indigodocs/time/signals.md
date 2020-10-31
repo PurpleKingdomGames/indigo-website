@@ -3,15 +3,13 @@ id: signals
 title: Signals & Signal Functions
 ---
 
-## Signals
-
-### Motivation
+## Motivation
 
 We want pure, referentially transparent, testable, procedural animations.
 
 > Definition: A procedural animation is an animation produced by code, rather than created by hand in, say, an animation tool and played back.
 
-### Background
+## Background
 
 The goal of Indigo is to make programming games (as a pose to making them...), easier to reason about and easier to test by leveraging the good ideas that come with functional programming.
 
