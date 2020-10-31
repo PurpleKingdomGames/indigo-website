@@ -16,6 +16,7 @@
     ],
     "The game loop": [
       "gameloop/events",
+      "gameloop/frame-context",
       "gameloop/outcome"
     ],
     "Presentation": [
