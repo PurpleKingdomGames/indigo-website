@@ -46,9 +46,9 @@ You can then render a progress bar as a percentage in the view by simply asking 
 
 ### Types of time varying value
 
-`Increase` - increases a starting value with no upper limit
-`IncreaseTo` - increases a starting value until it reaches an upper limit
-`IncreaseWrapAt` - increases a starting value until it reaches an upper limit, then wraps back to zero.
-`Decrease` - decreases a starting value with no lower limit
-`DecreaseTo` - decreases a starting value until it reaches an lower limit
-`DecreaseWrapAt` - decreases a starting value until it reaches an lower limit, then wraps back to zero.
+- `Increase` - increases a starting value with no upper limit
+- `IncreaseTo` - increases a starting value until it reaches an upper limit
+- `IncreaseWrapAt` - increases a starting value until it reaches an upper limit, then wraps back to zero.
+- `Decrease` - decreases a starting value with no lower limit
+- `DecreaseTo` - decreases a starting value until it reaches an lower limit
+- `DecreaseWrapAt` - decreases a starting value until it reaches an lower limit, then wraps back to zero.
