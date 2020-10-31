@@ -33,7 +33,7 @@ SceneUpdateFragment.empty
 
 > Intuition: Like light shining through a stained glass window onto your game.
 
-This is a sort of "image based lighting" and is touched on in the ["depth and layers" page](topics/depth-and-layers.md).
+This is a sort of "image based lighting" and is touched on in the ["depth and layers" page](presentation/depth-and-layers.md).
 
 To use the lighting layer, you add graphics, sprites, and text elements as normal to the scene, but add them to the lighting layer instead of the game or UI layers. Note that you will also need to adjust the ambient light or you won't see any chance.
 
@@ -47,7 +47,7 @@ This sort of effect is very useful for drawing things like the light from a stre
 
 > Intuition: A neon tube sign outside a bar.
 
-One of the types of texture you can apply to you [material](topics/materials.md) is called an "emissive", which means that it "emits" light all by itself. Very handy for representing eyes glowing in a dark cave, perhaps.
+One of the types of texture you can apply to you [material](presentation/materials.md) is called an "emissive", which means that it "emits" light all by itself. Very handy for representing eyes glowing in a dark cave, perhaps.
 
 Limitation: In a real 3D engine, an emissive material might also affect the surround surface colors or at least glow dynamically. Indigo does not do that, if you want it to glow you'll have to draw the glow into the emissive texture.
 
@@ -62,7 +62,7 @@ SceneUpdateFragment.empty
   .withLights(PointLight.default)
 ```
 
-> Don't forget to set up your [materials](topics/materials.md). Dynamic lighting only affects materials that can be lit, and the materials affect what happens when the light hits them.
+> Don't forget to set up your [materials](presentation/materials.md). Dynamic lighting only affects materials that can be lit, and the materials affect what happens when the light hits them.
 
 Currently, shadow casting is not supported.
 
