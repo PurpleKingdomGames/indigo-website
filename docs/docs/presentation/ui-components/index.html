@@ -105,7 +105,7 @@
   updatedViewModel &lt;- <span class="hljs-type">Outcome</span>(viewModel.copy(button = updatedButton))
 } <span class="hljs-keyword">yield</span> updatedViewModel
 </code></pre>
-<p>First we have to update the button, which is done by calling the buttons's built in update method and supplying the current state of the mouse on this frame. The button update returns an <a href="topics/outcome.md"><code>Outcome</code></a> because as well as containing a freshly updated button, it can also return events that will need to be collected at the end of the frame. Since we need to return an outcome containing an updated view model at the end of the frame, we then need to map over the outcome, and insert the button in the view model.</p>
+<p>First we have to update the button, which is done by calling the buttons's built in update method and supplying the current state of the mouse on this frame. The button update returns an <a href="/docs/gameloop/outcome"><code>Outcome</code></a> because as well as containing a freshly updated button, it can also return events that will need to be collected at the end of the frame. Since we need to return an outcome containing an updated view model at the end of the frame, we then need to map over the outcome, and insert the button in the view model.</p>
 <p><strong><em>A word of caution</em></strong>, you might be tempted to do this instead, which appears to work and compiles just fine:</p>
 <pre><code class="hljs css language-scala"><span class="hljs-keyword">val</span> updatedButton = viewModel.button.update(context.inputState.mouse).state
 <span class="hljs-keyword">val</span> updatedViewModel = viewModel.copy(button = updatedButton)
