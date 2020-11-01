@@ -46,6 +46,9 @@ class Footer extends React.Component {
             <a href={this.docUrl('quickstart/examples', this.props.language)}>
               Links to examples
             </a>
+            <a href={this.docUrl('quickstart/project-templates', this.props.language)}>
+              Project templates
+            </a>
           </div>
           <div>
             <h5>Community</h5>

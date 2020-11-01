@@ -96,7 +96,7 @@ class Index extends React.Component {
       <Block layout="threeColumn">
         {[
           {
-            content: 'If you can write Scala, you can make games. Indigo is powered by Scala.js, and builds with SBT & Mill.',
+            content: 'If you can write Scala, you can make games. Indigo is powered by Scala.js, and builds with sbt & Mill.',
             image: `${baseUrl}img/site_scala_logo.png`,
             imageAlign: 'top',
             title: 'Nothing but Scala.',
@@ -130,7 +130,7 @@ class Index extends React.Component {
               The engine has been designed specifically with programmers in mind. It focuses on developer productivity and ease of testing.
               </MarkdownBlock>
               <MarkdownBlock>
-              Indigo is written in [**Scala**](https://www.scala-lang.org/) (powered by [**Scala.js**](https://www.scala-js.org/)), as are the amazing games you'll make. It's intended for the people who _really_ like pure functions, but being Scala, allows you too flip back to a more procedural or object oriented style if that suits you or your game better.
+              Indigo is written in [**Scala**](https://www.scala-lang.org/) (powered by [**Scala.js**](https://www.scala-js.org/)), as are the amazing games you'll make. It's intended for the people who _really_ like pure functions, but being Scala, allows you too flip back to a more procedural or object oriented styles if that suits you or your game better.
               </MarkdownBlock>
             </div>
             <div className="blockElement alignLeft imageAlignTop twoByGridBlock">
@@ -150,36 +150,44 @@ class Index extends React.Component {
       </div>
     );
 
-    // const GetInvolved = () => (
-    //   <div className="container paddingBottom paddingTop descriptionContainer" style={{ backgroundColor: '#29016A' }}>
-    //     <div className="wrapper" style={{ textAlign: 'left' }}>
-    //       <h2>Help make Indigo better!</h2>
-    //       <div className="gridBlock">
-    //         <div className="blockElement alignLeft imageAlignTop twoByGridBlock lightLink" style={{ backgroundColor: '#0F033A', borderRadius: '20px', paddingLeft: '30px', paddingRight: '30px' , paddingBottom: '10px' }}>
-    //           <h3>"Can I work on something?"</h3>
-    //           <MarkdownBlock>
-    //             Please do! If you have time on your hands, why not...
-    //           </MarkdownBlock>
-    //           <ul>
-    //             <li>Work on a new feature!</li>
-    //             <li>Report an issue!</li>
-    //             <li>Write documentation!</li>
-    //             <li><MarkdownBlock>[Discuss ideas and improvements!](https://discord.com/channels/716435281208672356)</MarkdownBlock></li>
-    //           </ul>
-    //         </div>
-    //         <div className="blockElement alignLeft imageAlignTop twoByGridBlock lightLink" style={{ backgroundColor: '#0F033A', borderRadius: '20px', paddingLeft: '30px', paddingRight: '30px' , paddingBottom: '10px' }}>
-    //           <h3>"Can I buy you a coffee?"</h3>
-    //           <MarkdownBlock>
-    //             Certainly! Indigo's development does cost some money from on-going running costs to tea and biscuits for the developers.
-    //           </MarkdownBlock>
-    //           <MarkdownBlock>
-    //             If you'd like to help with any of that, you can sponsor us via [GitHub](https://github.com/sponsors/PurpleKingdomGames) or [Patreon](https://www.patreon.com/indigoengine).
-    //           </MarkdownBlock>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // );
+    const GetInvolved = () => (
+      <div className="container paddingBottom paddingTop descriptionContainer" style={{ backgroundColor: '#29016A' }}>
+        <div className="wrapper" style={{ textAlign: 'left' }}>
+          <div className="gridBlock">
+            <div className="blockElement alignLeft imageAlignTop threeByGridBlock lightLink" style={{ backgroundColor: '#0F033A', borderRadius: '20px', paddingLeft: '30px', paddingRight: '30px' , paddingBottom: '10px' }}>
+              <h3>Who makes this?</h3>
+              <MarkdownBlock>
+                Purple Kingdom Games is made up of two long time collaborators that like building software together. They are both called Dave.
+              </MarkdownBlock>
+              <MarkdownBlock>
+                Although the bulk of the early work on Indigo came from the Dave's, since launch we've also gratefully recieved a number of wonderful community contributions too!
+              </MarkdownBlock>
+            </div>
+            <div className="blockElement alignLeft imageAlignTop threeByGridBlock lightLink" style={{ backgroundColor: '#0F033A', borderRadius: '20px', paddingLeft: '30px', paddingRight: '30px' , paddingBottom: '10px' }}>
+              <h3>You can contribute!</h3>
+              <MarkdownBlock>
+                We'd love you to get involved! You could...
+              </MarkdownBlock>
+              <ul>
+                <li><MarkdownBlock>Build a new [feature](https://github.com/PurpleKingdomGames/indigo/blob/master/CONTRIBUTING.md)</MarkdownBlock></li>
+                <li><MarkdownBlock>Report an [issue](https://github.com/PurpleKingdomGames/indigo/issues)</MarkdownBlock></li>
+                <li><MarkdownBlock>Help with the [documentation](https://github.com/PurpleKingdomGames/indigo-website)</MarkdownBlock></li>
+              </ul>
+              <MarkdownBlock>If you're not sure where to start or would like to discuss your ideas, come and say hello on [Discord](https://discord.gg/b5CD47g).</MarkdownBlock>
+            </div>
+            <div className="blockElement alignLeft imageAlignTop threeByGridBlock lightLink" style={{ backgroundColor: '#0F033A', borderRadius: '20px', paddingLeft: '30px', paddingRight: '30px' , paddingBottom: '10px' }}>
+              <h3>Please sponsor our work!</h3>
+              <MarkdownBlock>
+                Indigo is a passion project, and in software, passion projects come from coffee and biscuits and ...from the ability to cover some less exciting running costs.
+              </MarkdownBlock>
+              <MarkdownBlock>
+                If you like what we're doing and would like to help fuel Indigo's development, please consider sponsoring us on either [GitHub](https://github.com/sponsors/PurpleKingdomGames) or [Patreon](https://www.patreon.com/indigoengine).
+              </MarkdownBlock>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
 
     return (
       <div>
@@ -187,7 +195,7 @@ class Index extends React.Component {
         <div className="mainContainer">
           <Features />
           <Description />
-          {/* <GetInvolved /> */}
+          <GetInvolved />
         </div>
       </div>
     );
