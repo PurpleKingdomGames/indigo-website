@@ -39,6 +39,7 @@
     "Platform & Publishing": [
       "platform/assets",
       "platform/cross-platform-publishing",
+      "platform/importers",
       "platform/input-handling",
       "platform/loading-and-saving-data",
       "platform/logging",
