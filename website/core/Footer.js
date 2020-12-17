@@ -62,6 +62,7 @@ class Footer extends React.Component {
               Stack Overflow
             </a> */}
             <a href="https://discord.gg/b5CD47g">Discord</a>
+            <a href="https://github.com/PurpleKingdomGames/indigo/discussions">GitHub Discussons</a>
             <a
               href="https://twitter.com/indigoengine"
               target="_blank"

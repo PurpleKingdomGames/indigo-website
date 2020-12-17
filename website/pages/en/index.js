@@ -173,7 +173,7 @@ class Index extends React.Component {
                 <li><MarkdownBlock>Report an [issue](https://github.com/PurpleKingdomGames/indigo/issues)</MarkdownBlock></li>
                 <li><MarkdownBlock>Help with the [documentation](https://github.com/PurpleKingdomGames/indigo-website)</MarkdownBlock></li>
               </ul>
-              <MarkdownBlock>If you're not sure where to start or would like to discuss your ideas, come and say hello on [Discord](https://discord.gg/b5CD47g).</MarkdownBlock>
+              <MarkdownBlock>If you're not sure where to start or would like to discuss your ideas, come and say hello on [Discord](https://discord.gg/b5CD47g), or post a question on [GitHub Discussions](https://github.com/PurpleKingdomGames/indigo/discussions).</MarkdownBlock>
             </div>
             <div className="blockElement alignLeft imageAlignTop threeByGridBlock lightLink" style={{ backgroundColor: '#0F033A', borderRadius: '20px', paddingLeft: '30px', paddingRight: '30px' , paddingBottom: '10px' }}>
               <h3>Please sponsor our work!</h3>
