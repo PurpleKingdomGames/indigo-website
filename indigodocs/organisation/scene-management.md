@@ -225,3 +225,23 @@ mySword.modify(inventory, polishSword)
 As with all things in Indigo, the `Lens` implementation is the bare minimum needed - if you assume most models are just nested objects - and does not currently support things like prisms.
 
 No doubt extra functionality will be added as soon as the need arises, but in the meantime, note that Indigo's lens definition says nothing about how it's implemented. If you had a complicated case, you could look at building your lenses using a Scala.js compatible lens library, and just use the Indigo Lens as an interface to the engine.
+
+## Tips for working with Scenes
+
+### Passing events between scenes
+
+When one scene is running none of the others are, but sometimes it's useful to be able to pass a message to the scene you're about to switch to.
+
+This turns out to be very easy in Indigo. Since events are ordered and strictly evaluated, all you need to do is:
+
+```scala
+final case class MessageForNextScene[A](data: A) extends GlobalEvent
+
+Outcome(...)
+  .addGlobalEvents(
+    SceneEvent.JumpToScene(nextScene),
+    MessageForNextScene(someData)
+  )
+```
+
+The first event will re-route all functions to the new scene, and the next event will therefore be received immediately by that scene.
