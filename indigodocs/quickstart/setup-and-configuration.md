@@ -3,24 +3,40 @@ id: setup-and-configuration
 title: Setup & Configuration
 ---
 
-> Updated for release 0.5.0.
+> Updated for release 0.6.0.
 
 ## Version numbers
 
-Indigo version `0.5.0` is built against the following version numbers:
+Indigo version `0.6.0` is built against the following version numbers:
 
-- Scala `2.13.3`
-- Scala.js `1.3.0`
-- Mill `0.8.0`
-- SBT `1.4.1`
+- Scala `2.13.4` and `3.0.0-M3`
+- Scala.js `1.3.1`
+- Mill `0.9.4`
+- SBT `1.4.6`
+
+## Scala 3 Setup Notes
+
+Please note that Scala 3 currently only works with **sbt**, and the set up will be very similar to the Scala 2 version described below. We hope to add Mill support as soon as possible.
+
+The main difference is that you must remember to include the `sbt-dotty` plugin:
+
+```scala
+addSbtPlugin("ch.epfl.lamp" % "sbt-dotty" % "0.5.1")
+```
+
+The Cursed Pirate demo has been updated to show a working Indigo + Scala 3 build:
+
+[https://github.com/PurpleKingdomGames/indigo-examples/tree/master/demos/pirate](https://github.com/PurpleKingdomGames/indigo-examples/tree/master/demos/pirate)
+
+Please note that it still uses Scala 2 syntax, but Scala 3 syntax will work fine.
 
 ## Building Indigo Games
 
 Indigo games are completely normal [Scala.js](https://www.scala-js.org/) projects.
 
->Please not that we currently only publish against specific versions of Scala (2.13.3) and Scala.js (1.3.0).
+>Please not that we currently only publish against specific versions of Scala (2.13.4, 3.0.0-M3) and Scala.js (1.3.1).
 
-You can use either [Mill](http://www.lihaoyi.com/mill/) (Mill 0.8.0 or above) or [SBT](https://www.scala-sbt.org/) (recommend sbt 1.4.1 or greater) to build your games, and for your convenience both Mill and SBT have associated plugins, `mill-indigo` and `sbt-indigo` respectively.
+You can use either [Mill](http://www.lihaoyi.com/mill/) (Mill 0.9.4 or above) or [SBT](https://www.scala-sbt.org/) (recommend sbt 1.4.6 or greater) to build your games, and for your convenience both Mill and SBT have associated plugins, `mill-indigo` and `sbt-indigo` respectively.
 
 The plugins help you bootstrap your game during development, they marshal your assets and serve as a reference implementation for _one_ fairly basic way to embed your game into a web page or electron app.
 
@@ -100,7 +116,7 @@ import mill.scalalib._
 import mill.scalajslib._
 import mill.scalajslib.api._
 
-import $ivy.`io.indigoengine::mill-indigo:0.5.0`, millindigo._
+import $ivy.`io.indigoengine::mill-indigo:0.6.0`, millindigo._
 
 object mygame extends ScalaJSModule with MillIndigo {
   def scalaVersion   = "2.13.3"
@@ -113,8 +129,8 @@ object mygame extends ScalaJSModule with MillIndigo {
   val windowStartHeight: Int       = 480 // Height of Electron window, used with `indigoRun`.
 
   def ivyDeps = Agg(
-    ivy"io.indigoengine::indigo-json-circe::0.5.0",
-    ivy"io.indigoengine::indigo::0.5.0"
+    ivy"io.indigoengine::indigo-json-circe::0.6.0",
+    ivy"io.indigoengine::indigo::0.6.0"
   )
 
 }
@@ -187,8 +203,8 @@ Which allows you to run `mill mygame.buildGame` and `mill mygame.runGame` from t
 Add the following to your `project/plugins.sbt` file:
 
 ```scala
-addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.3.0")
-addSbtPlugin("io.indigoengine" %% "sbt-indigo" % "0.5.0") // Note the double %%
+addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.3.1")
+addSbtPlugin("io.indigoengine" %% "sbt-indigo" % "0.6.0") // Note the double %%
 ```
 
 ### build.sbt
@@ -202,7 +218,7 @@ lazy val mygame =
     .settings( // Standard SBT settings
       name := "mygame",
       version := "0.0.1",
-      scalaVersion := "2.13.3",
+      scalaVersion := "2.13.4",
       organization := "org.mygame"
     )
     .settings( // Indigo specific settings
@@ -212,8 +228,8 @@ lazy val mygame =
       windowStartWidth := 720, // Width of Electron window, used with `indigoRun`.
       windowStartHeight := 480, // Height of Electron window, used with `indigoRun`.
       libraryDependencies ++= Seq(
-        "io.indigoengine" %%% "indigo" % "0.5.0",
-        "io.indigoengine" %%% "indigo-json-circe" % "0.5.0",
+        "io.indigoengine" %%% "indigo" % "0.6.0",
+        "io.indigoengine" %%% "indigo-json-circe" % "0.6.0",
       )
     )
 ```
