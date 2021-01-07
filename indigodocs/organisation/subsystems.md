@@ -16,9 +16,9 @@ trait SubSystem {
   type EventType
   type SubSystemModel
   def eventFilter: GlobalEvent => Option[EventType]
-  def initialModel: SubSystemModel
+  def initialModel: Outcome[SubSystemModel]
   def update(context: SubSystemFrameContext, model: SubSystemModel): EventType => Outcome[SubSystemModel]
-  def present(context: SubSystemFrameContext, model: SubSystemModel): SceneUpdateFragment
+  def present(context: SubSystemFrameContext, model: SubSystemModel): Outcome[SceneUpdateFragment]
 }
 ```
 
@@ -38,8 +38,8 @@ final case class PointsTrackerExample(startingPoints: Int) extends SubSystem {
     case _                     => None
   }
 
-  def initialModel: Int =
-    startingPoints
+  def initialModel: Outcome[Int] =
+    Outcome(startingPoints)
 
   def update(context: SubSystemFrameContext, points: Int): PointsTrackerEvent => Outcome[Int] = {
     case PointsTrackerEvent.Add(pts) =>
@@ -50,9 +50,11 @@ final case class PointsTrackerExample(startingPoints: Int) extends SubSystem {
         .addGlobalEvents(GameOver)
   }
 
-  def present(context: SubSystemFrameContext, points: Int): SceneUpdateFragment =
-    SceneUpdateFragment.empty
-      .addGameLayerNodes(Text(points.toString, 0, 0, 1, FontKey("")))
+  def present(context: SubSystemFrameContext, points: Int): Outcome[SceneUpdateFragment] =
+    Outcome(
+      SceneUpdateFragment.empty
+        .addGameLayerNodes(Text(points.toString, 0, 0, 1, FontKey("")))
+    )
 }
 
 sealed trait PointsTrackerEvent extends GlobalEvent with Product with Serializable

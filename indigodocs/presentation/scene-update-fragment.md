@@ -83,7 +83,6 @@ The `SceneUpdateFragment` has a fairly rich API that you can explore, but at a h
 - The UI Layer: Nodes and effects that represent the UI that sits above everything
 - Ambient light: White light / None? Pitch black? A moonlight blue?
 - Dynamic Lights: A list of dynamic lights that affect nodes with the right materials.
-- Global events: A list of events emitted during construction of the view
 - Audio: Background audio tracks and volume mixing.
 - Screen level effects: Some basic screen effects like saturation and tint
 - Clone blanks: A list of nodes used as look up reference for Cloning.

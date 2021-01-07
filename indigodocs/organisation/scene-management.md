@@ -68,7 +68,7 @@ trait Scene[StartupData, GameModel, ViewModel] {
 
   def updateModel(context: FrameContext[StartupData], model: SceneModel): GlobalEvent => Outcome[SceneModel]
   def updateViewModel(context: FrameContext[StartupData], model: SceneModel, viewModel: SceneViewModel): GlobalEvent => Outcome[SceneViewModel]
-  def present(context: FrameContext[StartupData], model: SceneModel, viewModel: SceneViewModel): SceneUpdateFragment
+  def present(context: FrameContext[StartupData], model: SceneModel, viewModel: SceneViewModel): Outcome[SceneUpdateFragment]
 }
 ```
 

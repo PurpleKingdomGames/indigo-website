@@ -7,7 +7,7 @@ title: Outcome Type
 
 The `Outcome` type is one you'll see a lot.
 
-At the end of updating the model or the view model, you must always produce an Outcome. An Outcome is the combination of an updated piece of state, and a list of `GlobalEvent`s that updating the state produced.
+At the end of updating the model or the view model, you must always produce an Outcome. An Outcome is the combination of an updated piece of state, and a list of `GlobalEvent`s that updating the state produced. It can also represent an error you may or may not be able to recover from.
 
 For example, let's say you update your game's model, and it turns out that the player has lost the game somehow. You might need to do two things:
 
@@ -21,12 +21,14 @@ Outcome(model.copy(totalScore = calculateFinalScore(...)))
   .addGlobalEvents(JumpTo(GameOverScene.name))
 ```
 
-Outcome isn't optional and isn't expected to fail, so you can always retrieve the state and global events it contains by simply accessing them:
+Outcome isn't optional but it can fail. You can access the state or global events with:
 
 ```scala
-outcome.state
-outcome.globalEvents
+outcome.getOrElse(...)
+outcome.globalEventsOrNil
 ```
+
+However the expectation is that you will generally access the values of an Outcome by mapping or perhaps in a for comprehension.
 
 ## Examples of Operations on Outcomes
 
@@ -45,7 +47,7 @@ Outcome(10).merge(Outcome(20))(_ + _)      // Outcome(30)
 Outcome("a") |+| Outcome("b")              // Outcome(("a", "b"))
 ```
 
-`Outcome`'s map function is an alias for `mapState[A]`, but you can also modify the events with `mapGlobalEvents`.
+As mentioned, `Outcome`'s map function is bias towards the state, but you can also modify the events with `mapGlobalEvents`.
 
 Sequencing can be done as follows:
 
@@ -73,4 +75,62 @@ But this is boring and requires the creation of a couple of variables. The thing
 ```scala
 Outcome(Foo(count = 10))
   .createGlobalEvents(foo => if(foo.count > 5) List(PlaySound("tada", Volume.Max)) else Nil)
+```
+
+## Error handling
+
+> Indigo 0.6.0 or later
+
+The `Outcome` type also comes with error handling.
+
+If an exception is thrown within an outcome's constructor then it will be caught in a similar way to Scala standard `Try` monad. E.g.:
+
+```scala
+Outcome(throw new Exception("Boom!"))
+```
+
+Exceptions are a fact of life on the JVM and also in JS. If you access an array index outside it's range, you'll get an exception.
+
+You can model errors with types like `Either[Error, A]` or as an ADT:
+
+```scala
+sealed trait MyJourney
+case object HappyPath extends MyJourney
+case object UnhappyPath extends MyJourney // Error case
+```
+
+... but you're still going to get exceptions from time to time - at least during development.
+
+In Indigo, the hope it that 99 times out of 100 you can get away with an ADT or an `Either` because you've done lots of testing and the unhappy paths are _recoverable_ in a way that is fairly local to the place where the error occurred so that your game can continue. It would be a shame to crash the game.
+
+Sometimes though, you can recover _eventually_ but you need to bail out right now. This is where it might be appropriate to throw an exception or raise an error (`Outcome.raiseError(e)`) in an outcome.
+
+To handle such an error, we can do the following:
+
+> Please note that you should really only catch exceptions you're expecting by declaring a class that extends Exception and catching that.
+
+```scala
+Outcome(10)
+  .map[Int](_ => throw new Exception("Boom!"))
+  .map(i => i * i)
+  .handleError {
+    case e =>
+      Outcome(e.getMessage.length)
+  }
+```
+
+Here we start with a value and throw an exception during the first map. We attempt to map the value again, but it's ignored and the exception is carried over. We then handle the error with a partial function that allows us to recover back to a (slightly suspect) `Outcome[Int]` again.
+
+**If you game is going to crash, then you ought to let it crash.**
+
+That said, if your game is going to crash then it might be helpful to log something useful in the dying moments. Indigo itself looks out for exceptions and attempts to log them before it crashes a game. You can give it something meaningful to log by using the `logCrash` outcome method. Invoked similarly to `handleError` above, it is a partial function that takes an exception and returns any string value you like. Indigo then logs this message before the game crashes.
+
+```scala
+Outcome(10)
+  .map[Int](i => throw new Exception(i.toString))
+  .map(i => i * i)
+  .logCrash {
+    case e =>
+      "The game crashed at integer:" e.getMessage
+  }
 ```

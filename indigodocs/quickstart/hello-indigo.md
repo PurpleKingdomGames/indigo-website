@@ -49,11 +49,11 @@ object HelloIndigo extends IndigoSandbox[Unit, Unit] {
   def setup(
       assetCollection: AssetCollection,
       dice: Dice
-  ): Startup[Unit] =
-    Startup.Success(())
+  ): Outcome[Startup[Unit]] =
+    Outcome(Startup.Success(()))
 
-  def initialModel(startupData: Unit): Unit =
-    ()
+  def initialModel(startupData: Unit): Outcome[Unit] =
+    Outcome(())
 
   def updateModel(
       context: FrameContext[Unit],
@@ -64,8 +64,10 @@ object HelloIndigo extends IndigoSandbox[Unit, Unit] {
   def present(
       context: FrameContext[Unit],
       model: Unit
-  ): SceneUpdateFragment =
-    SceneUpdateFragment.empty
+  ): Outcome[SceneUpdateFragment] =
+    Outcome(
+      SceneUpdateFragment.empty
+    )
 
 }
 ```
@@ -97,9 +99,9 @@ One small thing to note is that most types in Indigo try to provide sensible def
 
 ### Running the demo - a blank screen!
 
-We're going to follow the Mill version of the project below, but the SBT version is almost identical, substituting `sbt buildGame` in place of `mill helloindigo.buildGame`.
+We're going to follow the Mill version of the project below, but the SBT version is almost identical, substituting `sbt runGame` in place of `mill helloindigo.runGame`.
 
-So assuming you have [Mill](http://www.lihaoyi.com/mill/) and http-server set up as the [guide](setup-and-configuration.md) suggests, to run the demo (as of version 0.3.0), do the following from your command line:
+So assuming you have followed the [set up guide](setup-and-configuration.md), to run the demo enter the following from your command line:
 
 ```bash
 mill helloindigo.runGame
@@ -206,7 +208,7 @@ with:
 )
 ```
 
-Signals are just a function from `t:Time => A` (Time is really the type `Seconds`). This code uses an inbuilt Signal called Orbit that rotates around a point at a fixed distance based on the current time.
+Signals are just a function from `time: Seconds => A`. This code uses an inbuilt Signal called Orbit that rotates around a point at a fixed distance based on the current time.
 
 ```text
 Question: Orbit looks a bit simple, what if you wanted it to rotate slower or faster?
@@ -218,7 +220,7 @@ Stepping through the code, we request an Orbit signal that rotates around the ce
 
 ## Time matters
 
-Before we move on, if you're new to game dev, it's worth noting the importance of that last bit. All movement in your real game should be based on time, one way or another.
+Before we move on, if you're new to game development, it's worth noting the importance of that last bit. All movement in your real game should be based on time, one way or another.
 
 Consider how we might move something along the x-axis:
 
@@ -258,7 +260,7 @@ The idea of the `Model` is that it should be about storing the _abstract version
 
 Sometimes though, you need to remember things in screen space, concrete details about positions and animation states, and in those cases you would use a `ViewModel`. Conversely, a `ViewModel` should not hold any data you wouldn't mind losing, i.e. presentation data only, no game data.
 
-**One limitation of the Sandbox is that it has no `ViewModel`, so we're going to have to immediately break our rule a bit!**
+**One limitation of the Sandbox is that in the spirit of minimalism, it has no `ViewModel`! So we're going to have to immediately break our rule a bit.**
 
 ### Adding interaction
 
@@ -327,16 +329,18 @@ Then we need to give Indigo the empty or first version of our model.
 Replace:
 
 ```scala
-def initialModel(startupData: Unit): Unit =
-  ()
+def initialModel(startupData: Unit): Outcome[Unit] =
+  Outcome())
 ```
 
 with:
 
 ```scala
-def initialModel(startupData: Unit): Model =
-  Model.initial(
-    config.viewport.giveDimensions(magnification).center
+def initialModel(startupData: Unit): Outcome[Model] =
+  Outcome(
+    Model.initial(
+      config.viewport.giveDimensions(magnification).center
+    )
   )
 ```
 
@@ -384,15 +388,15 @@ def updateModel(
 
 The model update function is just a function that has been partially applied with the context of this frame, and then a big pattern match on the event types.
 
->`GlobalEvent` is a trait used to tag things as events. The largest source of errors / surprises in Indigo - in my experience so far - is from the fact that we can't enforce exhaustively checks on these events at the moment.
+>`GlobalEvent` is a trait used to tag things as events. The largest source of errors / surprises in Indigo - in the authors experience so far - is from the fact that we can't enforce exhaustively checks on these events. In other words, you forgot to catch an event case somewhere.
 
 In this case, we're interested in two events. A `MouseEvent.Click(x, y)` so that we can add a new dot, and a `FrameTick`. FrameTick is a bit special because it always happens last... and it always happens!
 
-When a mouse click is noticed, we call our `addDot` method with a new Dot, providing the orbital distance and the angle from the center of the screen to the point where we clicked the mouse.
+When a mouse click is noticed, we call our `addDot` method with a new Dot, providing the orbital distance and the angle from the center of the screen to the point where we clicked the mouse using `Math.atan2(y, x)`.
 
-Keep in mind that multiple events can happen between frame ticks, which should only lead to model updates related to each specific event. In particular, changes that are intended to occur at a constant rate, like motion at a regular speed, should only be applied on frame ticks. Otherwise funny time-dilating side effects can occur.
+Keep in mind that multiple events can and often do happen between frame ticks, which should only lead to model updates related to each specific event. In particular, changes that are intended to occur at a constant rate, like motion, should only be applied on frame ticks. Otherwise funny time-dilating side effects can occur.
 
-Notice that everything is wrapped in an `Outcome`. An `Outcome[A]` is a Monad that holds a new state `A` and can also capture any events that are the ...outcome... of processing part of a frame. `Outcome`s can be composed together in lots of useful ways.
+Notice that everything is wrapped in an `Outcome`. An `Outcome[A]` is a Monad that holds a new state `A` and can also capture any events that are the ...outcome... of processing part of a frame. Outcome's can also be used to handle, recover from and report on errors. `Outcome`s can be composed together in lots of useful ways, much like the standard `Option` type.
 
 Finally we need to draw something, replace:
 
@@ -421,8 +425,8 @@ def drawDots(
 ): List[Graphic] =
   dots.map { dot =>
     val position = Point(
-      (Math.sin(dot.angle.value) * dot.orbitDistance + center.x).toInt,
-      (Math.cos(dot.angle.value) * dot.orbitDistance + center.y).toInt
+      x = (Math.sin(dot.angle.value) * dot.orbitDistance + center.x).toInt,
+      y = (Math.cos(dot.angle.value) * dot.orbitDistance + center.y).toInt
     )
 
     Graphic(Rectangle(0, 0, 32, 32), 1, Material.Textured(assetName))
@@ -438,8 +442,9 @@ If it doesn't work, remember you can always [compare with the repo](https://gith
 
 Hopefully this has given you a little taste of how Indigo works. Next you could try:
 
-1. Sticking with the sandbox and trying out other features - perhaps take a look at the [examples](https://github.com/PurpleKingdomGames/indigo-examples/tree/master/examples) for ideas?
-2. Switch to a different entry point (`IndigoDemo` or `IndigoGame`), and see if you can modify the example above to fit. Could you make use of the view model? You'd probably only need one scene, but how would it be set up?
-3. Try porting the code above to a `SubSystem` - what will the relationship between the main game and the subsystem be?
+1. Modifying this demo to choose a random coloured circle using the `Dice` instance in the `FrameContext`.
+2. Sticking with the sandbox and trying out other features - perhaps take a look at the [examples](https://github.com/PurpleKingdomGames/indigo-examples/tree/master/examples) for ideas?
+3. Switch to a different entry point (`IndigoDemo` or `IndigoGame`), and see if you can modify the example above to fit. Could you make use of the view model? You'd probably only need one scene, but how would it be set up?
+4. Try porting the code above to a `SubSystem` - what will the relationship between the main game and the subsystem be?
 
 We hope you enjoyed creating something - however simple - that was visual, interactive and fun in Scala, and we look forward to seeing what you create next!

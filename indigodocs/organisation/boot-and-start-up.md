@@ -27,7 +27,7 @@ Sandbox games (that implement `IndigoSandbox`) have a different boot sequence th
 `IndigoGame`'s and `IndigoDemo`s have a boot method such as this one, where "`BootData`" is some user defined type:
 
 ```scala
-def boot(flags: Map[String, String]): BootResult[BootData]
+def boot(flags: Map[String, String]): Outcome[BootResult[BootData]]
 ```
 
 #### Flags
@@ -43,7 +43,7 @@ Let's look at the [Snake game on our website as a simple example](https://indigo
 Well we use a flag, like this:
 
 ```scala
-  def boot(flags: Map[String, String]): BootResult[GameViewport] = {
+  def boot(flags: Map[String, String]): Outcome[BootResult[GameViewport]] = {
     val assetPath: String =
       flags.getOrElse("baseUrl", "")
 
@@ -99,7 +99,7 @@ If "boot" is for marshaling your foundation game settings, then start up is for 
 The setup function signature looks like this:
 
 ```scala
-def setup(bootData: BootData, assetCollection: AssetCollection, dice: Dice): Startup[StartUpData]
+def setup(bootData: BootData, assetCollection: AssetCollection, dice: Dice): Outcome[Startup[StartUpData]]
 ```
 
 > Important! The `StartUpData` type corresponds to one of the type parameters in `IndigoSandbox`, `IndigoDemo`, and `IndigoGame`.
