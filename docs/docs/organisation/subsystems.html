@@ -69,9 +69,9 @@
   <span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">EventType</span></span>
   <span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">SubSystemModel</span></span>
   <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">eventFilter</span></span>: <span class="hljs-type">GlobalEvent</span> =&gt; <span class="hljs-type">Option</span>[<span class="hljs-type">EventType</span>]
-  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialModel</span></span>: <span class="hljs-type">SubSystemModel</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialModel</span></span>: <span class="hljs-type">Outcome</span>[<span class="hljs-type">SubSystemModel</span>]
   <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update</span></span>(context: <span class="hljs-type">SubSystemFrameContext</span>, model: <span class="hljs-type">SubSystemModel</span>): <span class="hljs-type">EventType</span> =&gt; <span class="hljs-type">Outcome</span>[<span class="hljs-type">SubSystemModel</span>]
-  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">present</span></span>(context: <span class="hljs-type">SubSystemFrameContext</span>, model: <span class="hljs-type">SubSystemModel</span>): <span class="hljs-type">SceneUpdateFragment</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">present</span></span>(context: <span class="hljs-type">SubSystemFrameContext</span>, model: <span class="hljs-type">SubSystemModel</span>): <span class="hljs-type">Outcome</span>[<span class="hljs-type">SceneUpdateFragment</span>]
 }
 </code></pre>
 <p>Typically a subsystem is made from an object or class that extends this trait, or by using the <code>SubSystem.apply</code> constructor. SubSystem's can produce renderable output or just sit and process things in the background. Either way their only mechanism for interacting with the main game is through the event loop.</p>
@@ -88,8 +88,8 @@
     <span class="hljs-keyword">case</span> _                     =&gt; <span class="hljs-type">None</span>
   }
 
-  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialModel</span></span>: <span class="hljs-type">Int</span> =
-    startingPoints
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">initialModel</span></span>: <span class="hljs-type">Outcome</span>[<span class="hljs-type">Int</span>] =
+    <span class="hljs-type">Outcome</span>(startingPoints)
 
   <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update</span></span>(context: <span class="hljs-type">SubSystemFrameContext</span>, points: <span class="hljs-type">Int</span>): <span class="hljs-type">PointsTrackerEvent</span> =&gt; <span class="hljs-type">Outcome</span>[<span class="hljs-type">Int</span>] = {
     <span class="hljs-keyword">case</span> <span class="hljs-type">PointsTrackerEvent</span>.<span class="hljs-type">Add</span>(pts) =&gt;
@@ -100,9 +100,11 @@
         .addGlobalEvents(<span class="hljs-type">GameOver</span>)
   }
 
-  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">present</span></span>(context: <span class="hljs-type">SubSystemFrameContext</span>, points: <span class="hljs-type">Int</span>): <span class="hljs-type">SceneUpdateFragment</span> =
-    <span class="hljs-type">SceneUpdateFragment</span>.empty
-      .addGameLayerNodes(<span class="hljs-type">Text</span>(points.toString, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-type">FontKey</span>(<span class="hljs-string">""</span>)))
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">present</span></span>(context: <span class="hljs-type">SubSystemFrameContext</span>, points: <span class="hljs-type">Int</span>): <span class="hljs-type">Outcome</span>[<span class="hljs-type">SceneUpdateFragment</span>] =
+    <span class="hljs-type">Outcome</span>(
+      <span class="hljs-type">SceneUpdateFragment</span>.empty
+        .addGameLayerNodes(<span class="hljs-type">Text</span>(points.toString, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-type">FontKey</span>(<span class="hljs-string">""</span>)))
+    )
 }
 
 <span class="hljs-keyword">sealed</span> <span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">PointsTrackerEvent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">GlobalEvent</span> <span class="hljs-keyword">with</span> <span class="hljs-title">Product</span> <span class="hljs-keyword">with</span> <span class="hljs-title">Serializable</span></span>

@@ -106,7 +106,7 @@
 
   <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">updateModel</span></span>(context: <span class="hljs-type">FrameContext</span>[<span class="hljs-type">StartupData</span>], model: <span class="hljs-type">SceneModel</span>): <span class="hljs-type">GlobalEvent</span> =&gt; <span class="hljs-type">Outcome</span>[<span class="hljs-type">SceneModel</span>]
   <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">updateViewModel</span></span>(context: <span class="hljs-type">FrameContext</span>[<span class="hljs-type">StartupData</span>], model: <span class="hljs-type">SceneModel</span>, viewModel: <span class="hljs-type">SceneViewModel</span>): <span class="hljs-type">GlobalEvent</span> =&gt; <span class="hljs-type">Outcome</span>[<span class="hljs-type">SceneViewModel</span>]
-  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">present</span></span>(context: <span class="hljs-type">FrameContext</span>[<span class="hljs-type">StartupData</span>], model: <span class="hljs-type">SceneModel</span>, viewModel: <span class="hljs-type">SceneViewModel</span>): <span class="hljs-type">SceneUpdateFragment</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">present</span></span>(context: <span class="hljs-type">FrameContext</span>[<span class="hljs-type">StartupData</span>], model: <span class="hljs-type">SceneModel</span>, viewModel: <span class="hljs-type">SceneViewModel</span>): <span class="hljs-type">Outcome</span>[<span class="hljs-type">SceneUpdateFragment</span>]
 }
 </code></pre>
 <p>As you can hopefully see, mostly this is very much like a normal game, but for a few exceptions:</p>

@@ -61,7 +61,7 @@
             });
         </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Outcome Type</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="what-is-an-outcome"></a><a href="#what-is-an-outcome" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What is an Outcome?</h2>
 <p>The <code>Outcome</code> type is one you'll see a lot.</p>
-<p>At the end of updating the model or the view model, you must always produce an Outcome. An Outcome is the combination of an updated piece of state, and a list of <code>GlobalEvent</code>s that updating the state produced.</p>
+<p>At the end of updating the model or the view model, you must always produce an Outcome. An Outcome is the combination of an updated piece of state, and a list of <code>GlobalEvent</code>s that updating the state produced. It can also represent an error you may or may not be able to recover from.</p>
 <p>For example, let's say you update your game's model, and it turns out that the player has lost the game somehow. You might need to do two things:</p>
 <ol>
 <li>Update the model to reflect the fact that the player's turn is over - perhaps calculating the final score.</li>
@@ -71,10 +71,11 @@
 <pre><code class="hljs css language-scala"><span class="hljs-type">Outcome</span>(model.copy(totalScore = calculateFinalScore(...)))
   .addGlobalEvents(<span class="hljs-type">JumpTo</span>(<span class="hljs-type">GameOverScene</span>.name))
 </code></pre>
-<p>Outcome isn't optional and isn't expected to fail, so you can always retrieve the state and global events it contains by simply accessing them:</p>
-<pre><code class="hljs css language-scala">outcome.state
-outcome.globalEvents
+<p>Outcome isn't optional but it can fail. You can access the state or global events with:</p>
+<pre><code class="hljs css language-scala">outcome.getOrElse(...)
+outcome.globalEventsOrNil
 </code></pre>
+<p>However the expectation is that you will generally access the values of an Outcome by mapping or perhaps in a for comprehension.</p>
 <h2><a class="anchor" aria-hidden="true" id="examples-of-operations-on-outcomes"></a><a href="#examples-of-operations-on-outcomes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Examples of Operations on Outcomes</h2>
 <p>There are lots of ways to manipulate Outcomes, and all of them preserve the events contained in each Outcome.</p>
 <h3><a class="anchor" aria-hidden="true" id="basic-operations"></a><a href="#basic-operations" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Basic operations</h3>
@@ -86,7 +87,7 @@ outcome.globalEvents
 <span class="hljs-type">Outcome</span>(<span class="hljs-number">10</span>).merge(<span class="hljs-type">Outcome</span>(<span class="hljs-number">20</span>))(_ + _)      <span class="hljs-comment">// Outcome(30)</span>
 <span class="hljs-type">Outcome</span>(<span class="hljs-string">"a"</span>) |+| <span class="hljs-type">Outcome</span>(<span class="hljs-string">"b"</span>)              <span class="hljs-comment">// Outcome(("a", "b"))</span>
 </code></pre>
-<p><code>Outcome</code>'s map function is an alias for <code>mapState[A]</code>, but you can also modify the events with <code>mapGlobalEvents</code>.</p>
+<p>As mentioned, <code>Outcome</code>'s map function is bias towards the state, but you can also modify the events with <code>mapGlobalEvents</code>.</p>
 <p>Sequencing can be done as follows:</p>
 <pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> <span class="hljs-type">Outcome</span>._
 
@@ -105,4 +106,44 @@ outcome.globalEvents
 <pre><code class="hljs css language-scala"><span class="hljs-type">Outcome</span>(<span class="hljs-type">Foo</span>(count = <span class="hljs-number">10</span>))
   .createGlobalEvents(foo =&gt; <span class="hljs-keyword">if</span>(foo.count &gt; <span class="hljs-number">5</span>) <span class="hljs-type">List</span>(<span class="hljs-type">PlaySound</span>(<span class="hljs-string">"tada"</span>, <span class="hljs-type">Volume</span>.<span class="hljs-type">Max</span>)) <span class="hljs-keyword">else</span> <span class="hljs-type">Nil</span>)
 </code></pre>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/gameloop/frame-context"><span class="arrow-prev">← </span><span>Frame context</span></a><a class="docs-next button" href="/docs/presentation/animation"><span>Animation</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#what-is-an-outcome">What is an Outcome?</a></li><li><a href="#examples-of-operations-on-outcomes">Examples of Operations on Outcomes</a><ul class="toc-headings"><li><a href="#basic-operations">Basic operations</a></li></ul></li><li><a href="#creating-events-based-on-the-state">Creating events based on the state</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/indigo_logo.svg" alt="Indigo" width="66" height="58"/></a><div><h5>Getting Started</h5><a href="/docs/en/quickstart/setup-and-configuration">Setup &amp; Configuration Guide</a><a href="/docs/en/quickstart/hello-indigo">&quot;Hello, Indigo!&quot; Tutorial</a><a href="/docs/en/quickstart/examples">Links to examples</a><a href="/docs/en/quickstart/project-templates">Project templates</a></div><div><h5>Community</h5><a href="https://discord.gg/b5CD47g">Discord</a><a href="https://github.com/PurpleKingdomGames/indigo/discussions">GitHub Discussons</a><a href="https://twitter.com/indigoengine" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>Sponsor us!</h5><a href="https://github.com/sponsors/PurpleKingdomGames">GitHub Sponsors</a><a href="https://www.patreon.com/indigoengine">Patreon</a></div></section><section class="copyright">Copyright © 2021 Purple Kingdom Games Limited</section></footer></div></body></html>
+<h2><a class="anchor" aria-hidden="true" id="error-handling"></a><a href="#error-handling" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Error handling</h2>
+<blockquote>
+<p>Indigo 0.6.0 or later</p>
+</blockquote>
+<p>The <code>Outcome</code> type also comes with error handling.</p>
+<p>If an exception is thrown within an outcome's constructor then it will be caught in a similar way to Scala standard <code>Try</code> monad. E.g.:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-type">Outcome</span>(<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-type">Exception</span>(<span class="hljs-string">"Boom!"</span>))
+</code></pre>
+<p>Exceptions are a fact of life on the JVM and also in JS. If you access an array index outside it's range, you'll get an exception.</p>
+<p>You can model errors with types like <code>Either[Error, A]</code> or as an ADT:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">sealed</span> <span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">MyJourney</span></span>
+<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">HappyPath</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">MyJourney</span></span>
+<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">UnhappyPath</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">MyJourney</span> <span class="hljs-title">//</span> <span class="hljs-title">Error</span> <span class="hljs-title">case</span></span>
+</code></pre>
+<p>... but you're still going to get exceptions from time to time - at least during development.</p>
+<p>In Indigo, the hope it that 99 times out of 100 you can get away with an ADT or an <code>Either</code> because you've done lots of testing and the unhappy paths are <em>recoverable</em> in a way that is fairly local to the place where the error occurred so that your game can continue. It would be a shame to crash the game.</p>
+<p>Sometimes though, you can recover <em>eventually</em> but you need to bail out right now. This is where it might be appropriate to throw an exception or raise an error (<code>Outcome.raiseError(e)</code>) in an outcome.</p>
+<p>To handle such an error, we can do the following:</p>
+<blockquote>
+<p>Please note that you should really only catch exceptions you're expecting by declaring a class that extends Exception and catching that.</p>
+</blockquote>
+<pre><code class="hljs css language-scala"><span class="hljs-type">Outcome</span>(<span class="hljs-number">10</span>)
+  .map[<span class="hljs-type">Int</span>](_ =&gt; <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-type">Exception</span>(<span class="hljs-string">"Boom!"</span>))
+  .map(i =&gt; i * i)
+  .handleError {
+    <span class="hljs-keyword">case</span> e =&gt;
+      <span class="hljs-type">Outcome</span>(e.getMessage.length)
+  }
+</code></pre>
+<p>Here we start with a value and throw an exception during the first map. We attempt to map the value again, but it's ignored and the exception is carried over. We then handle the error with a partial function that allows us to recover back to a (slightly suspect) <code>Outcome[Int]</code> again.</p>
+<p><strong>If you game is going to crash, then you ought to let it crash.</strong></p>
+<p>That said, if your game is going to crash then it might be helpful to log something useful in the dying moments. Indigo itself looks out for exceptions and attempts to log them before it crashes a game. You can give it something meaningful to log by using the <code>logCrash</code> outcome method. Invoked similarly to <code>handleError</code> above, it is a partial function that takes an exception and returns any string value you like. Indigo then logs this message before the game crashes.</p>
+<pre><code class="hljs css language-scala"><span class="hljs-type">Outcome</span>(<span class="hljs-number">10</span>)
+  .map[<span class="hljs-type">Int</span>](i =&gt; <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-type">Exception</span>(i.toString))
+  .map(i =&gt; i * i)
+  .logCrash {
+    <span class="hljs-keyword">case</span> e =&gt;
+      <span class="hljs-string">"The game crashed at integer:"</span> e.getMessage
+  }
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/gameloop/frame-context"><span class="arrow-prev">← </span><span>Frame context</span></a><a class="docs-next button" href="/docs/presentation/animation"><span>Animation</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#what-is-an-outcome">What is an Outcome?</a></li><li><a href="#examples-of-operations-on-outcomes">Examples of Operations on Outcomes</a><ul class="toc-headings"><li><a href="#basic-operations">Basic operations</a></li></ul></li><li><a href="#creating-events-based-on-the-state">Creating events based on the state</a></li><li><a href="#error-handling">Error handling</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/indigo_logo.svg" alt="Indigo" width="66" height="58"/></a><div><h5>Getting Started</h5><a href="/docs/en/quickstart/setup-and-configuration">Setup &amp; Configuration Guide</a><a href="/docs/en/quickstart/hello-indigo">&quot;Hello, Indigo!&quot; Tutorial</a><a href="/docs/en/quickstart/examples">Links to examples</a><a href="/docs/en/quickstart/project-templates">Project templates</a></div><div><h5>Community</h5><a href="https://discord.gg/b5CD47g">Discord</a><a href="https://github.com/PurpleKingdomGames/indigo/discussions">GitHub Discussons</a><a href="https://twitter.com/indigoengine" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>Sponsor us!</h5><a href="https://github.com/sponsors/PurpleKingdomGames">GitHub Sponsors</a><a href="https://www.patreon.com/indigoengine">Patreon</a></div></section><section class="copyright">Copyright © 2021 Purple Kingdom Games Limited</section></footer></div></body></html>
