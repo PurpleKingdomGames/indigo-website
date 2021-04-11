@@ -3,22 +3,22 @@ id: setup-and-configuration
 title: Setup & Configuration
 ---
 
-> Updated for release 0.6.0.
+> Updated for release 0.7.0.
 
 ## Version numbers
 
-Indigo version `0.6.0` is built against the following version numbers:
+Indigo version `0.7.0` is built against the following version numbers:
 
-- Scala `2.13.4` and `3.0.0-M3`
-- Scala.js `1.3.1`
-- Mill `0.9.4`
-- SBT `1.4.6`
+- Scala `2.13.5` and `3.0.0-RC2`
+- Scala.js `1.5.1`
+- Mill `0.9.6`
+- SBT `1.5.0`
 
 ## Scala 3 Setup Notes
 
 Please note that Scala 3 currently only works with **sbt**, and the set up will be very similar to the Scala 2 version described below. We hope to add Mill support as soon as possible.
 
-The main difference is that you must remember to include the `sbt-dotty` plugin:
+The main difference is that if you're using an sbt version lower than 1.5.0 you must remember to include the `sbt-dotty` plugin:
 
 ```scala
 addSbtPlugin("ch.epfl.lamp" % "sbt-dotty" % "0.5.1")
@@ -36,7 +36,7 @@ Indigo games are completely normal [Scala.js](https://www.scala-js.org/) project
 
 >Please not that we currently only publish against specific versions of Scala (2.13.4, 3.0.0-M3) and Scala.js (1.3.1).
 
-You can use either [Mill](http://www.lihaoyi.com/mill/) (Mill 0.9.4 or above) or [SBT](https://www.scala-sbt.org/) (recommend sbt 1.4.6 or greater) to build your games, and for your convenience both Mill and SBT have associated plugins, `mill-indigo` and `sbt-indigo` respectively.
+You can use either [Mill](http://www.lihaoyi.com/mill/) (Mill 0.9.6 or above) or [SBT](https://www.scala-sbt.org/) (recommend sbt 1.5.0 or greater) to build your games, and for your convenience both Mill and SBT have associated plugins, `mill-indigo` and `sbt-indigo` respectively.
 
 The plugins help you bootstrap your game during development, they marshal your assets and serve as a reference implementation for _one_ fairly basic way to embed your game into a web page or electron app.
 
@@ -116,11 +116,11 @@ import mill.scalalib._
 import mill.scalajslib._
 import mill.scalajslib.api._
 
-import $ivy.`io.indigoengine::mill-indigo:0.6.0`, millindigo._
+import $ivy.`io.indigoengine::mill-indigo:0.7.0`, millindigo._
 
 object mygame extends ScalaJSModule with MillIndigo {
-  def scalaVersion   = "2.13.3"
-  def scalaJSVersion = "1.3.0"
+  def scalaVersion   = "2.13.5"
+  def scalaJSVersion = "1.5.1"
 
   val gameAssetsDirectory: os.Path = os.pwd / "assets"
   val showCursor: Boolean          = true
@@ -129,8 +129,8 @@ object mygame extends ScalaJSModule with MillIndigo {
   val windowStartHeight: Int       = 480 // Height of Electron window, used with `indigoRun`.
 
   def ivyDeps = Agg(
-    ivy"io.indigoengine::indigo-json-circe::0.6.0",
-    ivy"io.indigoengine::indigo::0.6.0"
+    ivy"io.indigoengine::indigo-json-circe::0.7.0",
+    ivy"io.indigoengine::indigo::0.7.0"
   )
 
 }
@@ -203,8 +203,8 @@ Which allows you to run `mill mygame.buildGame` and `mill mygame.runGame` from t
 Add the following to your `project/plugins.sbt` file:
 
 ```scala
-addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.3.1")
-addSbtPlugin("io.indigoengine" %% "sbt-indigo" % "0.6.0") // Note the double %%
+addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.5.1")
+addSbtPlugin("io.indigoengine" %% "sbt-indigo" % "0.7.0") // Note the double %%
 ```
 
 ### build.sbt
@@ -218,7 +218,7 @@ lazy val mygame =
     .settings( // Standard SBT settings
       name := "mygame",
       version := "0.0.1",
-      scalaVersion := "2.13.4",
+      scalaVersion := "2.13.5",
       organization := "org.mygame"
     )
     .settings( // Indigo specific settings
@@ -228,8 +228,8 @@ lazy val mygame =
       windowStartWidth := 720, // Width of Electron window, used with `indigoRun`.
       windowStartHeight := 480, // Height of Electron window, used with `indigoRun`.
       libraryDependencies ++= Seq(
-        "io.indigoengine" %%% "indigo" % "0.6.0",
-        "io.indigoengine" %%% "indigo-json-circe" % "0.6.0",
+        "io.indigoengine" %%% "indigo" % "0.7.0",
+        "io.indigoengine" %%% "indigo-json-circe" % "0.7.0",
       )
     )
 ```
