@@ -40,6 +40,7 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
+    { blog: true, label: 'News' },
     { href: "https://github.com/PurpleKingdomGames/indigo", label: "GitHub", external: true },
     { doc: 'development-status', label: 'Docs' },
     { page: 'tools', label: 'Tools' },
