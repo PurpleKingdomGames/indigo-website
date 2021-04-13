@@ -127,3 +127,7 @@ Note that the `LoadAsset` event is a convenience event, and in fact loads a bund
 - `Spawn(key, position, lifeSpan, payload)`
 - `KillAll` - Remove them all immediately.
 - `Cull` - Remove automatons who have reached the end of their time, you don't have to call this manually.
+
+### Rendering
+
+- `RendererDetails(renderingTechnology, clearColor, magnification)` - "renderingTechnology" tells you if Indigo is using WebGL 1.0 or WebGL 2.0.
