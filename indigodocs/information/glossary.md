@@ -3,8 +3,6 @@ id: glossary
 title: Glossary
 ---
 
-> This pages has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
-
 # A
 
 ### Automata
@@ -86,6 +84,10 @@ A part of your game that represents a particular stage like a screen or a level.
 ### Scene Update Fragment
 
 A piece of the final scene to be presented that can be combined with other pieces to form the final scene.
+
+### Shader
+
+A pair of small programs written in GLSL (a C-like language) comprised of a vertex program that tells a graphics card where to place an entity on the screen, and a fragment program that specifies what color to draw each pixel.
 
 ### Signal
 
