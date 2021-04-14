@@ -124,7 +124,7 @@ class Index extends React.Component {
             <div className="blockElement alignLeft imageAlignTop twoByGridBlock">
               <h2>Let's have some fun!</h2>
               <MarkdownBlock>
-              Indigo is a game engine for programmers. People who know how to code and want to make games _by writing code_. Just for the fun of it!
+              Indigo is a game engine for functional programmers. People who know how to code and want to make games _by writing code_. Just for the fun of it!
               </MarkdownBlock>
               <MarkdownBlock>
               The engine has been designed specifically with programmers in mind. It focuses on developer productivity and ease of testing.
