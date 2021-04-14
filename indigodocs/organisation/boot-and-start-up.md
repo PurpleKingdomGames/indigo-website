@@ -3,8 +3,6 @@ id: boot-and-start-up
 title: Boot & Start Up
 ---
 
-> This page has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
-
 > Please note that the terms "start up" and "setup" are used interchangeably here. "Startup" is the name of the data type, while "setup" is the name of the method. This naming should probably be revisited...
 
 In order to get your game up and running, it needs to go through an initialization sequence comprised of two stages:
@@ -81,18 +79,19 @@ final class BootResult[A](
     val assets: Set[AssetType],     // A set of initial assets. Defaults to an empty `Set()`
     val fonts: Set[FontInfo],       // A set of initial fonts. Defaults to an empty `Set()`
     val subSystems: Set[SubSystem]  // A set of initial subsystems. Defaults to an empty `Set()`
+    val shaders: Set[Shader]        // A complete set of user specified shaders your game can use. Defaults to an empty `Set()`
 )
 ```
 
 > Note: You can add more animations, fonts, and assets at a later stage, but subsystems must be declared upfront or inside a `Scene` definition.
 
-In a simple game, all of your animations, fonts, subsystems and assets can be declared here. This is what `IndigoSandbox` does behind the scenes. For more complex games, such as ones that have a pre-loader, you should only include the elements you need for the preloader scene here.
+In a simple game, all of your animations, fonts, subsystems, shaders, and assets can be declared during the boot stage. For more complex games, such as ones that have a pre-loader, you should only include the elements you need for the preloader scene here.
 
 ## Start up / Setup
 
-After booting up, you hit the start up function (called `setup`). Why are boot and start up separate functions? ..and what is start up for?
+After booting up, you hit the start up function (called `setup`...). Why are boot and start up separate functions? ..and what is start up for?
 
-If "boot" is for marshaling your foundation game settings, then start up is for pre-processing data and assets. Since assets can be loaded on first run, but also added dynamically during the game (and you might want to do something with them), the start up or setup operation may be invoked more than once. For example:
+If "boot" is for marshaling your foundation game settings (bootstrapping), then start up is for pre-processing data and assets. Since assets can be loaded on first run, but also added dynamically during the game (and you might want to do something with them such as parse a text file), the start up or setup operation may be invoked more than once. For example:
 
 1. During the first run you load a JSON definition of a animation and it's sprite sheet, which are processed during start up to create a `Sprite` and `Animation` you can render.
 2. You use that to present a loading screen (preloader) while the rest of the games assets are loaded.
@@ -106,16 +105,16 @@ def setup(bootData: BootData, assetCollection: AssetCollection, dice: Dice): Out
 
 > Important! The `StartUpData` type corresponds to one of the type parameters in `IndigoSandbox`, `IndigoDemo`, and `IndigoGame`.
 
-### Special note on text assets
+### Special note on plain text assets
 
-Unlike image and sound assets which are referenced directly in the presentation logic of your game. Text assets are only available for use during start up. The idea is that text is most likely not plain text, but actually string encoded data like JSON or perhaps a CSV. You can get hold of their data via the `AssetCollection` during start up / setup.
+Unlike image and sound assets which are referenced directly in the presentation logic of your game. Plain text assets are only available for use during start up. The idea is that text is most likely not plain text, but actually string encoded data like JSON or perhaps a CSV. You can get hold of their data via the `AssetCollection` during start up / setup.
 
 ### The Startup Data Type
 
 If your setup function has succeeded:
 
 ```scala
-// This is a nonsense user defined type that represents some result of the Startup process
+// This is a made up user defined type that represents some result of the Startup process
 final case class MyStartUpData(maxParticles: Int)
 
 Startup.Success(MyStartUpData(maxParticles = 256))
