@@ -3,8 +3,6 @@ id: events
 title: Events
 ---
 
-> This pages has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
-
 ## The event loop
 
 The life-cycle of events in Indigo is very strict so that we can support referential transparency.
@@ -21,16 +19,20 @@ Key features of events:
 
 Indigo processes events as follows:
 
-1. The current frame emits events via `Outcome`s or the composed `SceneUpdateFragment`. These events are not available to the current frame.
+1. The current frame emits events via `Outcome`s. These events are not available to the current frame.
 1. Most events are sent to a queue, but some system specific events will be processed and actioned immediately, specifically:
    1. Audio events
    1. Network events
    1. Storage events
    1. Asset load events
 1. When the next frame starts, all the messages that went to the queue are retrieved in order, and the `FrameTick` is appended.
-1. The events are sent to the model update function in order.
-1. The events are then used to construct the `InputState` which is passed to the view model update and view functions.
-1. All events from the previous frame are then discarded.
+1. The events are then used to construct the `InputState` which is included as part of the `FrameContext`.
+1. The events are then consumed as follows (note that each stage could create new events to be processed on the next frame):
+   1. The events are sent to the model update function in order.
+   1. The events are sent to the view model update function in order.
+   1. The events are sent to the subsystem update functions in order.
+   1. The events are passed to scene elements to process entity events.
+1. All events are then discarded.
 
 ## `GlobalEvent`s
 
