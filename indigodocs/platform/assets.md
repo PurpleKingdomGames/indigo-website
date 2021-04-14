@@ -3,8 +3,6 @@ id: assets
 title: Assets & Asset Loading
 ---
 
-> This page has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
-
 ## Asset Types
 
 There are three types of assets that Indigo understands how to load and make available:
