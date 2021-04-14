@@ -3,6 +3,8 @@ id: boot-and-start-up
 title: Boot & Start Up
 ---
 
+> This pages has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
+
 > Please note that the terms "start up" and "setup" are used interchangeably here. "Startup" is the name of the data type, while "setup" is the name of the method. This naming should probably be revisited...
 
 In order to get your game up and running, it needs to go through an initialization sequence comprised of two stages:

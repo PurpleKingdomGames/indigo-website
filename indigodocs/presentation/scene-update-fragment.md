@@ -3,6 +3,8 @@ id: scene-update-fragment
 title: SceneUpdateFragment Type
 ---
 
+> This pages has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
+
 The `SceneUpdateFragment` is one of the most important types in Indigo, as it is the type that describes everything you want your player to experience, visually and audibly*.
 
 >*An exception: You could emit a `PlaySound` event from a model or view model update via an `Outcome` if you had a good reason to do so.

@@ -3,6 +3,8 @@ id: scene-management
 title: Scenes & Scene Management
 ---
 
+> This pages has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
+
 ## What are Scenes?
 
 As soon as you decide to build a game of any complexity, you immediately hit the problem of how to organize your code so that everything isn't lumped together. What you'd really like, hopefully, is a nice way to think about each part of your game in logical groups of state and functions i.e. All the things to do with your menu screen in one place, separated from your game over screen.

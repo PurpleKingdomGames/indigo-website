@@ -3,6 +3,8 @@ id: key-concepts
 title: Key Concepts
 ---
 
+> This pages has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
+
 ## Making a game testable
 
 If you want to be able to test a single frame of a game, a whole frame, then you need one thing: Referential transparency.

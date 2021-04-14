@@ -32,13 +32,13 @@ What we know that we don't know yet, are Indigo's limits.
 
 We have a fair idea about things like general graphics [performance and how to squeeze more rendering juice out of it](information/performance.md), but we don't yet have a full view on what issues will emerge on titles that aren't necessarily graphically complex, but include a serious amount of gameplay logic or content.
 
-A gentle word of caution then: As Indigo has only recently had its first general release and is "unproven" on games of any serious complexity, we expect that things will need to change as people start to use it in anger. No doubt we've missed things, and the APIs are not as clear or consistent as we'd like them to be. Certainly the documentation needs expansion. There's bound to be the odd quirk we haven't noticed yet, or performance issues in scenarios we haven't considered.
+A gentle word of caution then: We expect that things will need to change as people start to use it in anger. No doubt we've missed things, and the APIs are not as clear or consistent as we'd like them to be. Certainly the documentation needs expansion. There's bound to be the odd quirk we haven't noticed yet, or performance issues in scenarios we haven't considered.
 
 Please consider lending a hand by [reporting or submitting fixes for any issues you come across!](https://github.com/PurpleKingdomGames/indigo/issues)
 
 ## How "complete" is Indigo?
 
-The current release of Indigo is really only the foundation.
+It's getting better all the time!
 
 Game engines have to do a broad range of jobs to meet the needs of general purpose game development, and we believe Indigo covers most of them, including things like graphics, sound, input management, and networking for example. There are some things that Indigo doesn't do, like physics, either because a) we felt they were "nice to have" features rather than being absolutely essential or b) in some cases it simply wasn't clear how they fit Indigo's architectural principles and we wanted to spend more time thinking about it.
 

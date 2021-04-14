@@ -3,6 +3,8 @@ id: frame-context
 title: Frame context
 ---
 
+> This pages has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
+
 Updating a frame in Indigo is principally about doing two things:
 
 1. Updating - ...the model and view model based on events and previous state

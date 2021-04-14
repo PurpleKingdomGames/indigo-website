@@ -3,6 +3,8 @@ id: game-entry-points
 title: Game Entry Points
 ---
 
+> This pages has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
+
 Entry points are typically traits that you extend in order to write your game, and they provide the basic structure that you need to adhere to, to make a game that Indigo understands. What they actually do underneath is provide a user friendly way to build the frame processor and start the engine that does all of the work.
 
 ## Built in entry points

@@ -298,3 +298,11 @@ val signalFunction = (makeRange &&& chooseCatsOrDogs) >>> howManyPets
 (signal |> signalFunction).at(Seconds(1))
 // List("1 cat", "2 cat", "3 cat", "4 cat", "5 cat")
 ```
+
+## SignalReader
+
+`// TODO`
+
+## SignalState
+
+`// TODO`

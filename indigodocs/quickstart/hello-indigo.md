@@ -3,6 +3,8 @@ id: hello-indigo
 title: Hello, Indigo!
 ---
 
+> This pages has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
+
 This is a quick start tutorial to help you build something with Indigo.
 
 There are [Mill](https://github.com/PurpleKingdomGames/hello-indigo) and [SBT](https://github.com/PurpleKingdomGames/hello-indigo-sbt) repositories that go with this guide, please note that you can follow the games original development progression by looking through the commits on the _Mill_ version.

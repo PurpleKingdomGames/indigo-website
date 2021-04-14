@@ -3,6 +3,8 @@ id: events
 title: Events
 ---
 
+> This pages has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
+
 ## The event loop
 
 The life-cycle of events in Indigo is very strict so that we can support referential transparency.

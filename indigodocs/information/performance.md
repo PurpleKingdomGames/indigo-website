@@ -3,6 +3,8 @@ id: performance
 title: Performance
 ---
 
+> This pages has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
+
 ## What is performance?
 
 **Lets get one thing clear:** Indigo is not the fastest 2D game engine out there. Not even close. We haven't checked but it might even be the slowest - who knows! Nonetheless, here's a little demo merrily chugging along at 60 frames per second (performance will no doubt vary by system spec):

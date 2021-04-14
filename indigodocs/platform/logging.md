@@ -3,6 +3,8 @@ id: logging
 title: Logging
 ---
 
+> This pages has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
+
 Sometimes you need a log message to help you debug something, and to help you do that Indigo comes with a very simple / border-line dumb logger.
 
 ## Logging

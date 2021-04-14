@@ -3,6 +3,8 @@ id: effects
 title: Effects
 ---
 
+> This pages has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
+
 Effects are a fairly late addition to Indigo, and are cheap and cheerful both in implementation and usefulness. They are all implemented in a single render pass and cost very little to make use of (in terms of rendering performance).
 
 While we feel confident that people will find creative uses for effects, they are fairly limited - especially the edge effects like borders and glows - and we consider them to be more like prototyping aids. Effects are definitely an area for future improvement.

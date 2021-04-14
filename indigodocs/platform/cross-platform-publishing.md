@@ -3,6 +3,8 @@ id: cross-platform-publishing
 title: Cross Platform Publishing
 ---
 
+> This pages has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
+
 Indigo supports basic publishing to/building for the following platforms:
 
 - Browser

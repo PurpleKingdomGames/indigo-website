@@ -3,6 +3,8 @@ id: ui-components
 title: UI Components
 ---
 
+> This pages has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
+
 > UI Components currently live in the "Indigo Extras" library, since they are built on top of Indigo itself and require no special machinery to work.
 
 UI components are the kinds of elements your expect to see in any web input form, or game options menu.
