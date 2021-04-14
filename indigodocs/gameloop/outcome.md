@@ -3,13 +3,11 @@ id: outcome
 title: Outcome Type
 ---
 
-> This pages has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
-
 ## What is an Outcome?
 
 The `Outcome` type is one you'll see a lot.
 
-At the end of updating the model or the view model, you must always produce an Outcome. An Outcome is the combination of an updated piece of state, and a list of `GlobalEvent`s that updating the state produced. It can also represent an error you may or may not be able to recover from.
+All of the key functions produce an Outcome. An Outcome is the combination of an updated piece of state, and a list of `GlobalEvent`s that updating the state produced. It can also represent an error that you may or may not be able to recover from.
 
 For example, let's say you update your game's model, and it turns out that the player has lost the game somehow. You might need to do two things:
 
@@ -23,12 +21,14 @@ Outcome(model.copy(totalScore = calculateFinalScore(...)))
   .addGlobalEvents(JumpTo(GameOverScene.name))
 ```
 
-Outcome isn't optional but it can fail. You can access the state or global events with:
+You can access the state or global events with:
 
 ```scala
 outcome.getOrElse(...)
 outcome.globalEventsOrNil
 ```
+
+Notice that the syntax is similar to an option (`getOrElse`), this is because outcomes can fail and represent an error that you may be able to recover from.
 
 However the expectation is that you will generally access the values of an Outcome by mapping or perhaps in a for comprehension.
 
@@ -38,7 +38,7 @@ There are lots of ways to manipulate Outcomes, and all of them preserve the even
 
 ### Basic operations
 
-An Outcome behaves much like other Monadic types in Scala, bias towards the state it holds rather than the events. Some basic operations are below:
+An Outcome behaves much like other Monadic types in Scala such as `Option` or `Either`. They are bias towards the state it holds rather than the events. Some basic operations are below:
 
 ```scala
 Outcome(10)                                // Outcome(10)
@@ -79,6 +79,8 @@ Outcome(Foo(count = 10))
   .createGlobalEvents(foo => if(foo.count > 5) List(PlaySound("tada", Volume.Max)) else Nil)
 ```
 
+Here, `foo` is the state held in the `Outcome`.
+
 ## Error handling
 
 > Indigo 0.6.0 or later
@@ -93,7 +95,7 @@ Outcome(throw new Exception("Boom!"))
 
 Exceptions are a fact of life on the JVM and also in JS. If you access an array index outside it's range, you'll get an exception.
 
-You can model errors with types like `Either[Error, A]` or as an ADT:
+You can model errors with types like `Either[Error, A]` or as an ADT that live in your `Outcome` as it's value:
 
 ```scala
 sealed trait MyJourney
@@ -101,7 +103,7 @@ case object HappyPath extends MyJourney
 case object UnhappyPath extends MyJourney // Error case
 ```
 
-... but you're still going to get exceptions from time to time - at least during development.
+You could think of these as expected unhappy paths. ...but you're still going to get exceptions from time to time - at least during development.
 
 In Indigo, the hope it that 99 times out of 100 you can get away with an ADT or an `Either` because you've done lots of testing and the unhappy paths are _recoverable_ in a way that is fairly local to the place where the error occurred so that your game can continue. It would be a shame to crash the game.
 
@@ -109,7 +111,7 @@ Sometimes though, you can recover _eventually_ but you need to bail out right no
 
 To handle such an error, we can do the following:
 
-> Please note that you should really only catch exceptions you're expecting by declaring a class that extends Exception and catching that.
+> Please note that - contrary to the following example - you should really only catch exceptions you're expecting by declaring a class that extends Exception and catching that.
 
 ```scala
 Outcome(10)
