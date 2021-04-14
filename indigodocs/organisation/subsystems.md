@@ -3,7 +3,7 @@ id: subsystems
 title: SubSystems
 ---
 
-> This pages has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
+> This page has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
 
 > Note: SubSystems have change substantially between versions 0.1.0 and >0.2.0 of Indigo, having moved from OO to FP in both style and form.
 

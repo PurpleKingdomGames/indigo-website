@@ -3,7 +3,7 @@ id: depth-and-layers
 title: Depth & Layers
 ---
 
-> This pages has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
+> This page has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
 
 One thing you will need to consider when building your game, is the order that visual elements are drawn in.
 

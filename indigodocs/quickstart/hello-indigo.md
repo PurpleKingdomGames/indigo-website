@@ -3,7 +3,7 @@ id: hello-indigo
 title: Hello, Indigo!
 ---
 
-> This pages has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
+> This page has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
 
 This is a quick start tutorial to help you build something with Indigo.
 
