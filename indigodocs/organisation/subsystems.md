@@ -3,13 +3,9 @@ id: subsystems
 title: SubSystems
 ---
 
-> This page has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
-
-> Note: SubSystems have change substantially between versions 0.1.0 and >0.2.0 of Indigo, having moved from OO to FP in both style and form.
-
 ## What SubSystems are
 
-`SubSystem`s are a way of breaking part of your game off into mini-games. They offer you a means of encapsulation for certain kinds of game system.
+`SubSystem`s are a way of breaking parts of your game off into mini-games. They offer you a means of encapsulation for certain kinds of game system.
 
 Here is their interface:
 
@@ -26,7 +22,7 @@ trait SubSystem {
 
 Typically a subsystem is made from an object or class that extends this trait, or by using the `SubSystem.apply` constructor. SubSystem's can produce renderable output or just sit and process things in the background. Either way their only mechanism for interacting with the main game is through the event loop.
 
-As an example, consider this simple and arguably nonsense subsystem that tracks a score. This one happens to be using a `case class` as a convenient way to supply the initial score, but this could have been done in other ways. The important part is that the constructor arguments are effectively immutable, because the `update` function returns an `Int`, not a `PointsTrackerExample`.
+As an example, consider this simple (and arguably unhelpful) subsystem that tracks a score. This one happens to be using a `case class` as a convenient way to supply the initial score, but this could have been done in other ways. The important part is that the constructor arguments are effectively immutable, because the `update` function returns an `Int`, not a `PointsTrackerExample`.
 
 > ["The Cursed Pirate"](https://github.com/PurpleKingdomGames/indigo-examples/blob/master/demos/pirate/src/main/scala/pirate/scenes/level/subsystems/CloudsSubSystem.scala) uses an alternative and arguable cleaner SubSystem construction method than the one below.
 
@@ -68,9 +64,11 @@ object PointsTrackerEvent {
 case object GameOver extends GlobalEvent
 ```
 
-SubSystems are really useful for doing nice bits of encapsulated work in that add that all-important sense of polish to your game, but that you'd rather not have polluting your main game logic. For example: You might like to have a system of clouds floating through the sky, or a pinball score counter rattling up - they look great - but as purely visual effects the do not represent important data (in terms of saving your game state) and can be handled independently of your main game.
+SubSystems are really useful for doing nice bits of encapsulated work that add the all-important sense of polish to your game, but that you'd rather not have polluting your main game logic. For example: You might like to have a system of clouds floating through the sky, or a pinball score counter rattling up - they look great - but as purely visual effects the do not represent important data (in terms of saving your game state) and can be handled independently of your main game.
 
-The Indigo Extras module contains SubSystems that give you two really helpful SubSystems: Automata for particle-like effects, and an "Asset Bundle Loader" that can be used for dynamically loading new assets during your game, both of which are used in ["The Cursed Pirate"](https://github.com/PurpleKingdomGames/indigo-examples/tree/master/demos/pirate).
+> Hypothetically, they can also be used as really good encapsulation mechanisms for async or side-effecting processes. For example, perhaps you'd like to call down to the browsers DOM in a clean way? Or run an FS2/Cats based process? You could make a subsystem that talks to your game via nice clean events, but internally does whatever specialist logic you need.
+
+The Indigo Extras module gives you two really helpful SubSystems: Automata for particle-like effects (not a real particle system in the conventional sense), and an "Asset Bundle Loader" that can be used for dynamically loading new assets during your game, both of which are used in ["The Cursed Pirate"](https://github.com/PurpleKingdomGames/indigo-examples/tree/master/demos/pirate).
 
 ## How SubSystems work
 
@@ -88,11 +86,11 @@ Importantly, the context is immutable and the result types are monoidal.
 This means we can imagine doing something like this when our frame is executed:
 
 ```scala
-// All the outcomes
+// All the outcomes combined
 (context) =>
   game.update(context) |+| subsystem1.update(context) |+| subsystem2.update(context)
 
-// All the scene framements
+// All the scene fragments combined
 (context) =>
   game.render(context) |+| subsystem1.render(context) |+| subsystem2.render(context)
 ```
@@ -105,4 +103,4 @@ The Sandbox entry point does not cater for subsystems, but the Demo and Game ent
 
 You cannot use model or start up data to initialise SubSystems, but you can use Boot data, just in case things like the configured magnification level or screen dimensions are important.
 
-Additionally, you can also add Scene specific SubSystems to individual scene definitions. For example in "The Cursed Pirate", the loading scene makes use of the Asset Bundle Loader SubSystem, but this is no longer updated once we switch to the demo level itself, since by then all the assets have been loaded.
+Additionally, you can also add scene specific SubSystems to individual scene definitions. For example in "The Cursed Pirate", the loading scene makes use of the Asset Bundle Loader SubSystem, but this is no longer updated once we switch to the demo level itself, since by then all the assets have been loaded.
