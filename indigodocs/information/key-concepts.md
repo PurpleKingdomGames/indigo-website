@@ -3,15 +3,15 @@ id: key-concepts
 title: Key Concepts
 ---
 
-> This pages has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
-
 ## Making a game testable
 
 If you want to be able to test a single frame of a game, a whole frame, then you need one thing: Referential transparency.
 
->An expression is called referentially transparent if it can be replaced with its corresponding value without changing the program's behavior. ~ John C. Mitchell (2002). Concepts in Programming Languages, [via the wikipedia page on referential transparency](https://en.wikipedia.org/wiki/Referential_transparency).
+> An expression is called referentially transparent if it can be replaced with its corresponding value without changing the program's behavior. ~ John C. Mitchell (2002). Concepts in Programming Languages, [via the wikipedia page on referential transparency](https://en.wikipedia.org/wiki/Referential_transparency).
 
-Referential transparency allows you to ask for the next frame of a game, and compare it to the expected frame definition, confident that they will always always be equivalent, provided your expected value is correct. Which means that if you have referentially transparent frames, then you can test them! Example in nonsense pseudo code:
+**It must be noted that referential transparency on the JVM or in JS are never absolute for various reasons, so we're working with a "best endeavors" approach.**
+
+Referential transparency allows you to ask for the next frame of a game, and compare it to the expected frame definition, confident that they will always always be equivalent, provided your expected value is correct. Which means that if you have referentially transparent frames, then you can test them! Example in made up pseudo code:
 
 ```scala
 val gameTime = GameTime.is(Seconds(123))
@@ -32,14 +32,14 @@ Some of the key things that Indigo gives you:
 1. Known time - each frame's logic gets one time value regardless of how long it takes to process the frame.
 2. Pseudo randomness - seeded from the game's running time, but you can always find out what "random" values were used provided you use a propagated `dice` instance.
 3. Immutability - the state and all inputs to a frame are immutable, leading to consistent results.
-4. Side effect free, declarative APIs - since your state is immutable, you must describe what you'd like to happen next, rather than being able to directly action it now, all but eliminating race conditions.
+4. Side effect free, declarative APIs - since your state is immutable you must describe what you'd like to happen next, rather than being able to directly action it now. This all but eliminates race conditions.
 5. Predictable scene composition - `SceneUpdateFragment`s are combined very simply allowing you to test the view description in an ordinary unit test.
 
-## "Your whole game, as a single, pure, stateless function."
+## "Your whole game as a single, pure, stateless function."
 
-The default interfaces you're presented with as part of Indigo's framework offer a range of functions and values that you need to decide how to implement, but that's all just to improve the user experience.
+The default interfaces you are presented with as part of Indigo's framework offer a range of functions and values that you need to decide how to implement, but that's all just there to improve the user experience.
 
-Beneath the API is a _single function_ that looks something like this:
+Beneath the APIs of the entry points is a _single function_ that looks a bit like this:
 
 ```scala
 def run(
@@ -55,7 +55,7 @@ def run(
 
 The point of this function is purity: What you get out, should be a result of what you put in and nothing else.
 
-> Scala is an impure functional programming language, so you are not restricted to writing games that obey these notions of purity and referential transparency, but you should start there.
+> Scala is an impure functional programming language, so you are not restricted to writing games that obey these notions of purity and referential transparency in the name of, say, performance -  but you should start there.
 
 ## Inputs are immutable and predictable
 
