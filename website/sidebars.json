@@ -1,4 +1,12 @@
 {
+  "guides": {
+    "About": [
+      "guides"
+    ],
+    "How to...": [
+      "guides/todo"
+    ]
+  },
   "docs": {
     "Indigo": [
       "development-status"
