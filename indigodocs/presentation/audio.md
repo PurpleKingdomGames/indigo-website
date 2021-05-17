@@ -3,7 +3,7 @@ id: audio
 title: Audio
 ---
 
-> This page has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
+> This page has not yet been reviewed for compatibility with version 0.8.0. Details may now be incorrect.
 
 Indigo's audio support is fairly unsophisticated, but probably good enough for the kind of games Indigo was designed for. The authors are not audio experts, please feel free to raise issues if you have any suggestions for improvements.
 

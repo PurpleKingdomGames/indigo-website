@@ -3,7 +3,7 @@ id: effects
 title: Effects
 ---
 
-> This page has not yet been reviewed for compatibility with version 0.7.0. Details may now be incorrect.
+> This page has not yet been reviewed for compatibility with version 0.8.0. Details may now be incorrect.
 
 Effects are a fairly late addition to Indigo, and are cheap and cheerful both in implementation and usefulness. They are all implemented in a single render pass and cost very little to make use of (in terms of rendering performance).
 
