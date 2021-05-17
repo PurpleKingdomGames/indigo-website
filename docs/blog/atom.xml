@@ -2,12 +2,23 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://your-docusaurus-test-site.com/blog</id>
     <title>Indigo Blog</title>
-    <updated>2021-04-11T06:00:00.000Z</updated>
+    <updated>2021-05-17T06:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://your-docusaurus-test-site.com/blog"/>
     <subtitle>The best place to stay up-to-date with the latest Indigo news and events.</subtitle>
     <logo>https://your-docusaurus-test-site.com/img/indigo_logo_solid_text.svg</logo>
     <rights>Copyright © 2021 Purple Kingdom Games Limited</rights>
+    <entry>
+        <title type="html"><![CDATA[Indigo 0.8.0 Released]]></title>
+        <id>https://your-docusaurus-test-site.com/blog/2021/05/17/indigo-0-8-0-released.html</id>
+        <link href="https://your-docusaurus-test-site.com/blog/2021/05/17/indigo-0-8-0-released.html"/>
+        <updated>2021-05-17T06:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>This release is the first Scala 3.0.0 release, and drops support for Scala 2.</p> <p>Aside from a number of important bug fixes, this release also includes an early version of a new <code>TextBox</code> primitive and support for font assets.</p> <p><a href="https://github.com/PurpleKingdomGames/indigo/releases/tag/v0.8.0">Full details of this release...</a></p>]]></summary>
+        <author>
+            <name>Dave Smith</name>
+            <uri>http://twitter.com/davidjamessmith</uri>
+        </author>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Indigo 0.7.0 Released]]></title>
         <id>https://your-docusaurus-test-site.com/blog/2021/04/11/indigo-0-7-0-released.html</id>
