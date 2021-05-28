@@ -3,11 +3,11 @@ id: setup-and-configuration
 title: Setup & Configuration
 ---
 
-> This page has not yet been reviewed for compatibility with version 0.8.0. Details may now be incorrect.
+> This page has not yet been reviewed for compatibility with version 0.8.1. Details may now be incorrect.
 
 ## Version numbers
 
-Indigo version `0.8.0` is built against the following version numbers:
+Indigo version `0.8.1` is built against the following version numbers:
 
 - Scala `3.0.0`
 - Scala.js `1.5.2`
@@ -98,7 +98,7 @@ import mill.scalalib._
 import mill.scalajslib._
 import mill.scalajslib.api._
 
-import $ivy.`io.indigoengine::mill-indigo:0.8.0`, millindigo._
+import $ivy.`io.indigoengine::mill-indigo:0.8.1`, millindigo._
 
 object mygame extends ScalaJSModule with MillIndigo {
   def scalaVersion   = "3.0.0"
@@ -111,8 +111,8 @@ object mygame extends ScalaJSModule with MillIndigo {
   val windowStartHeight: Int       = 480 // Height of Electron window, used with `indigoRun`.
 
   def ivyDeps = Agg(
-    ivy"io.indigoengine::indigo-json-circe::0.8.0",
-    ivy"io.indigoengine::indigo::0.8.0"
+    ivy"io.indigoengine::indigo-json-circe::0.8.1",
+    ivy"io.indigoengine::indigo::0.8.1"
   )
 
 }
@@ -186,7 +186,7 @@ Add the following to your `project/plugins.sbt` file:
 
 ```scala
 addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.5.1")
-addSbtPlugin("io.indigoengine" %% "sbt-indigo" % "0.8.0") // Note the double %%
+addSbtPlugin("io.indigoengine" %% "sbt-indigo" % "0.8.1") // Note the double %%
 ```
 
 ### build.sbt
@@ -210,8 +210,8 @@ lazy val mygame =
       windowStartWidth := 720, // Width of Electron window, used with `indigoRun`.
       windowStartHeight := 480, // Height of Electron window, used with `indigoRun`.
       libraryDependencies ++= Seq(
-        "io.indigoengine" %%% "indigo" % "0.8.0",
-        "io.indigoengine" %%% "indigo-json-circe" % "0.8.0",
+        "io.indigoengine" %%% "indigo" % "0.8.1",
+        "io.indigoengine" %%% "indigo-json-circe" % "0.8.1",
       )
     )
 ```

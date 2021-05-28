@@ -3,7 +3,7 @@ id: ui-components
 title: UI Components
 ---
 
-> This page has not yet been reviewed for compatibility with version 0.8.0. Details may now be incorrect.
+> This page has not yet been reviewed for compatibility with version 0.8.1. Details may now be incorrect.
 
 > UI Components currently live in the "Indigo Extras" library, since they are built on top of Indigo itself and require no special machinery to work.
 
