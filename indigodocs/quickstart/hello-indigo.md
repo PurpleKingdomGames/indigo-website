@@ -48,6 +48,9 @@ object HelloIndigo extends IndigoSandbox[Unit, Unit] {
   val fonts: Set[FontInfo] =
     Set()
 
+  val shaders: Set[Shader] =
+    Set()
+
   def setup(
       assetCollection: AssetCollection,
       dice: Dice
