@@ -40,6 +40,9 @@
       "presentation/text-and-fonts",
       "presentation/ui-components"
     ],
+    "Shaders": [
+      "shaders/constants"
+    ],
     "Working with Time": [
       "time/signals",
       "time/time-varying-values"
