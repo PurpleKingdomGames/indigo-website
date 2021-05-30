@@ -4,7 +4,7 @@
         <title>Indigo Blog</title>
         <link>https://your-docusaurus-test-site.com/blog</link>
         <description>The best place to stay up-to-date with the latest Indigo news and events.</description>
-        <lastBuildDate>Thu, 20 May 2021 06:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 30 May 2021 06:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -13,6 +13,13 @@
             <link>https://your-docusaurus-test-site.com/blog</link>
         </image>
         <copyright>Copyright © 2021 Purple Kingdom Games Limited</copyright>
+        <item>
+            <title><![CDATA[Indigo 0.8.2 Released]]></title>
+            <link>https://your-docusaurus-test-site.com/blog/2021/05/30/indigo-0-8-2-released.html</link>
+            <guid>https://your-docusaurus-test-site.com/blog/2021/05/30/indigo-0-8-2-released.html</guid>
+            <pubDate>Sun, 30 May 2021 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p>This is a bug fix release that resolves an issue with entity nodes incorrectly rendering textures.</p> <p><a href="https://github.com/PurpleKingdomGames/indigo/releases/tag/v0.8.2">Full details of this release can be found on github.</a></p> ]]></description>
+        </item>
         <item>
             <title><![CDATA[Indigo 0.8.1 Released]]></title>
             <link>https://your-docusaurus-test-site.com/blog/2021/05/20/indigo-0-8-1-released.html</link>
