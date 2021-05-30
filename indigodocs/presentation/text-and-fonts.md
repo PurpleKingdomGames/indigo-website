@@ -3,7 +3,7 @@ id: text-and-fonts
 title: Text & Fonts
 ---
 
-> This page has not yet been reviewed for compatibility with version 0.8.1. Details may now be incorrect.
+> This page has not yet been reviewed for compatibility with version 0.8.2. Details may now be incorrect.
 
 Indigo has no concept of fonts or font rendering, and yet it supports text.
 
