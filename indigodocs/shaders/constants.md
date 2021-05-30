@@ -111,6 +111,7 @@ Name | Type | Description
 `CHANNEL_2_TEXTURE_COORDS`|`vec2`|Scaled texture coordinates.
 `CHANNEL_3_TEXTURE_COORDS`|`vec2`|Scaled texture coordinates.
 `LIGHT_COUNT`|`int`|Total number of lights in the scene.
+`LIGHT_INDEX`|`int`|Index of the current light starting at 0 with a range of 0 to 7.
 `ROTATION`|`float`|The rotation amount in radians.
 `SCREEN_COORDS`|`vec2`|The absolute position of this pixel on the screen.
 `SRC_CHANNEL`|`sampler2D`|The texture channel for the source image data. Current we only bind one atlas at a time. The 4 channels otherwise mention are all textures on the same atlas. It's a limitation we may remove in the future.
