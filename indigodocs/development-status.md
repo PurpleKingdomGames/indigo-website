@@ -14,7 +14,7 @@ Currently Indigo is not cross compiled except between a single version of Scala 
 Indigo version `0.8.2` is built against the following version numbers:
 
 - Scala `3.0.0`
-- Scala.js `1.5.2`
+- Scala.js `1.5.1`
 - Mill `0.9.7`
 - SBT `1.5.2`
 
