@@ -1,6 +1,6 @@
 ---
 id: scene-update-fragment
-title: SceneUpdateFragment Type
+title: SceneUpdateFragment
 ---
 
 > This page has not yet been reviewed for compatibility with version 0.8.2. Details may now be incorrect.
