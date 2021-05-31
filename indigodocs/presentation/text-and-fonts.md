@@ -3,13 +3,58 @@ id: text-and-fonts
 title: Text & Fonts
 ---
 
-> This page has not yet been reviewed for compatibility with version 0.8.2. Details may now be incorrect.
+There are two way to add text in Indigo, each with their own set of trade offs.
 
-Indigo has no concept of fonts or font rendering, and yet it supports text.
+1. `TextBox` - is text as you'd expect it, easy to use and with full font support, but is generally lower quality.
+1. `Text` - is a graphical primitive that gives high rendering fidelity but requires a lot of set up.
 
-We do intend to work on this in the future, time allowing.
+If you're new to Indigo and just want to get some text on the screen quickly, you are strongly advised to use a `TextBox`.
+
+## `TextBox`
+
+> This is a new feature and there are bound to be issues with it. Please report any problems you find.
+
+The `TextBox` primitive works by utilising the browsers ability to render fonts. This provides a huge amount of power and flexibility, but it also inherits the shortcomings of that process, which chiefly are:
+
+1. There is no way to disable anti-aliasing, which means that text being shown on a magnified pixelated layer is likely to look poor. (On the other hand, on a nice HD UI layer your text will look crisp!)
+2. There is no inbuilt support for multi-line text, and measuring text has some cost associated with it. We may try to add wrapping in the future, but for now if you want to wrap text you'll need to do measure the text using the `BoundaryLocator`, and insert line breaks manually.
+
+**However** by comparison to the `Text` primitive, getting up and running with `TextBox` is far quicker and easier because there is no set up to do.
+
+### Loading a font
+
+You can use system fonts, but if you're keen on using something specific then there is a new `Font` `AssetType`, which works the same as loading any other kind of asset:
+
+```scala
+AssetType.Font(AssetName("My Font"), AssetPath("assets/my-favourite-font.woff2"))
+```
+
+And is used as follows:
+
+```scala
+// FontFamily("My Font") aligns to the loaded asset name AssetName("My Font")
+TextBox("Indigo... with fonts?", 200, 30).withFontFamily(FontFamily("My Font"))
+```
+
+There are things to be aware of with fonts, but the rules for fonts in Indigo are identical to the rules for loading fonts into browsers generally.
+
+### Using a `TextBox`
+
+As with all the APIs in Indigo, the available features of the `TextBox` type are all easily discoverable via your favorite IDE, but here is an example to get you started:
+
+```scala
+TextBox("Hello, World!", 200, 30)
+  .withFontFamily(FontFamily.cursive)
+  .withColor(RGBA.White)
+  .withFontSize(Pixels(16))
+  .withStroke(TextStroke(RGBA.Red, Pixels(1)))
+  .italic
+  .alignRight
+```
 
 ## The Text Primitive
+
+The alternative to `TextBox` is the `Text` primitive, which renders text using what are known as bitmap fonts, i.e, an image containing all the characters and data structure explaining where they are.
 
 You can create a Text node using one of it's constructors and manipulate its properties with fluent API methods like this:
 
@@ -17,15 +62,15 @@ You can create a Text node using one of it's constructors and manipulate its pro
 Text("Hello, world!\nThis is some text!", x, y, depth, fontKey).alignRight
 ```
 
-Easy enough, and note that you can use newlines ...but if indigo doesn't support fonts, what is the `fontKey` in reference to?
+Easy enough, and note that you can use newlines ...but if indigo doesn't support fonts for `Text`, what is the `fontKey` in reference to?
 
 ### Allowing fonts without supporting fonts
 
-A very early design decision, when Indigo was ruthlessly focused on the pixel art market, was that we didn't need real font support. Pixel art fonts tend to be blocky and mono-space.
+A very early design decision from back when Indigo was ruthlessly focused on the pixel art market, was that we didn't need real font support. Pixel art fonts tend to be blocky and mono-space.
 
 Inspiration came from early versions of Flash where selected font glyphs were rendered into images at specific sizes during the Flash build. We went one step further and decided, in the name of _not_ getting bogged down in the world of font rendering, that you'd have to provide your font glyph images - not unlike an animation sprite sheet - pre-rendered and then tell us where all the characters were.
 
-It's inconvenient and a bit simplistic, but it works ok! And we have a [tool to help you](https://indigoengine.io/tools/), more on that further down.
+It's inconvenient and a bit simplistic, but it works, and the results look good even when magnified for pixel art! And we have a [tool to help you](https://indigoengine.io/tools/), more on that further down.
 
 ### Setting up fonts manually
 
@@ -83,7 +128,7 @@ How to avoid doing all the manual labor of painstaking setting up the font info,
 Well you still need the asset and the `FontInfo`, but we have a process to make generating it easier.
 
 1. Head over to our [tools site](https://indigoengine.io/tools/) and use the Font Sheet generator to produce an image containing the exact glyphs you want and an associated JSON blob representing the glyph information.
-2. Ensure you have added an Indigo JSON dependency to your games build definition, either `indigo-json-circe` or `indigo-json-upickle`.
+2. Ensure you have added an Indigo JSON dependency to your games build definition, either `indigo-json-circe`.
 
 Then load both assets:
 
