@@ -19,6 +19,8 @@ They all share similar properties:
 - They can all be transformed in the usual ways
 - They can all receive simple lighting effects (no normal mapping)
 
+One limitation that shape strokes have, is that they are all solid and all use rounded corners. This is because of the way they are calculated. If there is interest we may look at adding more stroke effects like dashed lines or alternate capping types.
+
 Below are examples of each to help get you started.
 
 ## Box
