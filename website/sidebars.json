@@ -37,6 +37,7 @@
       "presentation/materials",
       "presentation/primitives",
       "presentation/scene-update-fragment",
+      "presentation/shapes",
       "presentation/text-and-fonts",
       "presentation/ui-components"
     ],
