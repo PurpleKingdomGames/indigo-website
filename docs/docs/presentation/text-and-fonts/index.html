@@ -125,7 +125,7 @@
 <pre><code class="hljs css language-scala">  <span class="hljs-keyword">val</span> fontKey: <span class="hljs-type">FontKey</span> = <span class="hljs-type">FontKey</span>(<span class="hljs-string">"my font"</span>)
 
   <span class="hljs-keyword">val</span> fontInfo: <span class="hljs-type">FontInfo</span> =
-    <span class="hljs-type">FontInfo</span>(fontKey, <span class="hljs-type">Material</span>.<span class="hljs-type">Textured</span>(imageAsset), <span class="hljs-number">320</span>, <span class="hljs-number">230</span>, <span class="hljs-type">FontChar</span>(<span class="hljs-string">"?"</span>, <span class="hljs-number">47</span>, <span class="hljs-number">26</span>, <span class="hljs-number">11</span>, <span class="hljs-number">12</span>))
+    <span class="hljs-type">FontInfo</span>(fontKey, <span class="hljs-type">Material</span>.<span class="hljs-type">Bitmap</span>(imageAsset), <span class="hljs-number">320</span>, <span class="hljs-number">230</span>, <span class="hljs-type">FontChar</span>(<span class="hljs-string">"?"</span>, <span class="hljs-number">47</span>, <span class="hljs-number">26</span>, <span class="hljs-number">11</span>, <span class="hljs-number">12</span>))
       .addChar(<span class="hljs-type">FontChar</span>(<span class="hljs-string">"A"</span>, <span class="hljs-number">2</span>, <span class="hljs-number">39</span>, <span class="hljs-number">10</span>, <span class="hljs-number">12</span>))
       .addChar(<span class="hljs-type">FontChar</span>(<span class="hljs-string">"B"</span>, <span class="hljs-number">14</span>, <span class="hljs-number">39</span>, <span class="hljs-number">9</span>, <span class="hljs-number">12</span>))
       .addChar(<span class="hljs-type">FontChar</span>(<span class="hljs-string">"C"</span>, <span class="hljs-number">25</span>, <span class="hljs-number">39</span>, <span class="hljs-number">10</span>, <span class="hljs-number">12</span>))
@@ -160,7 +160,7 @@
 <pre><code class="hljs css language-scala"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">makeFontInfo</span></span>(unknownChar: <span class="hljs-type">FontChar</span>, fontChars: <span class="hljs-type">List</span>[<span class="hljs-type">FontChar</span>]): <span class="hljs-type">FontInfo</span> =
   <span class="hljs-type">FontInfo</span>(
     fontKey = fontKey,
-    fontSpriteSheet = <span class="hljs-type">FontSpriteSheet</span>(<span class="hljs-type">Material</span>.<span class="hljs-type">Textured</span>(imageAsset), <span class="hljs-type">Point</span>(<span class="hljs-number">320</span>, <span class="hljs-number">230</span>)),
+    fontSpriteSheet = <span class="hljs-type">FontSpriteSheet</span>(<span class="hljs-type">Material</span>.<span class="hljs-type">Bitmap</span>(imageAsset), <span class="hljs-type">Point</span>(<span class="hljs-number">320</span>, <span class="hljs-number">230</span>)),
     unknownChar = unknownChar,
     fontChars = fontChars,
     caseSensitive = <span class="hljs-literal">true</span>
