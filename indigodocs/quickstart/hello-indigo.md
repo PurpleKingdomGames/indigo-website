@@ -145,7 +145,7 @@ with:
 
 ```scala
 SceneUpdateFragment(
-  Graphic(Rectangle(0, 0, 32, 32), 1, Material.Textured(assetName))
+  Graphic(Rectangle(0, 0, 32, 32), 1, Material.Bitmap(assetName))
 )
 ```
 
@@ -172,7 +172,7 @@ Indigo is built for pixel art, and will automatically scale up not just your gra
 
 ```scala
 SceneUpdateFragment(
-  Graphic(Rectangle(0, 0, 32, 32), 1, Material.Textured(assetName))
+  Graphic(Rectangle(0, 0, 32, 32), 1, Material.Bitmap(assetName))
 )
 ```
 
@@ -180,8 +180,8 @@ to:
 
 ```scala
 SceneUpdateFragment(
-  Graphic(Rectangle(0, 0, 32, 32), 1, Material.Textured(assetName)),
-  Graphic(Rectangle(0, 0, 32, 32), 1, Material.Textured(assetName))
+  Graphic(Rectangle(0, 0, 32, 32), 1, Material.Bitmap(assetName)),
+  Graphic(Rectangle(0, 0, 32, 32), 1, Material.Bitmap(assetName))
     .withCrop(Rectangle(16, 16, 16, 16))
     .withRef(8, 8)
     .moveTo(config.viewport.giveDimensions(magnification).center)
@@ -407,8 +407,8 @@ Finally we need to draw something, replace:
 
 ```scala
     SceneUpdateFragment(
-      Graphic(Rectangle(0, 0, 32, 32), 1, Material.Textured(assetName)),
-      Graphic(Rectangle(0, 0, 32, 32), 1, Material.Textured(assetName))
+      Graphic(Rectangle(0, 0, 32, 32), 1, Material.Bitmap(assetName)),
+      Graphic(Rectangle(0, 0, 32, 32), 1, Material.Bitmap(assetName))
         .withCrop(Rectangle(16, 16, 16, 16))
         .withRef(8, 8)
         .moveTo(config.viewport.giveDimensions(magnification).center)
@@ -419,7 +419,7 @@ with:
 
 ```scala
 SceneUpdateFragment(
-  Graphic(Rectangle(0, 0, 32, 32), 1, Material.Textured(assetName))
+  Graphic(Rectangle(0, 0, 32, 32), 1, Material.Bitmap(assetName))
 ).addGameLayerNodes(
   drawDots(model.center, model.dots)
 )
@@ -434,7 +434,7 @@ def drawDots(
       y = (Math.cos(dot.angle.value) * dot.orbitDistance + center.y).toInt
     )
 
-    Graphic(Rectangle(0, 0, 32, 32), 1, Material.Textured(assetName))
+    Graphic(Rectangle(0, 0, 32, 32), 1, Material.Bitmap(assetName))
       .withCrop(Rectangle(16, 16, 16, 16))
       .withRef(8, 8)
       .moveTo(position)

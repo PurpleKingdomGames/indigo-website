@@ -105,7 +105,7 @@ And the associated `FontInfo` definition would be as follows, where the `FontCha
   val fontKey: FontKey = FontKey("my font")
 
   val fontInfo: FontInfo =
-    FontInfo(fontKey, Material.Textured(imageAsset), 320, 230, FontChar("?", 47, 26, 11, 12))
+    FontInfo(fontKey, Material.Bitmap(imageAsset), 320, 230, FontChar("?", 47, 26, 11, 12))
       .addChar(FontChar("A", 2, 39, 10, 12))
       .addChar(FontChar("B", 14, 39, 9, 12))
       .addChar(FontChar("C", 25, 39, 10, 12))
@@ -149,7 +149,7 @@ val assets: Set[AssetType] =
 def makeFontInfo(unknownChar: FontChar, fontChars: List[FontChar]): FontInfo =
   FontInfo(
     fontKey = fontKey,
-    fontSpriteSheet = FontSpriteSheet(Material.Textured(imageAsset), Point(320, 230)),
+    fontSpriteSheet = FontSpriteSheet(Material.Bitmap(imageAsset), Point(320, 230)),
     unknownChar = unknownChar,
     fontChars = fontChars,
     caseSensitive = true

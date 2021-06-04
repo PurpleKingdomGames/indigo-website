@@ -11,17 +11,17 @@ Indigo is intended to be a pixel art based game engine, and that means drawing p
 
 Currently, Indigo takes a very simple approach to building up a rendered frame: It uses a painters algorithm to draw all the images one at a time, ordered from most distant from the camera, to nearest. In some ways, it isn't even as complicated as [blitting](https://en.wikipedia.org/wiki/Bit_blit).
 
-To tell Indigo what to draw we need to point it at an image asset using a `Material`. There are two material types, the simplest is `Textured`.
+To tell Indigo what to draw we need to point it at an image asset using a `Material`. There are two material types, the simplest is `Bitmap`.
 
 ```scala
-Material.Textured(AssetName("funny cat"))
+Material.Bitmap(AssetName("funny cat"))
 ```
 
-`Textured` is a completely flat texture and can be used in a graphic like this:
+`Bitmap` is a completely flat texture and can be used in a graphic like this:
 
 ```scala
 SceneUpdateFragment(
-  Graphic(Rectangle(0, 0, 32, 32), 1, Material.Textured(AssetName("funny cat")))
+  Graphic(Rectangle(0, 0, 32, 32), 1, Material.Bitmap(AssetName("funny cat")))
 )
 ```
 
@@ -29,7 +29,7 @@ Graphics are nice and simple to follow because they use materials directly, but 
 
 ## Light it up!
 
-`Textured` has an intriguing method on it called `.lit`. Textures are supposed to be completely flat and colored in their full original glory, perhaps with a bit of ambient light provided by the lighting layer. What then does `.lit` do?
+`Bitmap` has an intriguing method on it called `.lit`. Textures are supposed to be completely flat and colored in their full original glory, perhaps with a bit of ambient light provided by the lighting layer. What then does `.lit` do?
 
 The `lit` method tells Indigo that although this texture is flat, you'd like it to receive light from any light sources that are in the scene. If you put a point light next to it you'll end up with a light applied to the texture as if it was a smooth surface.
 
@@ -45,7 +45,7 @@ To do that we use a different material:
 Material.Lit(albedo: AssetName, emissive: AssetName, normal: AssetName, specular: AssetName)
 ```
 
-> You can call `.unlit` on a `Lit` material to have to render like a `Textured` material.
+> You can call `.unlit` on a `Lit` material to have to render like a `Bitmap` material.
 
 In this material, each parameter represents a different aspect of how the texture is lit. Briefly they are:
 
