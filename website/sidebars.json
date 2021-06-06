@@ -1,9 +1,9 @@
 {
   "guides": {
-    "About": [
+    "How To's": [
       "guides"
     ],
-    "How to...": [
+    "Gamedev": [
       "guides/howto-custom-entity"
     ]
   },
@@ -42,7 +42,10 @@
       "presentation/ui-components"
     ],
     "Shaders": [
-      "shaders/constants"
+      "shaders/shader-overview",
+      "shaders/constants",
+      "shaders/entity-shaders",
+      "shaders/blending"
     ],
     "Working with Time": [
       "time/signals",
