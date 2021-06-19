@@ -104,6 +104,8 @@ void fragment() {
 }
 ```
 
+![Shader filling a square green](/img/howtos/green-square.png "Shader filling a square green")
+
 This tells the GPU to set the `COLOR` output variable to a `vec4` that denotes the RGBA color of the pixel with values ranging from `0.0f` to `1.0f`. Here we're setting full green and full alpha (opaque).
 
 To use this shiny new entity, we have to do two things:
@@ -141,6 +143,8 @@ void fragment() {
   COLOR = vec4(UV.x, UV.y, 0.0, 1.0);
 }
 ```
+
+![Shader filling a square using UVs for red and green](/img/howtos/uv-square.png "Shader filling a square using UVs for red and green")
 
 The `UV` variable of type `vec2`, tells you the position of the pixel you are drawing as coordinates from `(0.0f, 0.0f)` in the top left to `(1.0f, 1.0f)` in the bottom right. So conveniently, we can illustrate this top-left to bottom-right transition by plugging the `UV.x` and `UV.y` fields in as our red and green values.
 
