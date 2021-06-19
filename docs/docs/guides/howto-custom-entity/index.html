@@ -129,6 +129,7 @@ object MyColoredEntity:
   COLOR = <span class="hljs-type">vec4</span>(<span class="hljs-number">0.0</span>, <span class="hljs-number">1.0</span>, <span class="hljs-number">0.0</span>, <span class="hljs-number">1.0</span>);
 }
 </code></pre>
+<p><img src="/img/howtos/green-square.png" alt="Shader filling a square green" title="Shader filling a square green"></p>
 <p>This tells the GPU to set the <code>COLOR</code> output variable to a <code>vec4</code> that denotes the RGBA color of the pixel with values ranging from <code>0.0f</code> to <code>1.0f</code>. Here we're setting full green and full alpha (opaque).</p>
 <p>To use this shiny new entity, we have to do two things:</p>
 <p>First, tell indigo about the new shader:</p>
@@ -156,6 +157,7 @@ object MyColoredEntity:
   COLOR = <span class="hljs-type">vec4</span>(UV.x, UV.y, <span class="hljs-number">0.0</span>, <span class="hljs-number">1.0</span>);
 }
 </code></pre>
+<p><img src="/img/howtos/uv-square.png" alt="Shader filling a square using UVs for red and green" title="Shader filling a square using UVs for red and green"></p>
 <p>The <code>UV</code> variable of type <code>vec2</code>, tells you the position of the pixel you are drawing as coordinates from <code>(0.0f, 0.0f)</code> in the top left to <code>(1.0f, 1.0f)</code> in the bottom right. So conveniently, we can illustrate this top-left to bottom-right transition by plugging the <code>UV.x</code> and <code>UV.y</code> fields in as our red and green values.</p>
 <blockquote>
 <p>Note that GLSL has a limited set of types and they all have quite flexible constructors, so you could also write the following which has the same meaning: <code>COLOR = vec4(UV, 0.0, 1.0);</code>, additionally access to fields like <code>.x</code> can be replaced with color indicators like <code>.r</code>,<code>.g</code>,<code>.b</code>, and <code>.a</code> - same value but makes more reading sense if your processing colors.</p>
