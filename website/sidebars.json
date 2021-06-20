@@ -4,7 +4,8 @@
       "guides"
     ],
     "Gamedev": [
-      "guides/howto-custom-entity"
+      "guides/howto-custom-entity",
+      "guides/howto-fire-shader"
     ]
   },
   "docs": {
