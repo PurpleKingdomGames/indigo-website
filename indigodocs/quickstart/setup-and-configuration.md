@@ -3,22 +3,22 @@ id: setup-and-configuration
 title: Setup & Configuration
 ---
 
-> This page has not yet been reviewed for compatibility with version 0.8.2. Details may now be incorrect.
+> This page has not yet been reviewed for compatibility with version 0.9.0. Details may now be incorrect.
 
 ## Version numbers
 
-Indigo version `0.8.2` is built against the following version numbers:
+Indigo version `0.9.0` is built against the following version numbers:
 
 - Scala `3.0.0`
-- Scala.js `1.5.1`
-- Mill `0.9.7`
-- SBT `1.5.2`
+- Scala.js `1.6.0`
+- Mill `0.9.8`
+- SBT `1.5.4`
 
 ## Building Indigo Games
 
 Indigo games are completely normal [Scala.js](https://www.scala-js.org/) projects.
 
-You can use either [Mill](http://www.lihaoyi.com/mill/) (Mill 0.9.7 or above) or [SBT](https://www.scala-sbt.org/) (recommend sbt 1.5.2 or greater) to build your games, and for your convenience both Mill and SBT have associated plugins, `mill-indigo` and `sbt-indigo` respectively.
+You can use either [Mill](http://www.lihaoyi.com/mill/) (Mill 0.9.8 or above) or [SBT](https://www.scala-sbt.org/) (recommend sbt 1.5.4 or greater) to build your games, and for your convenience both Mill and SBT have associated plugins, `mill-indigo` and `sbt-indigo` respectively.
 
 The plugins help you bootstrap your game during development, they marshal your assets and serve as a reference implementation for _one_ fairly basic way to embed your game into a web page or electron app.
 
@@ -98,11 +98,11 @@ import mill.scalalib._
 import mill.scalajslib._
 import mill.scalajslib.api._
 
-import $ivy.`io.indigoengine::mill-indigo:0.8.2`, millindigo._
+import $ivy.`io.indigoengine::mill-indigo:0.9.0`, millindigo._
 
 object mygame extends ScalaJSModule with MillIndigo {
   def scalaVersion   = "3.0.0"
-  def scalaJSVersion = "1.5.1"
+  def scalaJSVersion = "1.6.0"
 
   val gameAssetsDirectory: os.Path = os.pwd / "assets"
   val showCursor: Boolean          = true
@@ -111,8 +111,8 @@ object mygame extends ScalaJSModule with MillIndigo {
   val windowStartHeight: Int       = 480 // Height of Electron window, used with `indigoRun`.
 
   def ivyDeps = Agg(
-    ivy"io.indigoengine::indigo-json-circe::0.8.2",
-    ivy"io.indigoengine::indigo::0.8.2"
+    ivy"io.indigoengine::indigo-json-circe::0.9.0",
+    ivy"io.indigoengine::indigo::0.9.0"
   )
 
 }
@@ -185,8 +185,8 @@ Which allows you to run `mill mygame.buildGame` and `mill mygame.runGame` from t
 Add the following to your `project/plugins.sbt` file:
 
 ```scala
-addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.5.1")
-addSbtPlugin("io.indigoengine" %% "sbt-indigo" % "0.8.2") // Note the double %%
+addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.6.0")
+addSbtPlugin("io.indigoengine" %% "sbt-indigo" % "0.9.0") // Note the double %%
 ```
 
 ### build.sbt
@@ -210,8 +210,8 @@ lazy val mygame =
       windowStartWidth := 720, // Width of Electron window, used with `indigoRun`.
       windowStartHeight := 480, // Height of Electron window, used with `indigoRun`.
       libraryDependencies ++= Seq(
-        "io.indigoengine" %%% "indigo" % "0.8.2",
-        "io.indigoengine" %%% "indigo-json-circe" % "0.8.2",
+        "io.indigoengine" %%% "indigo" % "0.9.0",
+        "io.indigoengine" %%% "indigo-json-circe" % "0.9.0",
       )
     )
 ```

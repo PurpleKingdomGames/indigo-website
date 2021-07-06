@@ -3,7 +3,7 @@ id: hello-indigo
 title: Hello, Indigo!
 ---
 
-> This page has not yet been reviewed for compatibility with version 0.8.2. Details may now be incorrect.
+> This page has not yet been reviewed for compatibility with version 0.9.0. Details may now be incorrect.
 
 This is a quick start tutorial to help you build something with Indigo.
 
@@ -427,7 +427,7 @@ SceneUpdateFragment(
 def drawDots(
     center: Point,
     dots: List[Dot]
-): List[Graphic] =
+): List[Graphic[_]] =
   dots.map { dot =>
     val position = Point(
       x = (Math.sin(dot.angle.value) * dot.orbitDistance + center.x).toInt,

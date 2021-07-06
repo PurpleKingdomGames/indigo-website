@@ -3,7 +3,7 @@ id: primitives
 title: Primitives & Building Blocks
 ---
 
-> This page has not yet been reviewed for compatibility with version 0.8.2. Details may now be incorrect.
+> This page has not yet been reviewed for compatibility with version 0.9.0. Details may now be incorrect.
 
 Indigo is made of several projects, but two of particular note are Indigo itself, and "Indigo Extras".
 
@@ -63,17 +63,17 @@ All renderable nodes come with the same set of basic transforms that you see on 
 
 They are then specialised to do certain jobs.
 
-#### Text
+#### `Text[M <: Material]`
 
 Provides basic support for rendering text onto the screen, including things like alignment.
 
 Requires you to have registered a `FontInfo` instance that you can link to using a `FontKey`.
 
-#### Graphic
+#### `Graphic[M <: Material]`
 
 The simplest type of drawn element, simply renders a bitmap (which may be cropped) onto the screen.
 
-#### Sprite
+#### `Sprite[M <: Material]`
 
 Essentially an animated graphic. You need to provide an `AnimationKey` to link back to your registered `Animation` information, and then you can instruct the sprite to change animation cycles, and play or stop.
 

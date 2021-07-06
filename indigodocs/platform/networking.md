@@ -3,7 +3,7 @@ id: networking
 title: Networking
 ---
 
-> This page has not yet been reviewed for compatibility with version 0.8.2. Details may now be incorrect.
+> This page has not yet been reviewed for compatibility with version 0.9.0. Details may now be incorrect.
 
 Indigo supports basic networking via HTTP or WebSockets.
 
