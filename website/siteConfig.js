@@ -40,13 +40,16 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    { blog: true, label: 'News' },
+    { blog: true, label: 'Blog' },
     { doc: 'guides', label: 'Guides' },
     { doc: 'development-status', label: 'Docs' },
     { href: "https://purplekingdomgames.github.io/indigo/api/indigo.html", label: "APIs", external: true },
     { page: 'tools', label: 'Tools' },
     { href: "https://github.com/PurpleKingdomGames/indigo", label: "GitHub", external: true },
   ],
+
+  blogSidebarTitle: { default: 'News & Updates', all: 'All posts' },
+  blogSidebarCount: 'ALL',
 
   // If you have users set above, you add it here:
   // users,
