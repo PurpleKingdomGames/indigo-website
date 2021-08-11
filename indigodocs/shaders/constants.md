@@ -52,7 +52,12 @@ Name | Type | Description
 
 Name | Type | Description
 ---|---|---
+`ATLAS_SIZE`|`vec2`|Size of the atlas this texture is on, in pixels.
+`CHANNEL_0_POSITION`|`vec2`|Top left position of this texture on the atlas in UV coords.
+`CHANNEL_0_SIZE`|`vec2`|Size of this texture on the atlas in UV coords.
+`FRAME_SIZE`|`vec2`|Size of sub-rectangle of the texture to be rendered, e.g. the crop (graphic) or animation frame (sprite).
 `SIZE`|`vec2`|The width and height in pixels of the space on the screen being drawn to, e.g. the width and height of a graphic.
+`TEXTURE_SIZE`|`vec2`|Size of the texture in pixels.
 `UV`|`vec2`|The interpolates UV coordinates that will be passed to the fragment shader. Ranges from (0,0) top left to (1,1) bottom right. (Equivalent to `TEXTURE_COORDS`, but read only.)
 
 #### Outputs (read/write)
@@ -68,7 +73,7 @@ Name | Type | Description
 `CHANNEL_2_TEXTURE_COORDS`|`vec2`|The scaled, interpolated texture coordinates for the texture in channel 2, uses `CHANNEL_2_ATLAS_OFFSET`.
 `CHANNEL_3_TEXTURE_COORDS`|`vec2`|The scaled, interpolated texture coordinates for the texture in channel 3, uses `CHANNEL_3_ATLAS_OFFSET`.
 `ROTATION`|`float`|The rotation amount in radians to be applied to the current vertex.
-`TEXTURE_COORDS`|`vec2`|The interpolates UV coordinates that will be passed to the fragment shader. Ranges from (0,0) top left to (1,1) bottom right. (Equivalent to `UV`, but modifiable.)
+`TEXTURE_COORDS` (Redundant, use `UV`)|`vec2`|The interpolates UV coordinates that will be passed to the fragment shader. Ranges from (0,0) top left to (1,1) bottom right. (Equivalent to `UV`, but modifiable.)
 
 ### Blend Shader Specific
 
@@ -102,10 +107,13 @@ Name | Type | Description
 
 Name | Type | Description
 ---|---|---
+`ATLAS_SIZE`|`vec2`|Size of the atlas this texture is on, in pixels.
 `CHANNEL_0`|`vec4`|Pixel color value from texture channel 0.
 `CHANNEL_1`|`vec4`|Pixel color value from texture channel 1.
 `CHANNEL_2`|`vec4`|Pixel color value from texture channel 2.
 `CHANNEL_3`|`vec4`|Pixel color value from texture channel 3.
+`CHANNEL_0_POSITION`|`vec2`|Top left position of this texture on the atlas in UV coords.
+`CHANNEL_0_SIZE`|`vec2`|Size of this texture on the atlas in UV coords.
 `CHANNEL_0_TEXTURE_COORDS`|`vec2`|Scaled texture coordinates.
 `CHANNEL_1_TEXTURE_COORDS`|`vec2`|Scaled texture coordinates.
 `CHANNEL_2_TEXTURE_COORDS`|`vec2`|Scaled texture coordinates.
@@ -115,6 +123,7 @@ Name | Type | Description
 `ROTATION`|`float`|The rotation amount in radians.
 `SCREEN_COORDS`|`vec2`|The absolute position of this pixel on the screen.
 `SRC_CHANNEL`|`sampler2D`|The texture channel for the source image data. Current we only bind one atlas at a time. The 4 channels otherwise mention are all textures on the same atlas. It's a limitation we may remove in the future.
+`TEXTURE_SIZE`|`vec2`|Size of the texture in pixels.
 
 #### Outputs (read/write)
 
