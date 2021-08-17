@@ -5,7 +5,6 @@ authorURL: http://twitter.com/davidjamessmith
 ---
 
 !["A early screenshot of a roguelike made with Indigo"](https://raw.githubusercontent.com/davesmith00000/roguelike-tutorial/main/part3/roguelike-part3_2.gif)
-_(A screen shot from part 3 of the roguelike tutorials.)_
 
 **This is a brief post-mortem of my attempt to do the ["RoguelikeDev Does The Complete Roguelike Tutorial"](https://www.reddit.com/r/roguelikedev/comments/o5x585/roguelikedev_does_the_complete_roguelike_tutorial/) in Scala.**
 
