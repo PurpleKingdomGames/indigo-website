@@ -4,7 +4,7 @@
         <title>Indigo Blog</title>
         <link>https://your-docusaurus-test-site.com/blog</link>
         <description>The best place to stay up-to-date with the latest Indigo news and events.</description>
-        <lastBuildDate>Sun, 30 May 2021 06:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 17 Aug 2021 06:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -13,6 +13,18 @@
             <link>https://your-docusaurus-test-site.com/blog</link>
         </image>
         <copyright>Copyright © 2021 Purple Kingdom Games Limited</copyright>
+        <item>
+            <title><![CDATA[Post-Mortem: "RoguelikeDev Does The Complete Roguelike Tutorial" in Scala]]></title>
+            <link>https://your-docusaurus-test-site.com/blog/2021/08/17/roguelike-post-mortem.html</link>
+            <guid>https://your-docusaurus-test-site.com/blog/2021/08/17/roguelike-post-mortem.html</guid>
+            <pubDate>Tue, 17 Aug 2021 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p><img src="https://raw.githubusercontent.com/davesmith00000/roguelike-tutorial/main/part3/roguelike-part3_2.gif" alt="&quot;A early screenshot of a roguelike made with Indigo&quot;"></p>
+<p><strong>This is a brief post-mortem of my attempt to do the <a href="https://www.reddit.com/r/roguelikedev/comments/o5x585/roguelikedev_does_the_complete_roguelike_tutorial/">&quot;RoguelikeDev Does The Complete Roguelike Tutorial&quot;</a> in Scala.</strong></p>
+<p>I've been asked on several occasions if it would be possible to build a roguelike using Indigo?</p>
+<p>My answer has always been that it should be possible, but that it would probably be challenging because Indigo isn't built for rendering lots of text.</p>
+<p>About a month before this year's annual &quot;RoguelikeDev Does The Complete Roguelike Tutorial&quot; I was asked again, and decided it was time to find out if it really was possible or not!</p>
+]]></description>
+        </item>
         <item>
             <title><![CDATA[Indigo 0.8.2 Released]]></title>
             <link>https://your-docusaurus-test-site.com/blog/2021/05/30/indigo-0-8-2-released.html</link>

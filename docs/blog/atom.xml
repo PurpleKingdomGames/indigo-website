@@ -2,12 +2,28 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://your-docusaurus-test-site.com/blog</id>
     <title>Indigo Blog</title>
-    <updated>2021-05-30T06:00:00.000Z</updated>
+    <updated>2021-08-17T06:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://your-docusaurus-test-site.com/blog"/>
     <subtitle>The best place to stay up-to-date with the latest Indigo news and events.</subtitle>
     <logo>https://your-docusaurus-test-site.com/img/indigo_logo_solid_text.svg</logo>
     <rights>Copyright © 2021 Purple Kingdom Games Limited</rights>
+    <entry>
+        <title type="html"><![CDATA[Post-Mortem: "RoguelikeDev Does The Complete Roguelike Tutorial" in Scala]]></title>
+        <id>https://your-docusaurus-test-site.com/blog/2021/08/17/roguelike-post-mortem.html</id>
+        <link href="https://your-docusaurus-test-site.com/blog/2021/08/17/roguelike-post-mortem.html"/>
+        <updated>2021-08-17T06:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p><img src="https://raw.githubusercontent.com/davesmith00000/roguelike-tutorial/main/part3/roguelike-part3_2.gif" alt="&quot;A early screenshot of a roguelike made with Indigo&quot;"></p>
+<p><strong>This is a brief post-mortem of my attempt to do the <a href="https://www.reddit.com/r/roguelikedev/comments/o5x585/roguelikedev_does_the_complete_roguelike_tutorial/">&quot;RoguelikeDev Does The Complete Roguelike Tutorial&quot;</a> in Scala.</strong></p>
+<p>I've been asked on several occasions if it would be possible to build a roguelike using Indigo?</p>
+<p>My answer has always been that it should be possible, but that it would probably be challenging because Indigo isn't built for rendering lots of text.</p>
+<p>About a month before this year's annual &quot;RoguelikeDev Does The Complete Roguelike Tutorial&quot; I was asked again, and decided it was time to find out if it really was possible or not!</p>
+]]></summary>
+        <author>
+            <name>Dave Smith</name>
+            <uri>http://twitter.com/davidjamessmith</uri>
+        </author>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Indigo 0.8.2 Released]]></title>
         <id>https://your-docusaurus-test-site.com/blog/2021/05/30/indigo-0-8-2-released.html</id>
