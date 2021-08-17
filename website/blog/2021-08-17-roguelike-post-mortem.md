@@ -1,5 +1,5 @@
 ---
-title: Post-Mortem: "RoguelikeDev Does The Complete Roguelike Tutorial" in Scala(.js)
+title: Post-Mortem: "RoguelikeDev Does The Complete Roguelike Tutorial" in Scala
 author: Dave Smith
 authorURL: http://twitter.com/davidjamessmith
 ---
@@ -50,7 +50,7 @@ The difficulty with the tutorial is that it is aimed at Python developers, and a
 
 There are two problems with not using Python.
 
-The first is simply distilling the tutorial parts into the intended deliverables. The tutorials are written for Python developers, and they have a lovely conversational style, building a narrative as they go along. The authors take great care to go over code from previous chapters - refactoring code to be ready for the next section. Of course, if you're not a Python developer the result in places, is _a lot_ of text / code to sift through to find the information you need. Luckily, the screenshots the authors included were a massive help. In the chapter on saving and loading I basically just looked at the screenshots and reverse engineered suitable requirements. This was because most of the tutorial chapter was involved in disk IO while my solution ran in a browser, and is side effect free!
+The first is simply distilling the tutorial parts into the intended deliverables. The tutorials are written for Python developers, and they have a lovely conversational style, building a narrative as they go along. The authors take great care to go over code from previous chapters - refactoring code to be ready for the next section. Of course, if you're not a Python developer then the result is - in places - _a lot_ of text / code to sift through to find the information you need. Luckily, the screenshots the authors included were a massive help. In the chapter on saving and loading I basically just looked at the screenshots and reverse engineered suitable requirements. This was because most of the tutorial chapter was involved in disk IO while my solution ran in a browser, and is side effect free!
 
 The second problem is the lack of ready-made tooling.
 
@@ -105,11 +105,11 @@ In Python this translates easily:
 
 This works because the Player's actions are always evaluated first and carried out immediately. In a fair fight with two evenly matched players, the first player would always win.
 
-In Indigo things are not so simple because Indigo discourages first-mover advantage by decoupling action from outcome. In reality the combatants effectively both attacked at the same time in the same instant! Like this:
+In Indigo things are not so simple because Indigo hugely discourages first-mover advantage by decoupling action from outcome. In reality the combatants effectively both attacked at the same time in the same instant! Like this:
 
 1. On update, the Player attacks the Orc, _emitting an event with the amount of damage to be inflicted_.
 2. The Orc's health has not yet been reduced, so the Orc is still alive during this update.
-3. The Orc attacks! It gets one last gasping attempt at killing the Player! The Orc also emits an event saying the Player has been damaged.
+3. The Orc attacks! It doesn't know it's dead yet! It gets one last gasping attempt at killing the Player! _The Orc also emits an event saying the Player has been damaged_.
 4. On the next frame, the relevant damage is inflicted on both parties.
 5. The Orc is killed as before... but the Player has been unexpectedly injured or killed too!
 
@@ -117,18 +117,16 @@ The solution is to separate the players turn from the enemies turn, creating a t
 
 ### What would I do differently next time?
 
-My main regret is that the terminal emulator is rather heavy and can't be refreshed at 60 fps. For the purposes of the tutorial this isn't a problem since you only have to update on key press, but if you wanted to do any smoother effects it wouldn't be able to keep up. The other way this problem rears it's head is if someone is running a low power system, since it requires the ability to allocate some fairly chunky arrays on to the GPU.
+My main regret is that the terminal emulator is rather heavy and can't be refreshed at 60 fps. For the purposes of the tutorial this isn't a problem since you only have to update on key press, but if you wanted to do any smoother effects it wouldn't be able to keep up. The other way this problem rears it's head is if someone is running a low power system of some kind, since it requires the ability to allocate some fairly chunky arrays on to the GPU as UBO data (uniform buffer object).
 
-There are lots of ways to resolve this problem, I would have liked to have had the time to make it better.
+There are lots of ways to resolve this problem, I would have liked to have had the time to make it better, maybe next time.
 
-Additionally I'd like to wrap up the starter kit into a library of some sort for ease of use by others.
+Additionally I'd like to have wrapped up the starter kit into a library of some sort for ease of use by others.
 
 Finally, a small thing, but I wish I'd spent a little bit longer on the build process. When you build for web you have to emit a different module kind than if you're running locally, and that's a manual change in the `build.sbt` file. It would have been nice to do that properly. ([The process is described in the starter kit's README.](https://github.com/PurpleKingdomGames/indigo-roguelike-starterkit#how-to-run-and-package-up-this-game))
 
 ## Final thoughts
 
-Following the tutorial was great fun and I would highly recommend it.
+Following the tutorial in a language other than Python added a lot of complexity. Converting the tutorial to a purely functional language / approach on top of that often meant completely ignoring what the tutorial was saying, and trying to achieve the same outcome by totally different means. This would be very difficult if you didn't know your engine well in advance.
 
-That said, following in a language other than Python added a lot of complexity. Converting the tutorial to a purely functional language / approach on top of that, often meant completely ignoring what the tutorial was saying, and trying to achieve the same outcome by totally different means. This would be very difficult if you didn't know your engine well in advance.
-
-Hopefully the version I've pulled together along with the starter kit will help the next adventurous soul that decides to have a go!
+That said, following the tutorial was great fun and I would highly recommend it. Hopefully I'll be able to have another crack at it next year! In the meantime, perhaps the version I've pulled together (along with the starter kit) will help the next adventurous Scala soul that decides to delve into the depths of a roguelike!
