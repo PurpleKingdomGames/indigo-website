@@ -397,7 +397,7 @@ The model update function is just a function that has been partially applied wit
 
 In this case, we're interested in two events. A `MouseEvent.Click(x, y)` so that we can add a new dot, and a `FrameTick`. FrameTick is a bit special because it always happens last... and it always happens!
 
-When a mouse click is noticed, we call our `addDot` method with a new Dot, providing the orbital distance and the angle from the center of the screen to the point where we clicked the mouse using `Math.atan2(y, x)`.
+When a mouse click is noticed, we call our `addDot` method with a new Dot, providing the orbital distance and the angle from the center of the screen to the point where we clicked the mouse using `Math.atan2(x, y)`.
 
 Keep in mind that multiple events can and often do happen between frame ticks, which should only lead to model updates related to each specific event. In particular, changes that are intended to occur at a constant rate, like motion, should only be applied on frame ticks. Otherwise funny time-dilating side effects can occur.
 
@@ -419,9 +419,7 @@ with:
 
 ```scala
 SceneUpdateFragment(
-  Graphic(Rectangle(0, 0, 32, 32), 1, Material.Bitmap(assetName))
-).addGameLayerNodes(
-  drawDots(model.center, model.dots)
+  Graphic(Rectangle(0, 0, 32, 32), 1, Material.Bitmap(assetName)) :: drawDots(model.center, model.dots)
 )
 
 def drawDots(
@@ -430,8 +428,8 @@ def drawDots(
 ): List[Graphic[_]] =
   dots.map { dot =>
     val position = Point(
-      x = (Math.sin(dot.angle.value) * dot.orbitDistance + center.x).toInt,
-      y = (Math.cos(dot.angle.value) * dot.orbitDistance + center.y).toInt
+      x = (Math.sin(dot.angle.toDouble) * dot.orbitDistance + center.x).toInt,
+      y = (Math.cos(dot.angle.toDouble) * dot.orbitDistance + center.y).toInt
     )
 
     Graphic(Rectangle(0, 0, 32, 32), 1, Material.Bitmap(assetName))
