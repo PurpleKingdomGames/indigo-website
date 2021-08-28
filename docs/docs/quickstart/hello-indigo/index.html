@@ -351,9 +351,7 @@ A lot of game engines still talk about radians in terms of <span class="hljs-lit
 </code></pre>
 <p>with:</p>
 <pre><code class="hljs css language-scala"><span class="hljs-type">SceneUpdateFragment</span>(
-  <span class="hljs-type">Graphic</span>(<span class="hljs-type">Rectangle</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">32</span>, <span class="hljs-number">32</span>), <span class="hljs-number">1</span>, <span class="hljs-type">Material</span>.<span class="hljs-type">Bitmap</span>(assetName))
-).addGameLayerNodes(
-  drawDots(model.center, model.dots)
+  <span class="hljs-type">Graphic</span>(<span class="hljs-type">Rectangle</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">32</span>, <span class="hljs-number">32</span>), <span class="hljs-number">1</span>, <span class="hljs-type">Material</span>.<span class="hljs-type">Bitmap</span>(assetName)) :: drawDots(model.center, model.dots)
 )
 
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">drawDots</span></span>(
@@ -362,8 +360,8 @@ A lot of game engines still talk about radians in terms of <span class="hljs-lit
 ): <span class="hljs-type">List</span>[<span class="hljs-type">Graphic</span>[_]] =
   dots.map { dot =&gt;
     <span class="hljs-keyword">val</span> position = <span class="hljs-type">Point</span>(
-      x = (<span class="hljs-type">Math</span>.sin(dot.angle.value) * dot.orbitDistance + center.x).toInt,
-      y = (<span class="hljs-type">Math</span>.cos(dot.angle.value) * dot.orbitDistance + center.y).toInt
+      x = (<span class="hljs-type">Math</span>.sin(dot.angle.toDouble) * dot.orbitDistance + center.x).toInt,
+      y = (<span class="hljs-type">Math</span>.cos(dot.angle.toDouble) * dot.orbitDistance + center.y).toInt
     )
 
     <span class="hljs-type">Graphic</span>(<span class="hljs-type">Rectangle</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">32</span>, <span class="hljs-number">32</span>), <span class="hljs-number">1</span>, <span class="hljs-type">Material</span>.<span class="hljs-type">Bitmap</span>(assetName))
