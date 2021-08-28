@@ -397,7 +397,7 @@ The model update function is just a function that has been partially applied wit
 
 In this case, we're interested in two events. A `MouseEvent.Click(x, y)` so that we can add a new dot, and a `FrameTick`. FrameTick is a bit special because it always happens last... and it always happens!
 
-When a mouse click is noticed, we call our `addDot` method with a new Dot, providing the orbital distance and the angle from the center of the screen to the point where we clicked the mouse using `Math.atan2(x, y)`.
+When a mouse click is noticed, we call our `addDot` method with a new Dot, providing the orbital distance and the angle from the center of the screen to the point where we clicked the mouse using `Math.atan2(y, x)`.
 
 Keep in mind that multiple events can and often do happen between frame ticks, which should only lead to model updates related to each specific event. In particular, changes that are intended to occur at a constant rate, like motion, should only be applied on frame ticks. Otherwise funny time-dilating side effects can occur.
 
