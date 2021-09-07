@@ -11,4 +11,4 @@ Details of the major changes found in Indigo 0.9.1:
 - Standard Materials can tile and stretch to fit
 - `ShaderPrimitive` Improvements
 
-[Full details of this release can be found on github.](https://github.com/PurpleKingdomGames/indigo/releases/tag/v0.9.0)
+[Full details of this release can be found on github.](https://github.com/PurpleKingdomGames/indigo/releases/tag/v0.9.1)
