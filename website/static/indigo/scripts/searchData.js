@@ -3882,4 +3882,4 @@ pages = [{"l":"api/index.html","n":"indigo","t":"indigo","d":"","k":"static"},
 {"l":"api/indigo/shared/time/Seconds$.html","n":"toLong","t":"def toLong: Long","d":"indigo/shared/time/Seconds$","k":"def"},
 {"l":"api/indigo/shared/time/Seconds$.html","n":"toMillis","t":"def toMillis: Millis","d":"indigo/shared/time/Seconds$","k":"def"},
 {"l":"api/indigo/shared/time/Seconds$.html","n":"zero","t":"val zero: Seconds","d":"indigo/shared/time/Seconds$","k":"val"},
-{"l":"docs/index.html","n":"indigo","t":"indigo","d":"","k":"static"}];
+{"l":"index.html","n":"index","t":"index","d":"","k":"static"}];
