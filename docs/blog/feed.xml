@@ -4,7 +4,7 @@
         <title>Indigo Blog</title>
         <link>https://your-docusaurus-test-site.com/blog</link>
         <description>The best place to stay up-to-date with the latest Indigo news and events.</description>
-        <lastBuildDate>Tue, 17 Aug 2021 06:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 07 Sep 2021 06:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -13,6 +13,13 @@
             <link>https://your-docusaurus-test-site.com/blog</link>
         </image>
         <copyright>Copyright © 2021 Purple Kingdom Games Limited</copyright>
+        <item>
+            <title><![CDATA[Indigo 0.9.1 Released]]></title>
+            <link>https://your-docusaurus-test-site.com/blog/2021/09/07/indigo-0-9-1-released.html</link>
+            <guid>https://your-docusaurus-test-site.com/blog/2021/09/07/indigo-0-9-1-released.html</guid>
+            <pubDate>Tue, 07 Sep 2021 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p>Details of the major changes found in Indigo 0.9.1:</p> <ul> <li>Updated! Cameras...</li> <li>New <code>HitArea</code> UI Component</li> <li>Standard Materials can tile and stretch to fit</li> <li><code>ShaderPrimitive</code> Improvements</li> </ul> <p><a href="https://github.com/PurpleKingdomGames/indigo/releases/tag/v0.9.1">Full details of this release can be found on github.</a></p> ]]></description>
+        </item>
         <item>
             <title><![CDATA[Post-Mortem: "RoguelikeDev Does The Complete Roguelike Tutorial" in Scala]]></title>
             <link>https://your-docusaurus-test-site.com/blog/2021/08/17/roguelike-post-mortem.html</link>
@@ -24,6 +31,13 @@
 <p>My answer has always been that it should be possible, but that it would probably be challenging because Indigo isn't built for rendering lots of text.</p>
 <p>About a month before this year's annual &quot;RoguelikeDev Does The Complete Roguelike Tutorial&quot; I was asked again, and decided it was time to find out if it really was possible or not!</p>
 ]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Indigo 0.9.0 Released]]></title>
+            <link>https://your-docusaurus-test-site.com/blog/2021/07/06/indigo-0-9-0-released.html</link>
+            <guid>https://your-docusaurus-test-site.com/blog/2021/07/06/indigo-0-9-0-released.html</guid>
+            <pubDate>Tue, 06 Jul 2021 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p>Details of the major changes found in Indigo 0.9.0:</p> <ul> <li>New! Scene Camera (Early preview, feedback welcome)</li> <li>Dynamic shader loading</li> <li>Improved texture support in shaders</li> <li>Built-in primitives have Material type parameter</li> <li>Caching of custom packed UBO data</li> </ul> <p><a href="https://github.com/PurpleKingdomGames/indigo/releases/tag/v0.9.0">Fu...</a></p>]]></description>
         </item>
         <item>
             <title><![CDATA[Indigo 0.8.2 Released]]></title>

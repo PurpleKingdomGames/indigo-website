@@ -2,12 +2,23 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://your-docusaurus-test-site.com/blog</id>
     <title>Indigo Blog</title>
-    <updated>2021-08-17T06:00:00.000Z</updated>
+    <updated>2021-09-07T06:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://your-docusaurus-test-site.com/blog"/>
     <subtitle>The best place to stay up-to-date with the latest Indigo news and events.</subtitle>
     <logo>https://your-docusaurus-test-site.com/img/indigo_logo_solid_text.svg</logo>
     <rights>Copyright © 2021 Purple Kingdom Games Limited</rights>
+    <entry>
+        <title type="html"><![CDATA[Indigo 0.9.1 Released]]></title>
+        <id>https://your-docusaurus-test-site.com/blog/2021/09/07/indigo-0-9-1-released.html</id>
+        <link href="https://your-docusaurus-test-site.com/blog/2021/09/07/indigo-0-9-1-released.html"/>
+        <updated>2021-09-07T06:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>Details of the major changes found in Indigo 0.9.1:</p> <ul> <li>Updated! Cameras...</li> <li>New <code>HitArea</code> UI Component</li> <li>Standard Materials can tile and stretch to fit</li> <li><code>ShaderPrimitive</code> Improvements</li> </ul> <p><a href="https://github.com/PurpleKingdomGames/indigo/releases/tag/v0.9.1">Full details of this release can be found on github.</a></p> ]]></summary>
+        <author>
+            <name>Dave Smith</name>
+            <uri>http://twitter.com/davidjamessmith</uri>
+        </author>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Post-Mortem: "RoguelikeDev Does The Complete Roguelike Tutorial" in Scala]]></title>
         <id>https://your-docusaurus-test-site.com/blog/2021/08/17/roguelike-post-mortem.html</id>
@@ -19,6 +30,17 @@
 <p>My answer has always been that it should be possible, but that it would probably be challenging because Indigo isn't built for rendering lots of text.</p>
 <p>About a month before this year's annual &quot;RoguelikeDev Does The Complete Roguelike Tutorial&quot; I was asked again, and decided it was time to find out if it really was possible or not!</p>
 ]]></summary>
+        <author>
+            <name>Dave Smith</name>
+            <uri>http://twitter.com/davidjamessmith</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Indigo 0.9.0 Released]]></title>
+        <id>https://your-docusaurus-test-site.com/blog/2021/07/06/indigo-0-9-0-released.html</id>
+        <link href="https://your-docusaurus-test-site.com/blog/2021/07/06/indigo-0-9-0-released.html"/>
+        <updated>2021-07-06T06:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>Details of the major changes found in Indigo 0.9.0:</p> <ul> <li>New! Scene Camera (Early preview, feedback welcome)</li> <li>Dynamic shader loading</li> <li>Improved texture support in shaders</li> <li>Built-in primitives have Material type parameter</li> <li>Caching of custom packed UBO data</li> </ul> <p><a href="https://github.com/PurpleKingdomGames/indigo/releases/tag/v0.9.0">Fu...</a></p>]]></summary>
         <author>
             <name>Dave Smith</name>
             <uri>http://twitter.com/davidjamessmith</uri>
