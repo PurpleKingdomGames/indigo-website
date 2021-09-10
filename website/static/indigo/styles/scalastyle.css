@@ -5,7 +5,7 @@
   /* Font Settings */
   --mono-font: "Fira Code", monospace;
   --text-font: "Lato", sans-serif;
-  --title-font: "Roboto Slab", serif;
+  --title-font: "Roboto Slab", "Lato", sans-serif;
   --leftbar-font-size: 14px;
 
   /* Layout Settings (changes on small screens) */
