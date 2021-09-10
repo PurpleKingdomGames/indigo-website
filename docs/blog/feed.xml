@@ -4,7 +4,7 @@
         <title>Indigo Blog</title>
         <link>https://your-docusaurus-test-site.com/blog</link>
         <description>The best place to stay up-to-date with the latest Indigo news and events.</description>
-        <lastBuildDate>Tue, 07 Sep 2021 06:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 09 Sep 2021 06:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -13,6 +13,13 @@
             <link>https://your-docusaurus-test-site.com/blog</link>
         </image>
         <copyright>Copyright © 2021 Purple Kingdom Games Limited</copyright>
+        <item>
+            <title><![CDATA[Indigo 0.9.2 Released]]></title>
+            <link>https://your-docusaurus-test-site.com/blog/2021/09/09/indigo-0-9-2-released.html</link>
+            <guid>https://your-docusaurus-test-site.com/blog/2021/09/09/indigo-0-9-2-released.html</guid>
+            <pubDate>Thu, 09 Sep 2021 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p>This release contains two seemingly small bug fixes / corrections that could significantly change the look of your game. As luck would have it, they have been around for several versions and have gone unnoticed until the day <em>after</em> the previous releas...</p>]]></description>
+        </item>
         <item>
             <title><![CDATA[Indigo 0.9.1 Released]]></title>
             <link>https://your-docusaurus-test-site.com/blog/2021/09/07/indigo-0-9-1-released.html</link>
